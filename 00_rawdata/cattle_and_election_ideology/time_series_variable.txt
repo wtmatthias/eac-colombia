@@ -1,0 +1,27 @@
+xtset id_3 id_2, yearly
+gen time_since = 0 if vio_15==1
+by id_3: replace time_since = 1 if L.time_since==0 &time_since==.
+by id_3: replace time_since = 2 if L.time_since==1 &time_since==.
+by id_3: replace time_since = 3 if L.time_since==2 &time_since==.
+by id_3: replace time_since = 4 if L.time_since==3 &time_since==.
+by id_3: replace time_since = 5 if L.time_since==4 &time_since==.
+by id_3: replace time_since = 6 if L.time_since==5 &time_since==.
+by id_3: replace time_since = 7 if L.time_since==6 &time_since==.
+by id_3: replace time_since = 8 if L.time_since==7 &time_since==.
+by id_3: replace time_since = 9 if L.time_since==8 &time_since==.
+by id_3: replace time_since = 10 if L.time_since==9 &time_since==.
+by id_3: replace time_since = 11 if L.time_since==10 &time_since==.
+by id_3: replace time_since = 12 if L.time_since==11 &time_since==.
+by id_3: replace time_since = 13 if L.time_since==12 &time_since==.
+by id_3: replace time_since = 14 if L.time_since==13 &time_since==.
+by id_3: replace time_since = 15 if L.time_since==14 &time_since==.
+by id_3: replace time_since = 16 if L.time_since==15 &time_since==.
+by id_3: replace time_since = 17 if L.time_since==16 &time_since==.
+by id_3: replace time_since = 18 if L.time_since==17 &time_since==.
+by id_3: replace time_since = 19 if L.time_since==18 &time_since==.
+by id_3: replace time_since = 20 if L.time_since==19 &time_since==.
+by id_3: replace time_since = 21 if L.time_since==20 &time_since==.
+by id_3: replace time_since = 22 if L.time_since==21 &time_since==.
+replace time_since=0 if time_since==.
+
+xtreg vio_85 i.vio_15 c.time_since, vce(cluster id_3)
