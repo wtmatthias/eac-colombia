@@ -1,5 +1,5 @@
 #-----------------------------------------------------------------------------#
-#  File Name:    00_merge_elections_and_terr-control
+#  File Name:    00_wrangling_election_terr-control_crop-trend
 #  Author:       Billy Matthias 
 #  Email:        bmatthias88@gmail.com
 #  Purpose:      (1) merge in more election data
@@ -7,9 +7,10 @@
 #                    - senate & camara de rep. 2002-2006 
 #                (2) merge terr. control measures
 #                (3) armed actor presence vars
-#  Last Update:  2017-Aug-04
-#  Data Used:    (1) "muni_19982014_v06_TECHNICALLY_CORRECT.dta"
-#  Data Output:    
+#                (4) merge cropshare trend var
+#                (5) wrangle and prep consistent data for analysis
+#  Last Update:  2017-Aug-08
+#  Data Output:     
 #-----------------------------------------------------------------------------#
 ####    README/NOTES    ####
 
@@ -26,7 +27,7 @@ library(plyr)
 library(tidyverse)
 library(readstata13)
 
-## 1a) SET FILE PATHS ####
+## 1a) SET FILE PATHS ----
 # Set working directory to where you saved project directory (folder)
 # 'dir.home' the only file path you need to change!
 dir.home <- file.path("/Users/wtmatthias/Google Drive/Mike RA")
@@ -38,11 +39,17 @@ dir.rawdata <- file.path(dir.home,
 dir.analysis <- file.path(dir.home,
                           "elections_aid_cropshare/data_201708")
 dir.elec <- file.path(dir.rawdata, "elections_2002-2014")
+dir.trend <- file.path(dir.rawdata, "modis_trend-variables_Eugenio")
 
-## 1b) LOAD DATA ####
+
+
+
+# =-=-=-=-=-=-=-=-=-=-=-=-= # 
+####    II. LOAD DATA    #### 
+# =-=-=-=-=-=-=-=-=-=-=-=-= #
 setwd(dir.panel)
 
-# 1b.1) colombia *panel* data ----
+## 2a) COLOMBIA *PANEL* DATA ----
 orig_panel <- read.dta13("muni_19982014_v06_TECHNICALLY_CORRECT.dta")
 
 setwd(dir.rawdata)
@@ -52,7 +59,7 @@ names <- orig_panel %>% select(codmuni, department, municipality) %>%
          distinct(department, municipality)
 
 
-# 1b.2 TEST .dta2.csv name change & write ----
+## 2b.1) (TEST) ELECTION DATA - .dta2.csv name change & write ####
 # df1 <- data.frame(number = c(1, 2, 3, ""))
 # df2 <- data.frame(number = c(4, 5, 6, ""))
 # rewrite_test <- data.frame(csvfile = c("test1.csv", "test2.csv"),
@@ -72,10 +79,12 @@ names <- orig_panel %>% select(codmuni, department, municipality) %>%
 # )
 
 
-# 1b.3) election data - .dta2.csv ----
+## 2b.2) ELECTION DATA - .dta2.csv ----
+
 
 #'pres' = presidential election by muni
-# pres <- read.dta13("cattle_and_election_ideology/4. municipal data.dta")
+pres <- read.dta13("cattle_and_election_ideology/4. municipal data.dta")
+# variable.names(pres)
 
 #'sen' = senate elections by muni
 # senado_02 <- read.dta13("elections_2002-2014/senado_2002.dta")
@@ -139,17 +148,9 @@ rm(list = c("df1", "df2", "elec", "rewrite_dta", "tmp",
 
 
 
-# 1b.4 election data - write_csv ----
-#    pol_1: ties
-#    pol_2: Centro
-#    pol_3: Conservador
-#    pol_4: Tercera Via
-#    pol_5: Izquierda
-#    pol_6: Liberal
-#    pol_7: Minority parties
-#    pol_8: Uribismo
-#    pol_9: electoral competence? ask Ale what does this mean?
+## 2b.3) ELECTION DATA - write_csv ----
 setwd(dir.elec)
+
 elec_csv <- list.files(dir.elec, pattern = "_[[:digit:]]+.csv")
             # list of the election .csv
 elec_dfnames <- c("camara02", "camara03", "camara06", "camara07",
@@ -162,6 +163,8 @@ elec_dflist <- lapply(1:length(elec_csv), function (x) read_csv(elec_csv[[x]],
 elec_dflist <- setNames(elec_dflist, elec_dfnames)
 str(elec_dflist, give.attr = FALSE)
 
+
+## 2b.4) ELECTION DATA - binding list of DFs ----
 # require(plyr)
 elec_camara <- ldply(elec_dflist[1:6])
 elec_camara1 <- as_tibble(elec_camara)
@@ -171,20 +174,37 @@ rm(list = c("elec_dflist", "camara02", "elec_camara", "elec_senado"))
 
 
 
+## 2c) MODIS TREND VAR ----
+setwd(dir.trend)
+trendvar <- list.files(pattern = "*_trend.dta")
+# c3 = "c3 plants trend"
+c3 <- read.dta13(trendvar[1])
+# modis_c = "Modis crops trend"
+modis_c <- read.dta13(trendvar[2])
+# modis_cv = "Modis crop veg trend"
+modis_cv <- read.dta13(trendvar[3])
+# modis_g = "Modis grass trend"
+modis_g <- read.dta13(trendvar[4])
+
+# orig_panel %>% summarise(n_distinct(admin2Pcod)) # 1118 munis
+
+
+
+
 # =-=-=-=-=-=-=-=-=-=-=-=-=- # 
-####    II. MERGE DATA    #### 
+####    III. MERGE DATA    #### 
 # =-=-=-=-=-=-=-=-=-=-=-=-=- #
 
-str(orig_panel$department)
-str(orig_panel$municipality)
-str(codmuni$municipality)
-str(codmuni$department)
-str(orig_panel)
+# str(orig_panel$department)
+# str(orig_panel$municipality)
+# str(codmuni$municipality)
+# str(codmuni$department)
+# str(orig_panel)
 
 
-## 2a) MERGE MUNI CODES ####
+## 3a.1) MUNI CODES MERGE ----
 
-# make sure there are no missing values
+# don't want missing values
 empty_dept <- orig_panel %>% filter(department == "")
 empty_muni <- orig_panel %>% filter(municipality == "")
 
@@ -195,48 +215,82 @@ orig_panel <- orig_panel %>% filter(department != "" | municipality != "")
 dmyr <- left_join(orig_panel, codmuni, by = c("department", "municipality"))
 
 # check merge + only keep codmuni.y
-dmyr <- dmyr %>% select(codmuni.y, everything(), -codmuni.x) %>%
-                     rename(codmuni = codmuni.y)
+dmyr <- dmyr %>% dplyr::select(codmuni.y, everything(), -codmuni.x) %>%
+                 dplyr::rename(codmuni = codmuni.y)
 
-# get rid of rows where codmuni == NA
+# drop rows where codmuni == NA
 nrow(distinct(dmyr, codmuni))
 dmyr <- dmyr %>% drop_na(codmuni)
 
 
-## 2b) REMOVE DUPLICATES ####
+
+## 3a.2) REMOVE DUPLICATES ----
 nrow(dmyr)
 nrow(distinct(dmyr, codmuni, year))
 
 # freq table of dups
-dups <- dmyr %>% select(codmuni, year) %>% arrange(codmuni, year)
-dups_n_occur <- data.frame(table(paste0(dups$codmuni, dups$year)))
-dups_n_occur <- dups_n_occur %>% arrange(desc(Freq))
+# dups <- dmyr %>% dplyr::select(codmuni, year) %>% arrange(codmuni, year)
+# dups_n_occur <- data.frame(table(paste0(dups$codmuni, dups$year)))
+# dups_n_occur <- dups_n_occur %>% arrange(desc(Freq))
 
-dmyr <- dmyr %>%
-  distinct(codmuni, year, .keep_all = TRUE)
+dmyr <- dmyr %>% distinct(codmuni, year, .keep_all = TRUE)
 
-rm(dups, empty_dept, empty_muni, names)
-
-
-## 2c) MERGE ELECTION DATA ####
+rm(list = c("dups", "empty_dept", "empty_muni", "names", "orig_panel",
+            "dups_n_occur"))
 
 
 
-# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- # 
-####    III. WRANGLE/CLEAN/PREP CONSISTENT    #### 
-# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #
+## 3b) TREND VARS MERGE W/ PANEL ----
+
+# rename each trend DFs vars
+c3 <- c3 %>% dplyr::rename(sterr_c3 = sterr, tstat_c3 = tstat)
+modis_c <- modis_c %>% dplyr::rename(trendcrop = trend, sterr_cr = sterr, tstat_cr = tstat)
+modis_cv <- modis_cv %>% dplyr::rename(sterr_cv = sterr, tstat_cv = tstat)
+modis_g <- modis_g %>% dplyr::rename(sterr_g = sterr, tstat_g = tstat)
+
+# merge w/ dmyr panel data
 
 
-
-
-
-
-
-
+## 3c) PRES ELECTION DATA ----
 
 
 
 
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- # 
+####    IV. PREP DF FOR ANALYSIS    #### 
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #
+
+
+## 4a) TIME UNDER MUNI CONTROL ----
+
+# create the var using Ale's Stata code
+
+
+
+## 4b) IDEOLOGY CODING ----
+
+#    Ideology Vars in Pres. election coding ('pres')
+#    pol_1: ties
+#    pol_2: Centro
+#    pol_3: Conservador
+#    pol_4: Tercera Via
+#    pol_5: Izquierda
+#    pol_6: Liberal
+#    pol_7: Minority parties
+#    pol_8: Uribismo
+#    pol_9: electoral competence? ask Ale what does this mean?
+
+
+
+## 4b) CREATE NEW "MATCH" VARS ----
+
+
+
+## 4c) MERGE NEW ELECTION MATCH VARS
+
+
+
+## 4d) EXPORT PANEL & CS DATA VERSIONS
 
 
 
@@ -244,7 +298,8 @@ rm(dups, empty_dept, empty_muni, names)
 
 
 
-names(elec_dflist$senado02)
+
+
 
 
 
