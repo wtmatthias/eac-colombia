@@ -8,4 +8,6 @@
 
 * ~~meaning of 'votos nulos'?~~ means votes are null, i.e. not counted
 
+* is 2014 'tipo_eleccion' in elec_cam1 coded wrong? 5 supposed to be == 3? where did you get the 2014 data?
+
 *
