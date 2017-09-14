@@ -2289,17 +2289,17 @@ save(dmyr_pres, file = "dmyr_pres.RData")
 # =-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-= # 
 ####    IX. MERGE CAM & SEN W/ DMYR_PRES    #### 
 # =-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-= #
-setwd(dir.outdata)
+# setwd(dir.outdata)
 
 ## 9a) LOAD DATA IF STARTING FROM HERE ----
 # sen_cs <- read_csv(file = "senate_muni_crosssection_2002-2014.RData")
-load(file = "senate_muni_crosssection_2002-2014.RData")
+# load(file = "senate_muni_crosssection_2002-2014.RData")
 
 # specify "cam_seatpro_min" (25th column) to be read as col_double()
 # if you don't will throw parsing error
 # cam_cs <- read_csv("camara_muni_crosssection_2002-2014.csv",
 #                    col_types = "????????????????????????d???")
-load(file = "camara_muni_crosssection_2002-2014.RData")
+# load(file = "camara_muni_crosssection_2002-2014.RData")
 
 # specify cols as below or error occurs
 # dmyr_pres <- read_csv("dmyr_pres.csv",
@@ -2327,16 +2327,16 @@ load(file = "camara_muni_crosssection_2002-2014.RData")
 
 # save(dmyr_pres, "dmyr_pres.RData")
 
-load(file = "dmyr_pres.RData")
+# load(file = "dmyr_pres.RData")
 
 ## 9b) JOIN CAM, SEN, DMYR_PRES DATA
-dmyr_elec_vio <- left_join(dmyr_pres, cam_cs, by = "codmuni")
-dmyr_elec_vio1 <- left_join(dmyr_elec_vio, sen_cs, by = "codmuni")
+# dmyr_elec_vio <- left_join(dmyr_pres, cam_cs, by = "codmuni")
+# dmyr_elec_vio1 <- left_join(dmyr_elec_vio, sen_cs, by = "codmuni")
 
 setwd(dir.outdata)
-write_csv(dmyr_elec_vio1, "dmyr_elec_vio.csv", na = ".") # na = . for Stata
-save(dmyr_elec_vio1, file = "dmyr_elec_vio.RData")
-
+# write_csv(dmyr_elec_vio1, "dmyr_elec_vio.csv", na = ".") # na = . for Stata
+# save(dmyr_elec_vio1, file = "dmyr_elec_vio.RData")
+load(file = "dmyr_elec_vio.RData")
 
 
 ## 9c) KEEP ONLY NEEDED VARS ----
@@ -2356,6 +2356,7 @@ co_sum <- dmyr_elec_vio1 %>%
          num_range("demo_", 1:17),
          num_range("eco_", 33:80),
          num_range("pol_", 9:18),
+         num_range("vio_", 1:87),
          pres_tie, pres_centro, pres_conserv, pres_izqui, pres_tv, pres_lib,
          pres_min, pres_urib, pres_pidmuni,
          elec_type = tipo_eleccion.x,
@@ -2373,19 +2374,179 @@ co_sum <- dmyr_elec_vio1 %>%
          trmm_min, trmm_max, trmm_mean, trmm_std, trmm_med, c3km2, c4km2
          )
 
-## 9d) SUMMARIZE PANEL ----
 
-co_sum %>%
+## 9d) CREATE NEW VARS & RECODE OTHER VARS
+
+co_sum %<>%
   select(codmuni, year, department, starts_with("c_"), starts_with("s_"), 
          everything()) %>%
+  arrange(codmuni, year)
+
+
+## AVERAGE MUNI VOTE TURNOUT - SEN & CAM ELECS
+co_sum$pop_avg <- ""
+co_sum %<>%
+  group_by(codmuni) %>% 
+  mutate(
+    pop_avg = if_else(year == 2002 | year == 2006 | # pop avg in voting yrs
+                        year == 2010 | year == 2014,
+                      round(mean(demo_3), digits = 0),
+                      as.numeric(pop_avg))
+      ) %>% 
+  fill(pop_avg, .direction = c("up") # fill non election years
+      ) %>% 
+  mutate(
+    c_turnout = c_mvote_avg/pop_avg, # cam muni turnout
+    s_turnout = s_mvote_avg/pop_avg) # sen muni turnout
+
+
+## CROPSHARE DIFFERENCE VAR (2012-2001 value, i.e. not trend)
+cropsha_cs <- co_sum %>%
+  select(codmuni, year, cropsha, geo_3) %>%
+  filter(year == 2001 | year == 2012) %>% 
+  arrange(codmuni, year) %>%
+  mutate(
+    cropsha_km2 = cropsha/100, # cropshare in km^2
+    cropsha_pct = cropsha_km2/geo_3 # cropshare as % of total muni area (km^2)
+  ) %>%
+  group_by(codmuni) %>% 
+  mutate(
+    cropsha_chg = cropsha_pct - lag(cropsha_pct) # pct change (2012-2001)
+  ) %>% 
+  spread(year, cropsha_pct, sep = "_") %>%
+  rename(cropsha_pct01 = year_2001, cropsha_pct12 = year_2012)
+
+
+# create cross section of the panel
+cropsha_cs1 <- cropsha_cs %>%
+  group_by(codmuni) %>% 
+  summarise_at(c("cropsha_chg", "cropsha_pct01", "cropsha_pct12"),
+               max, na.rm = TRUE)
+
+
+# "pres_xxx" & "pol_xx" VAR FIXES & SUMMARIZING
+pres_sum <- co_sum %>%
+  select(codmuni, year,
+         starts_with("pres_"),
+         num_range("pol_", c(9, 11:18))
+  ) %>%
+  filter(year %in% c(1998, 2002, 2006, 2010, 2014)) %>%
+  arrange(codmuni, year) %>%
+  mutate(
+    pol_12 = if_else(year %in% c(2002, 2006), # ideology n/a for these years
+                     NA_real_,
+                     pol_12),
+    pol_13 = if_else(year %in% c(2006),
+                     NA_real_,
+                     pol_13),
+    pol_14 = if_else(year %in% c(1998),
+                     NA_real_,
+                     pol_14),
+    pol_15 = if_else(year %in% c(2014),
+                     NA_real_,
+                     pol_15),
+    pol_16 = if_else(year %in% c(1998, 2002, 2006),
+                     NA_real_,
+                     pol_16),
+    pol_17 = if_else(year %in% c(1998),
+                     NA_real_,
+                     pol_17)
+  ) %>%
+  group_by(codmuni) %>%
+  summarise_all(mean, na.rm = TRUE) # collapse vars on
+
+pres_sum %<>% select(-year)
+
+  
+
+## 9e) SUMMARIZE VARS ----
+
+# mean - summarize values 
+avg_sum <- co_sum %>%
+  ungroup() %>% 
+  select(codmuni,
+         eco_40:eco_42, vio_10:vio_16,
+         infant_mortality, ethnic_minorities:religious) %>%
+  group_by(codmuni) %>%
+  summarise_all(mean, na.rm = TRUE)
+
+# mean & std dev - summarize values
+sd_avg_sum <- co_sum %>%
+  ungroup() %>% 
+  select(codmuni,
+         eco_46:eco_51, eco_53:eco_55, eco_61:eco_80,
+         vio_26:vio_28, vio_31:vio_36,
+         demo_1:demo_4
+         ) %>%
+  group_by(codmuni) %>%
+  summarise_all(c("mean", "sd"), na.rm = TRUE)
+
+# "total" - summarize values
+total_sum <- co_sum %>% 
+  ungroup() %>% 
+  select(codmuni,
+         vio_20:vio_25, vio_29, vio_37:vio_45, vio_4:vio_9,
+         vio_48:vio_53, vio_55:vio_59, vio_61:vio_65, vio_68:vio_87,
+         attack_victims:war_civilian_victims
+         ) %>%
+  group_by(codmuni) %>% 
+  summarise_all(sum, na.rm = TRUE)
+
+# remove the summarized values above from the aggregate 'co_sum' data frame
+co_sum1 <- co_sum %>%
+  select(
+    -one_of(names(avg_sum)),
+    -one_of(names(total_sum)),
+    -num_range("vio_", c(26:28, 31:36)),
+    -num_range("eco_", c(46:51, 53:55, 61:80)),
+    -cropsha,
+    -num_range("demo_", c(1:4, 8:9)),
+    -road5, -road6,
+    -starts_with("pres_"),
+    -starts_with("pol_")
+  )
+
+# replace NAs w/ -9.99e+20 so 'max' summary function "works"
+co_sum1[is.na(co_sum1)] <- -9.99e+20
+
+co_sum2 <- co_sum1 %>%
   arrange(codmuni, year) %>% 
-  View()
+  group_by(codmuni) %>%
+  summarise_all(max, na.rm = TRUE)
 
-## MERGE CAM & ELECTION DATA
-## MERGE CAM & ELECTION DATA
+# replace -9.99e+20 back to NA
+co_sum3 <- na_if(co_sum2, -9.99e+20)
+
+# values calculated using "max" - use for records
+values_max <- as.data.frame(names(co_sum2))
 
 
-## AFTER THIS NEW R SCRIPT DOING ALL THE CHANGES FROM THAT STATA .DO FILE
+
+## 9f) MERGE SUMMARIZED DFS INTO ONE DF
+sd_avg_sum %<>% arrange(codmuni)
+avg_sum %<>% arrange(codmuni)
+co_sum3 %<>% arrange(codmuni)
+total_sum %<>% arrange(codmuni)
+cropsha_cs1 %<>% arrange(codmuni)
+pres_sum %<>% arrange(codmuni) 
+
+co_combined <- bind_cols(co_sum3, sd_avg_sum, avg_sum, total_sum,
+                         cropsha_cs1, pres_sum)
+
+co_combined %<>%
+  select(-num_range("codmuni", c(1:5)),
+         -year)
+
+
+
+# =-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=- # 
+####    X. WRITE CROSS-SECTIONAL DATA    #### 
+# =-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=- #
+setwd(dir.outdata)
+save(co_combined, file = "eac_vio_muni_cross-section.RData")
+write_csv(co_combined, "eac_vio_muni_cross-section.csv")
+
+
 
 
 ## 5) TIME UNDER MUNI CONTROL
