@@ -2050,7 +2050,7 @@ sen_sum3$s_ideo3 <- sen_sum3$s_ideo
 
 sen_sum4 <- sen_sum3 %>%
   group_by(year, codmuni) %>% 
-  spread(s_ideo, s_mipro2, convert = TRUE, fill = -99)
+  spread(s_ideo, s_mipro, convert = TRUE, fill = -99)
 # fill -99 so max() summary function works properly
 # when obs collapsed further
 
@@ -2068,7 +2068,7 @@ sen_sum4 %<>%
 # reshape seat proportion by ideology
 sen_sum4 %<>%
   group_by(year, codmuni) %>% 
-  spread(s_ideo2, s_seatpro_i2, convert = TRUE, fill = -99)
+  spread(s_ideo2, s_seatpro_i, convert = TRUE, fill = -99)
 
 # rename reshaped columns
 sen_sum4 %<>% 
@@ -2285,6 +2285,9 @@ dmyr_pres <- dmyr_pres %>%
 setwd(dir.outdata)
 write_csv(dmyr_pres, "dmyr_pres.csv", na = ".")
 save(dmyr_pres, file = "dmyr_pres.RData")
+# load("dmyr_pres.RData")
+
+
 
 # =-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-= # 
 ####    IX. MERGE CAM & SEN W/ DMYR_PRES    #### 
@@ -2474,6 +2477,7 @@ avg_sum <- co_sum %>%
 sd_avg_sum <- co_sum %>%
   ungroup() %>% 
   select(codmuni,
+         SPI12m,
          eco_46:eco_51, eco_53:eco_55, eco_61:eco_80,
          vio_26:vio_28, vio_31:vio_36,
          demo_1:demo_4
