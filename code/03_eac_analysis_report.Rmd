@@ -1,0 +1,1478 @@
+---
+title: "Aid's Effect on Crop Coverage"
+author: "Billy Matthias"
+date: "9/20/2017"
+output:
+  pdf_document:
+    fig_caption: yes
+    highlight: tango
+  html_document:
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 6
+    highlight: tango
+    theme: readable
+  word_document: default
+geometry: margin=1in
+fontsize: 10pt
+---
+# Aid's Effect on Crop Coverage: Analysis Overview
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(sandwich)
+library(RCurl)
+library(interplot)
+library(tidyverse)
+library(ggplot2)
+library(modelr)
+library(haven)
+library(magrittr)
+options(na.action = na.warn)
+library(xtable)
+library(knitr)
+library(texreg)
+library(broom)
+library(htmltools)
+library(stringr)
+
+TwowayME.f <- function(M,X,Z,xlab,ylab,level,rob,cluster,df_correction,hist,Low,High)
+{
+  ## A function to generate 2-way marginal effects plots in R.
+  ## Written by Joshua Gubler ~  http://joshuagubler.com
+  ## Last modified: 17 August 2017 -- Made it such that the function can now handle a dichotomous Z, merging the old TwowayDME.f function into this function.
+  ## Variables must be in the following order: y = x z (control variables here) xz. The model can include as many control variables as you need.
+  ## M = an object of type "lm," "glm," or other estimation -- i.e. the object that contains the regression estimation you seek to plot.
+  ## X = the variable whose marginal effect on Y you seek to plot
+  ## Z = the moderating variable (will be positioned on the X-axis of the plot).  If Z is dichotomous, the function will plot these points with confidence intervals, otherwise Z will be plotted continuously.
+  ## xlab = label for x-axis (in quotes)
+  ## ylab = label for y-axis (in quotes)
+  ## level = to set the confidence level. Two options (don't put these in quotes): 95, 90.  If you do not specify either option, the confidence
+  ## intervals will not be correct.
+  ## rob: if you desire huber-white robust standard errors
+  ## cluster: the name of the variable you desire to cluster on, with a tilda in front (e.g.: ~ state).  Leave "rob" blank when including this.
+  ##df_correction: If you do not want the number of levels in your cluster variable to count against your degrees of freedom (like the xt- options in Stata), then type "F".  Otherwise, type "T" and these levels will be counted against your degrees of freedom.  Leave this blank if "cluster" is blank.
+  ## hist: This will show a density distribution of the varible on the x-axis.  If you'll leave it blank, you'll get a rug plot for the same. This is only used for non-dichotomous Z variables.
+  ##Low and High: these are only for use when you have a dichotomous Z variable: they allow you to input the names (in quotes) that you would like for these two points in Z.  Omit these otherwise.
+  
+  #Example code:
+  #Without robust standard errors; including histogram: TwowayME.f(test.lm,df$effect,df$moderator,"Levels of Moderator","ME of effect on Y",95,,,,hist)
+  #With robust standard errors; with rugplot: TwowayME.f(test.lm,df$effect,df$moderator,"Levels of Moderator","ME of effect on Y",95,rob,,,)
+  #With cluster-robust standard errors; no dfc correction; with histogram: TwowayME.f(test.lm,df$effect,df$moderator,"Levels of Moderator","ME of effect on Y",95,,~clustervar,T,hist)
+  
+  require(multiwayvcov)
+  
+  if(length(na.omit(unique(Z)))>2){
+    S <- summary(M)
+    N <- c(1:20)
+    
+    ## 20 equally-spaced values for the moderating variable
+    zmin <- rep(min(Z, na.rm = TRUE), 20)
+    zmax <- rep(max(Z, na.rm = TRUE), 20)
+    Znew <- (((N - 1) / (20 - 1)) * (zmax - zmin)) + zmin
+    
+    ## Grab elements of coefficient and vcov matrix
+    H <- head(S$coefficients, 3)
+    T <- tail(S$coefficients, 1)
+    b <- rbind(H, T)
+    if(missing(cluster)){
+      if(missing(rob)){Vcov <- vcov(M)}
+      else{
+        Vcov <- vcovHC(M,"HC1")
+      }
+    } else{
+      Vcov <- cluster.vcov(M, cluster, df_correction = df_correction)
+    }
+    Vcov <- as.data.frame(Vcov)
+    Vcov1 <- Vcov[, c(1:3)]
+    Vcov2 <- Vcov[, -c(0:0 - length(Vcov))]
+    Vcov <- cbind(Vcov1, Vcov2)
+    Vh <- head(Vcov, 3)
+    Vt <- tail(Vcov, 1)
+    V <- rbind(Vh, Vt)
+    b1 <- b[2, 1]
+    b3 <- b[4, 1]
+    varb1 <- V[2, 2]
+    varb3 <- V[4, 4]
+    covb1b3 <- V[4, 2]
+    
+    ## Calculate ME values
+    conb <- b1 + b3 * Znew
+    
+    ## Calculate standard errors
+    conse <- sqrt(varb1 + varb3 * (Znew^2) + 2 * covb1b3 * Znew)
+    
+    ## Upper and lower CIs
+    ci <- NA
+    ci[level == 95] <- qt(.975,M$df.residual)
+    ci[level == 90] <- qt(.95,M$df.residual)
+    a = ci * conse
+    upper = conb + a
+    lower = conb - a
+    
+    ##Graph the results
+    if(missing(hist)){
+      plot(c(Znew,Znew,Znew), c(a,upper,lower), type="n",xlab=xlab,ylab=ylab)+rug(jitter(Z))
+      lines(Znew,conb,col="black")
+      lines(Znew,upper,col="black",lty=2)
+      lines(Znew,lower,col="black",lty=2)
+      abline(h=0)
+    }else{
+      hist(Z, axes=F, xlab="", ylab="",main="", col="light gray")
+      par(new=TRUE)
+      plot(c(Znew,Znew,Znew), c(a,upper,lower), type="n",xlab=xlab,ylab=ylab)
+      lines(Znew,conb,col="black")
+      lines(Znew,upper,col="black",lty=2)
+      lines(Znew,lower,col="black",lty=2)
+      abline(h=0)  
+    }   
+  }else{
+    S <- summary(M)
+    
+    ##To create the high/low dichotomous variable
+    Z0 <- quantile(Z,   0, na.rm=TRUE) 
+    Z1 <- quantile(Z,   1, na.rm=TRUE)
+    
+    ## Grab elements of coefficient and vcov matrix
+    require(sandwich)
+    H <- head(S$coefficients,3)
+    T <- tail(S$coefficients,1)
+    b <- rbind(H,T)
+    if(missing(cluster)){
+      if(missing(rob)){Vcov <- vcov(M)}
+      else{
+        Vcov <- vcovHC(M,"HC1")
+      }
+    } else{
+      Vcov <- cluster.vcov(M, cluster, df_correction = df_correction)
+    }
+    Vcov <- as.data.frame(Vcov)
+    Vcov1 <- Vcov[,c(1:3)]
+    Vcov2 <- Vcov[,-c(0:0-length(Vcov))]
+    Vcov <- cbind(Vcov1,Vcov2)
+    Vh <- head(Vcov,3)
+    Vt <- tail(Vcov,1)
+    V <- rbind(Vh,Vt)
+    b1 <- b[2,1]
+    b3 <- b[4,1]
+    varb1 <- V[2,2]
+    varb3 <- V[4,4]
+    covb1b3 <- V[4,2]
+    
+    ## Calculate ME values
+    conb0 <- b1+b3*Z0
+    conb1 <- b1+b3*Z1
+    
+    ## Calculate standard errors    
+    conse0 <- sqrt(varb1 + varb3*(Z0^2) + 2*covb1b3*Z0)
+    conse1 <- sqrt(varb1 + varb3*(Z1^2) + 2*covb1b3*Z1)
+    
+    ## Upper and lower CIs
+    ci <- NA
+    ci[level == 95] <- qt(.975,M$df.residual)
+    ci[level == 90] <- qt(.95,M$df.residual)
+    a0 = ci*conse0
+    a1 = ci*conse1
+    upper0 = conb0 + a0
+    lower0 = conb0 - a0
+    upper1 = conb1 + a1
+    lower1 = conb1 - a1
+    
+    ##Graph the results
+    require(ggplot2)
+    margplot <- qplot(
+      c(Low,High),
+      c(conb0,conb1), 
+      xlab=xlab,
+      ylab=ylab
+    ) + 
+      geom_point() +
+      theme_bw()
+    
+    margplot + geom_linerange(aes(ymin=c(lower0,lower1),ymax=c(upper0,upper1))) + geom_abline(intercept=0,slope=0)
+  }
+}
+
+###############################################
+###############################################
+###Three-way Marginal effects function:
+
+ThreewayME.f <- function(M,X,Z,W,xlab,ylab,lloc,Min,Q1,Mean,Q3,Max,level,rob,hist)  
+{ 
+  ## A function to generate 3-way marginal effects plots in R with stars for set confidence levels. 
+  ## Written by Joshua Gubler ~  http://joshuagubler.com
+  ## Last updated: 26 April 2017
+  ## Variables must be in the following order: y = x z w (control variables here) xz xw zw xzw .  Of course, the model can include as many control variables as you need; the following code specifically uses just the variables we want for the interaction.  As long as you get the first three variables in correct order, R will correctly order the interaction terms.
+  ## M = an object of type "lm," "glm," or other estimation -- i.e. the object that contains the regression estimation you seek to plot
+  ## X = the variable whose effect on Y you seek to plot
+  ## Z = the first moderating variable (will be positioned on the X-axis of the plot)
+  ## W = the second moderating variable (the lines on the plot)
+  ## xlab = Label for x-axis (in quotes)
+  ## ylab = label for y-axis (in quotes)
+  ## lloc = location of the legend for the plot, use values like "bottomleft"
+  ## Min, Q1, Mean, Q3, Max = titles for each of these quartiles to be put in the legend -- i.e. "Min Q88" (titles must be in quotes)
+  ## level = to set the confidence level.  Two options (don't put these in quotes): 95, 90.  Stars will show on lines that are significant at the level you set.  If you do not put in either option, stars will show on all lines.
+  ## rob = if you desire Huber-White robust standard errors
+  ## hist = if hist, then you will get a density histogram of your variable on the X-axis.  If not, then you will get a rug plot of your variable on the X-axis
+  
+  ## Example: ThreewayME.f(estimation.lm,ses,edu,pop,"Education levels","Effect of SES on Civil War","bottomleft","Min Pop","1Q Pop","Mean Pop","3Q Pop","Max Pop",90,rob,hist)
+  
+  ##Note: this function can be altered easily to change the number of lines in "W", depending on how many one prefers (W could be made dichtomous, etc.)
+  
+  S <- summary(M)
+  N <- c(1:20)
+  
+  # Create 20 equally spaced values in a vector between min and max on the Z variable            
+zmin <- rep(min(Z,na.rm=TRUE), 20) 
+  zmax <- rep(max(Z, na.rm=TRUE), 20) 
+  Znew <- (((N-1)/(20-1))*(zmax-zmin))+zmin
+  
+  # Generate the values of W for which you want to calculate the marginal effect (and standard errors) of X on Y.  Note: the default is the following percentiles, but these can be changed.  If one deletes lines here, the corresponding lines will need to be deleted later in the function.
+  W0 <- quantile(W,   0, na.rm=TRUE) 
+  W1 <- quantile(W, .25, na.rm=TRUE)
+  W2 <- quantile(W, .50, na.rm=TRUE)
+  W3 <- quantile(W, .75, na.rm=TRUE)
+  W4 <- quantile(W,   1, na.rm=TRUE)
+
+  # Grab elements of coefficient and vcov matrix.                                               
+  require(sandwich)
+  H <- head(S$coefficients,4)
+  T <- tail(S$coefficients,4)
+  b <- rbind(H,T)
+  if(missing(rob)){Vcov <- vcov(M)}
+  else{
+    Vcov <- vcovHC(M,"HC1")
+  }
+  Vcov <- as.data.frame(Vcov)
+  Vcov1 <- Vcov[,c(1:4)]
+  Vcov2 <- Vcov[,-c(3:0-length(Vcov))]
+  Vcov <- cbind(Vcov1,Vcov2)
+  Vh <- head(Vcov,4)
+  Vt <- tail(Vcov,4)
+  V <- rbind(Vh,Vt)
+  
+  b1 <- b[2,1]
+  b4 <- b[5,1]
+  b5 <- b[6,1]
+  b7 <- b[8,1]
+  
+  varb1 <- V[2,2]
+  varb4 <- V[5,5]
+  varb5 <- V[6,6]
+  varb7 <- V[8,8]
+  
+  covb1b4 <- V[5,2]
+  covb1b5 <- V[6,2]
+  covb1b7 <- V[8,2]
+  covb4b5 <- V[6,5]
+  covb4b7 <- V[8,5]
+  covb5b7 <- V[8,6]
+  
+  # Calculate ME values for all levels of W
+  conb0 <- b1+b4*Znew+b5*W0+b7*(Znew*W0)
+  conb1 <- b1+b4*Znew+b5*W1+b7*(Znew*W1)
+  conb2 <- b1+b4*Znew+b5*W2+b7*(Znew*W2)
+  conb3 <- b1+b4*Znew+b5*W3+b7*(Znew*W3)
+  conb4 <- b1+b4*Znew+b5*W4+b7*(Znew*W4)
+  
+  # Calculate standard errors for all levels of W
+  if(missing(rob)){
+    conse0 <- sqrt(varb1         
+                   + varb4*(Znew^2) + varb5*(W0^2) + varb7*(Znew^2)*(W0^2)
+                   + 2*Znew*covb1b4 + 2*W0*covb1b5 + 2*Znew*W0*covb1b7 + 2*Znew*W0*covb4b5
+                   + 2*W0*(Znew^2)*covb4b7 + 2*(W0^2)*Znew*covb5b7)
+    
+    conse1 <- sqrt(varb1         
+                   + varb4*(Znew^2) + varb5*(W1^2) + varb7*(Znew^2)*(W1^2)      
+                   + 2*Znew*covb1b4 + 2*W1*covb1b5 + 2*Znew*W1*covb1b7 + 2*Znew*W1*covb4b5
+                   + 2*W1*(Znew^2)*covb4b7 + 2*(W1^2)*Znew*covb5b7)
+    
+    conse2 <- sqrt(varb1       
+                   + varb4*(Znew^2) + varb5*(W2^2) + varb7*(Znew^2)*(W2^2) 
+                   + 2*Znew*covb1b4 + 2*W2*covb1b5 + 2*Znew*W2*covb1b7 + 2*Znew*W2*covb4b5
+                   + 2*W2*(Znew^2)*covb4b7 + 2*(W2^2)*Znew*covb5b7)
+    
+    conse3 <- sqrt(varb1
+                   + varb4*(Znew^2) + varb5*(W3^2) + varb7*(Znew^2)*(W3^2)
+                   + 2*Znew*covb1b4 + 2*W3*covb1b5 + 2*Znew*W3*covb1b7 + 2*Znew*W3*covb4b5
+                   + 2*W3*(Znew^2)*covb4b7 + 2*(W3^2)*Znew*covb5b7)      
+    
+    conse4 <- sqrt(varb1
+                   + varb4*(Znew^2) + varb5*(W4^2) + varb7*(Znew^2)*(W4^2)
+                   + 2*Znew*covb1b4 + 2*W4*covb1b5 + 2*Znew*W4*covb1b7 + 2*Znew*W4*covb4b5
+                   + 2*W4*(Znew^2)*covb4b7 + 2*(W4^2)*Znew*covb5b7)    
+  }else{
+    conse0 <- sqrt(varb1         
+                   + varb4*(Znew^2) + varb5*(W0^2) + varb7*(Znew^2)*(W0^2)
+                   + 2*Znew*covb1b4 + 2*W0*covb1b5 + 2*Znew*W0*covb1b7 + 2*Znew*W0*covb4b5
+                   + 2*W0*(Znew^2)*covb4b7 + 2*(W0^2)*Znew*covb5b7)
+    
+    conse1 <- sqrt(varb1         
+                   + varb4*(Znew^2) + varb5*(W1^2) + varb7*(Znew^2)*(W1^2)      
+                   + 2*Znew*covb1b4 + 2*W1*covb1b5 + 2*Znew*W1*covb1b7 + 2*Znew*W1*covb4b5
+                   + 2*W1*(Znew^2)*covb4b7 + 2*(W1^2)*Znew*covb5b7)
+    
+    conse2 <- sqrt(varb1       
+                   + varb4*(Znew^2) + varb5*(W2^2) + varb7*(Znew^2)*(W2^2) 
+                   + 2*Znew*covb1b4 + 2*W2*covb1b5 + 2*Znew*W2*covb1b7 + 2*Znew*W2*covb4b5
+                   + 2*W2*(Znew^2)*covb4b7 + 2*(W2^2)*Znew*covb5b7)
+    
+    conse3 <- sqrt(varb1
+                   + varb4*(Znew^2) + varb5*(W3^2) + varb7*(Znew^2)*(W3^2)
+                   + 2*Znew*covb1b4 + 2*W3*covb1b5 + 2*Znew*W3*covb1b7 + 2*Znew*W3*covb4b5
+                   + 2*W3*(Znew^2)*covb4b7 + 2*(W3^2)*Znew*covb5b7)      
+    
+    conse4 <- sqrt(varb1
+                   + varb4*(Znew^2) + varb5*(W4^2) + varb7*(Znew^2)*(W4^2)
+                   + 2*Znew*covb1b4 + 2*W4*covb1b5 + 2*Znew*W4*covb1b7 + 2*Znew*W4*covb4b5
+                   + 2*W4*(Znew^2)*covb4b7 + 2*(W4^2)*Znew*covb5b7)    
+  }
+
+  # Create t statistics
+  t0 <- conb0/conse0
+  t1 <- conb1/conse1
+  t2 <- conb2/conse2
+  t3 <- conb3/conse3
+  t4 <- conb4/conse4
+
+  # Make a `shadow' variable that is missing if the t score is not larger than the critical level of significance you want.
+  ci <- NA
+  ci[level == 95] <- qt(.975,M$df.residual)
+  ci[level == 90] <- qt(.95,M$df.residual)
+  
+  stars.df <- data.frame(consb0=conb0,consb1=conb1,consb2=conb2,consb3=conb3,consb4=conb4,t0=t0,t1=t1,t2=t2,t3=t3,t4=t4)
+  
+  stars.df$consb0[abs(stars.df$t0)<ci] <- NA
+  stars.df$consb1[abs(stars.df$t1)<ci] <- NA
+  stars.df$consb2[abs(stars.df$t2)<ci] <- NA
+  stars.df$consb3[abs(stars.df$t3)<ci] <- NA
+  stars.df$consb4[abs(stars.df$t4)<ci] <- NA
+  
+  # Generate a string variable called txt that is designated with a star.
+  txt <- c("*")
+  
+  # Graph the marginal effect of X on Y across the desired range of the modifying variable Z. Do this for when W=0, when W=1, when W=2, when W=3, and when W=4.                                   
+  
+  if(missing(hist)){
+    plot(c(Znew,Znew,Znew,Znew,Znew,Znew,Znew,Znew,Znew,Znew), c(conb0,stars.df$consb0,conb1,stars.df$consb1,conb2,stars.df$consb2,conb3,stars.df$consb3,conb4,stars.df$consb4), type="n",xlab=xlab,ylab=ylab)+rug(jitter(Z))
+    
+    lines(Znew,conb0,col="blue")
+    text(x=Znew,y=stars.df$consb0,labels=txt)
+    lines(Znew,conb1,col="red")
+    text(x=Znew,y=stars.df$consb1,labels=txt)
+    lines(Znew,conb2,col="forest green")
+    text(x=Znew,y=stars.df$consb2,labels=txt)
+    lines(Znew,conb3,col="yellow")
+    text(x=Znew,y=stars.df$consb3,labels=txt)
+    lines(Znew,conb4,col="brown")
+    text(x=Znew,y=stars.df$consb4,labels=txt)
+    legend(lloc,legend=c(Min,Q1,Mean,Q3,Max),col=c("blue","red","forest green","yellow","brown"),lty = c("solid"))
+    abline(h=0)
+  }else{
+    hist(Z, axes=F, xlab="", ylab="",main="", col="light gray")
+    par(new=TRUE)
+    plot(c(Znew,Znew,Znew,Znew,Znew,Znew,Znew,Znew,Znew,Znew), c(conb0,stars.df$consb0,conb1,stars.df$consb1,conb2,stars.df$consb2,conb3,stars.df$consb3,conb4,stars.df$consb4), type="n",xlab=xlab,ylab=ylab)
+    
+    lines(Znew,conb0,col="blue")
+    text(x=Znew,y=stars.df$consb0,labels=txt)
+    lines(Znew,conb1,col="red")
+    text(x=Znew,y=stars.df$consb1,labels=txt)
+    lines(Znew,conb2,col="forest green")
+    text(x=Znew,y=stars.df$consb2,labels=txt)
+    lines(Znew,conb3,col="yellow")
+    text(x=Znew,y=stars.df$consb3,labels=txt)
+    lines(Znew,conb4,col="brown")
+    text(x=Znew,y=stars.df$consb4,labels=txt)
+    legend(lloc,legend=c(Min,Q1,Mean,Q3,Max),col=c("blue","red","forest green","yellow","brown"),lty = c("solid"), cex = 0.5)
+    abline(h=0)
+  }
+}
+
+
+
+###############################################
+###############################################
+predict.plot.f <- function(predicted.df, X, Z, Zname, xlab, ylab)
+{
+  ## Written by Joshua Gubler ~  http://joshuagubler.com
+  ## Last updated: 25 April 2017 (removed the "print" command, and added notes on how one could easily add lines between the points on the plot, by group)
+  ## predicted.df = the dataframe created by Gubler's predict functions -- always ending in .pred.df
+  ## X = the variable you want to the predicted effect for (all others are most often held at their means).  Note: you need to enter it with the full path (e.g. .pred.df$X)
+  ## Z = if you want predictions based on the particular levels of Z you specified in your pred.df dataframe, type your Z variable here (entering the full path as with X).  If not, leave blank.
+  ## Zname = the name to put in the legend for Z (if using Z).  If not using Z, leave blank.
+  ## xlab = the label for the X axis; put in quotation marks
+  ## ylab = the label for the Y axis; put in quotation marks
+  
+  require(ggplot2)
+  if(missing(Z)){
+    predplot <- qplot(as.factor(X),predicted.df$predicted.value, xlab=xlab,ylab=ylab) + geom_point(stat="identity") + theme_bw()
+  } else{
+    predplot <- qplot(X,predicted.df$predicted.value, xlab=xlab,ylab=ylab, colour = as.factor(Z)) + geom_point(stat="identity") + theme_bw() + guides(color=guide_legend(title=Zname))
+  }
+  predplot + geom_linerange(aes(ymin=predicted.df$ci.lower95,ymax=predicted.df$ci.upper95))
+  
+  ##Example code: (using Z):
+  ##First, estimate a model and run one of my predict functions.  Here's an example using predict.probit.f for some mortgage data found here: https://www.dropbox.com/s/2cdinsxfd59yh83/hmda_sw.dta?dl=0.  "deny" is coded 0/1 (1 if the application is denied); pi_ratio is a measure of an applicant's "payment to income ratio", and "black" is coded 0/1:
+  #mort.probit <- glm(deny ~ pi_rat + black + pi_rat*black)
+  #pred.df <- data.frame("pi_rat" = rep(seq(.2,.5,.01),2), "black" = c(rep(0,62),rep(1,62)))
+  #predict.probit.f(mort.probit,pred.df)
+  #predict.plot.f(mort.probit.pred.df,mort.probit.pred.df$pi_rat, mort.probit.pred.df$black, "Race","PI_ratio","Prob of Deny")
+  
+  ##If you don't have a moderating variable (Z), then simply leave the spots for Z and Zname in the function blank -- e.g.: predict.plot.f(mort.probit.pred.df,mort.probit.pred.df$pi_rat,,,"PI_ratio","Prob of Deny")
+  
+  ##Due to my personal preference, this function does not automatically plot lines between points.  To add lines, simply make this plot an object (e.g. plot <- predict.plot.f(...)), and then add a line layer: 
+    #plot + geom_line(aes(group=1))
+    #To add lines by group: plot + geom_line(aes(group=as.factor(variablename)))
+}
+
+
+
+## SET FILE PATHS
+# Set working directory to where you saved project directory (folder)
+# 'dir.home' the only file path you need to change!
+dir.home <- file.path("/Users/wtmatthias/Google Drive/Mike RA")
+
+dir.outdata <- file.path(dir.home,
+                         "elections_aid_cropshare/data_201708/01_outputdata")
+
+dir.analysis <- file.path(dir.home,
+                          "elections_aid_cropshare/data_201708")
+dir.figures.tables <- file.path(
+                    dir.home,
+                    "elections_aid_cropshare/data_201708/02_tables_and_figures")
+
+## LOAD DATA 
+load(file = file.path(
+  dir.outdata,
+  "eac_vio_muni_cross-section.RData"
+))
+
+
+## ROBUST STANDARD ERRORS
+# import the function
+url_robust <- "https://raw.githubusercontent.com/IsidoreBeautrelet/economictheoryblog/master/robust_summary.R"
+eval(parse(text = getURL(url_robust, ssl.verifypeer = FALSE)),
+     envir=.GlobalEnv)
+
+## CHANGE NAME OF DF
+eac <- aid_merged
+rm(aid_merged)
+
+
+
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
+                  ####  II. EXPLORATORY DATA ANALYSIS  ####
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
+
+eac_names <- as.data.frame(variable.names(eac))
+View(eac_names)
+
+## 2a) Summary/Descriptive Stats Table -----------------------------------------
+
+# select() vars to use in "" function below
+descriptive_vars <- eac %>%
+  ungroup() %>% 
+  select(trendcrop, trendc3, trendcropveg, trendgrass,
+         muni_locd, cropsha_pct01, SPI12m_mean, SPI12m_sd,
+         upstream, altitude, road0,
+         illegal_crops, vio_13,
+         farc_zone, vio_15,
+         starts_with("pres_"),
+         num_range("pol_", 9:18),
+         starts_with("c_"),
+         starts_with("s_"),
+         num_range("vio_", c(1:3, 9:11, 14, 26:28, 31:36, 46:47, 87)),
+         vio_26_mean, vio_27_mean, vio_28_mean, vio_31_mean, vio_32_mean,
+         vio_33_mean, vio_34_mean, vio_35_mean, vio_36_mean
+  )
+
+# "Inf" values in cropsha_pct01 compute descriptive stats properly
+descriptive_vars %<>%
+  mutate(cropsha_pct01 = if_else(is.infinite(cropsha_pct01),
+                                 NA_real_,
+                                 cropsha_pct01)
+  )
+
+
+# "overview" = as in overview or summary of vars. can't use summarize
+overview <- function(descriptive_vars, stat){
+ stat <- enquo(stat)
+  
+ overview_df <- descriptive_vars %>%
+    summarise_all(stat, na.rm = TRUE) %>% 
+    gather(key = "name_var", value = !!stat)
+}
+
+# df for each descriptive stat
+summarized_mean <- overview(descriptive_vars, mean)
+summarized_med <- overview(descriptive_vars, median)
+summarized_sd <- overview(descriptive_vars, sd)
+summarized_min <- overview(descriptive_vars, min)
+summarized_max <- overview(descriptive_vars, max)
+
+
+# "count # of non-NA observations" is not it's own summary function
+summarized_n <- descriptive_vars %>%
+  map_df(function(x) sum(!is.na(x))) %>%
+  gather(key = "name_var", value = "n")
+
+
+# summary stats table w/ var names and values across the row
+summarized_vars <- bind_cols(summarized_n, summarized_mean, summarized_sd,
+                             summarized_med, summarized_max, summarized_min)
+
+# create a tidy df w/ no duplicate cols
+summarized_vars %<>% select(-num_range("name_var", c(1:5)))
+
+summarized_vars %<>% rename(Variable = name_var, Mean = mean, `Std Dev` = sd,
+                            Median = median, Max = max, Min = min)
+
+
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
+    ####   ROBUST STANDARD ERRORS   ####
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
+
+robust <- function(model.object){
+  sandwich_se <- sqrt(diag(vcovHC(model.object, type = "HC1")))
+
+  z_stat <- coef(model.object)/sandwich_se
+  p_values <- pchisq(z_stat^2, 1, lower.tail=FALSE)
+  
+  robust.mod <- summary(model.object)
+
+  robust.mod$coefficients[, 2] <- sandwich_se
+  robust.mod$coefficients[, 3] <- z_stat
+  robust.mod$coefficients[, 4] <- p_values
+  corrected <- robust.mod
+  se.corrections <- list("robust.mod" = corrected, "sandwich_se" = sandwich_se,
+                         "z_stat" = z_stat, "p_values" = p_values)
+  se.corrections
+}
+
+
+
+
+
+```
+
+## Descriptive Stats for Covariates in Dataset
+
+```{r xtable, echo=FALSE, results="asis"}
+xtable(summarized_vars, digits = 2)
+
+summarized_var_html <- xtable(summarized_vars, digits = 2)
+print(summarized_var_html, type = "html",
+        html.table.attributes = "",
+        include.rownames = FALSE,
+        format.args = list(big.mark = ","))
+```
+
+
+
+
+### Coca Presence
+
+Between 1993-2015, municipalities are by and large going to fall under one of two categories: *"having coca crops present"* in their municipality or *"not having coca crops present"* in their municipality. **"illegal_crops"** is a dummy variable that counts whether there was coca growing in 2013. **"vio_13"** is the proportion of years (1993-2015) in which coca is present in a given municipality.
+
+```{r}
+ggplot(eac) + geom_bar(aes(x = illegal_crops))
+eac %>% select(illegal_crops) %>% count()
+
+# vio_13 (coca presence dummy)
+ggplot(eac) + geom_freqpoly(aes(x = vio_13), binwidth = 0.05) # count
+```
+
+
+
+
+### Aid (muni_locd)
+
+
+**muni_locd** is a dummy variable counting whether a municipality received aid from the World Bank at any time during the the time period. To determine whether an aid project "counts", we use precision codes 1, 2, or 3. Of note, data for World Bank Level 1 aid projects only record Precision Codes 1 or 3.
+
+
+```{r}
+eac$muni_locd <- as.integer(eac$muni_locd)
+ggplot(data = eac) + geom_bar(mapping = aes(x = muni_locd))
+eac %>% select(muni_locd) %>% count()
+```
+
+
+
+
+### Cropshare Trend/Change
+
+
+**TRENDCROP** (MODIS crop)
+
+* There's one major outlier in the measure of MODIS crop cover -- Uribia in the department of La Guajira.
+
+* The municipality has a positive trend of 22274.58 $km^{2}$. There are no outliers even remotely close to this "far out" in the distribution on either tail. Models using MODIS crop cover (*trendcrop*) as a dependent variable will be run with and without the municipality of Uribia.
+
+* The output below shows other variable that are further out in the tails for comparison. The plots showing the distribution have a limited x-axis for better visualization purposes. The histogram leaves out 13 values.
+
+```{r}
+ggplot(eac) +
+  geom_freqpoly(aes(x = trendcrop), binwidth = 20)
+
+# outliers
+eac %>% select(codmuni, trendcrop) %>% filter(trendcrop > 500)
+eac %>% select(codmuni, trendcrop) %>% filter(trendcrop < -500)
+
+ggplot(eac) +
+  geom_histogram(aes(x = trendcrop), binwidth = 20) +
+  xlim(-500, 500)
+```
+
+
+**TRENDCROPVEG** (MODIS crop vegetation)
+
+* Uribia of the department of La Guajira is again an outlier. The municipality has a positive trend of 10848.012. Below you can see other values that are also out in the tails of the distribution. As with the crop cover variable, we will run the models with and without Uribia included in the data.
+
+```{r}
+# outliers
+eac %>%
+  select(codmuni, department, municipality, trendcropveg) %>%
+  filter(trendcropveg < -2000)
+eac %>%
+  select(codmuni, department, municipality, trendcropveg) %>%
+  filter(trendcropveg > 4000)
+
+# distribution with the limited x-axis
+ggplot(eac) +
+  geom_histogram(aes(x = trendcropveg), binwidth = 20) +
+  xlim(-2000, 4000)
+
+
+```
+
+
+
+
+### Conflict Measures
+
+```{r}
+## vio_31-33: population exposure ----
+# vio_31: exposure to state
+ggplot(eac) + geom_histogram(aes(x = vio_31_mean), binwidth = .1)
+# vio_32: exposure to guer
+ggplot(eac) + geom_histogram(aes(x = vio_32_mean), binwidth = .1)
+# vio_33: exposure to guer
+ggplot(eac) + geom_histogram(aes(x = vio_33_mean), binwidth = .1)
+
+
+## vio_34-36: dispute ----
+# vio_34: state vs. guerilla conflict
+ggplot(eac) + geom_histogram(aes(x = vio_34_mean), binwidth = .1)
+
+# vio_35: state vs. paramilitary/neoparamilitary
+ggplot(eac) + geom_histogram(aes(x = vio_35_mean), binwidth = .1)
+
+# vio_36: guer vs. paramilitary/neoparamilitary
+ggplot(eac) + geom_histogram(aes(x = vio_36_mean), binwidth = .1)
+
+
+## vio_46: incidence of conflict ----
+ggplot(eac) + geom_bar(aes(x = vio_46))
+```
+
+
+
+
+## Tables and Figures
+
+
+#### A note on election variables:
+
+Data for Camara ("House of Representatives") and Senado ("Senate") elections encompasses four elections from 2002-2014. Presidential election data covers five elections from 1998-2014. The election variables are dummies averaged over the elections to give a proportion of elections in which there is a "match" in ideology.
+
+
+**c_match** variables indicate mutually exclusive categories where 1) *presdept* = the President's ideology & the majority ideology of Camara representatives at the department level are the same, 2) *munidept* = the majority ideology of department Camara representatives and the ideology with the highest municipality vote share (in Camara elections) are the same, 3) *munideptpres* = ideology of the president, camara reps, and highest municipality Camara vote share are the same. Coefficients are compared against the situation where there is no match in ideology from the president down to the municipality.
+
+
+**s_match** variables indicate similarly mutually exclusive categories where 1) *presseat* = the president's ideology and the majority ideology of senators are the same, 2) *muniseatpres* = *presseat* plus a match with the ideology that received the highest vote share in Senate municipality elections. These two categories are compared against the situation where no ideology match occurs across the president, Senate majority, and municipality vote share.
+
+
+**pres_pidmuni** = a match where the municipality ideology with the highest vote share in the presidential elections matches the president's ideology.
+
+
+
+
+### Aid, Coca Presence, and MODIS Crop Veg Cover 
+
+```{r, echo = FALSE}
+cropveg_out <- eac %>% filter(trendcropveg < 8000)
+ggplot(cropveg_out, aes(muni_locd, trendcropveg, group = muni_locd)) +
+  geom_boxplot()
+
+## models ----
+# 1) base model: cropshare = aid + coca
+# 2) base model + aid*coca
+# 3) base model + pol vars (_match_none dropped out!)
+# 4) base model + aid*coca + pol vars
+formulae.cropveg1 <- list(
+  trendcropveg ~ muni_locd + vio_13 + SPI12m_sd + geo_3 + upstream + altitude,
+  trendcropveg ~ muni_locd + vio_13 + SPI12m_sd + geo_3 + upstream + altitude +
+                 muni_locd:vio_13,
+  trendcropveg ~ muni_locd + vio_13 + SPI12m_sd + geo_3 + upstream + altitude +
+                 c_match_presdept + c_match_munidept + c_match_munideptpres +
+                 pres_pidmuni + s_match_presseat +
+                 s_match_muniseatpres,
+  trendcropveg ~ muni_locd + vio_13 + SPI12m_sd + geo_3 + upstream + altitude +
+                 c_match_presdept + c_match_munidept + c_match_munideptpres +
+                 pres_pidmuni + s_match_presseat +
+                 s_match_muniseatpres +
+                 muni_locd:vio_13
+  )
+
+cropveg.aid.coca1 <- map(formulae.cropveg1, ~ lm(.x, data = eac, model = TRUE))
+
+# ## regression output
+# cropveg.aid.coca1 %>% map(summary)
+cropveg.aid.coca1.r <- cropveg.aid.coca1 %>% map(robust)
+
+## outliers: dropped Uribia in La Guajira
+cropveg.aid.coca1.out <- map(formulae.cropveg1, ~ lm(.x, data = cropveg_out, model = TRUE))
+# cropveg.aid.coca1.out %>% map(summary)
+# cropveg.aid.coca1.out %>% map(robust)
+
+sandwich_se <- list(cropveg.aid.coca1.r[[1]]$sandwich_se,
+                    cropveg.aid.coca1.r[[2]]$sandwich_se,
+                    cropveg.aid.coca1.r[[3]]$sandwich_se,
+                    cropveg.aid.coca1.r[[4]]$sandwich_se)
+p_values <- list(cropveg.aid.coca1.r[[1]]$p_values,
+                    cropveg.aid.coca1.r[[2]]$p_values,
+                    cropveg.aid.coca1.r[[3]]$p_values,
+                    cropveg.aid.coca1.r[[4]]$p_values)
+
+## output regression tables ----
+
+# specify changes that will go into the Robust SEs table
+coefnames <- c("(Intercept)", "Aid given", "Coca presence avg", "SPI.sd",
+              "Muni area", "Upstream", "Altitude",
+              "c_match_presdept", "c_match_munidept", "c_match_munideptpres",
+              "pres_pidmuni", "s_match_presseat", "s_match_muniseatpres",
+              "Aid * Coca")
+note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent variable.
+        'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
+        exclusive categories compared against a category where there is no match
+        in ideology."
+
+my.reg.table <- function(lm_list_object, ..., note = NULL){
+  htmlreg(lm_list_object,
+          custom.note = if (!is.null(note)) str_c("Note: ", note) else NULL,
+          digits = 2,
+          leading.zero = TRUE,
+          # better for markdown
+          doctype = FALSE,
+          html.tag = FALSE,
+          head.tag = FALSE,
+          body.tag = FALSE,
+          # passed to extract() method for "lm"
+          include.adjr = TRUE,
+          include.rsquared = FALSE,
+          include.rmse = FALSE,
+          include.nobs = TRUE)
+}
+
+cropveg_table <- htmlreg(cropveg.aid.coca1,
+                  custom.note = note,
+                  digits = 2,
+                  leading.zero = TRUE,
+                  # better for markdown
+                  doctype = FALSE,
+                  html.tag = FALSE,
+                  head.tag = FALSE,
+                  body.tag = FALSE,
+                  # passed to extract() method for "lm"
+                  include.adjr = TRUE,
+                  include.rsquared = FALSE,
+                  include.rmse = FALSE,
+                  include.nobs = TRUE,
+             custom.model.names = str_c("(", seq_along(cropveg.aid.coca1), ")"),
+             custom.coef.names = coefnames,
+             caption.above = TRUE,
+             caption = "Aid's Effect on MODIS Crop Veg Cover",
+             override.se = sandwich_se,
+             override.pvalues = p_values,
+             star.symbol = "*"
+             )
+
+
+
+# # TIDY, BROOM, GLANCE
+# cropveg.aid.coca1
+# glance(cropveg.aid.coca1[[4]])
+# tidy(cropveg.aid.coca1[[4]])
+
+
+# interaction plots ----
+
+# aid*coca
+interplot(m = cropveg.aid.coca1[[2]], var1 = "muni_locd", var2 = "vio_13") +
+  ylab("Aid's Effect on Crop Veg Cover") + xlab("Avg. Coca Presence") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Coca Presence (1993-2015)")
+
+# setwd(dir.figures.tables)
+# ggsave("cropveg_aid-muni.pdf", plot = last_plot(), device = "pdf", width = 7,
+#        height = 7, units = "in", dpi = 300)
+
+# aid*coca + pol
+interplot(m = cropveg.aid.coca1[[4]], var1 = "muni_locd", var2 = "vio_13") +
+  ylab("Aid's Effect on Crop Veg Cover") + xlab("Avg. Coca Presence") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Coca Presence (1993-2015)",
+          subtitle = "controlling for election effects")
+
+# setwd(dir.figures.tables)
+# ggsave("cropveg_aid-muni_elecs.pdf", plot = last_plot(), device = "pdf", width = 7,
+#        height = 7, units = "in", dpi = 300)
+```
+```{r echo=TRUE}
+texreg(cropveg.aid.coca1,
+       booktabs = TRUE,
+       dcolumn = TRUE,
+       table = TRUE,
+       sideways = TRUE,
+        stars = c(0.01, 0.05, 0.1),
+                  custom.note = note,
+                  digits = 2,
+                  leading.zero = TRUE,
+                  custom.model.names = str_c("(", seq_along(cropveg.aid.coca1), ")"),
+                  custom.coef.names = coefnames,
+                  caption.above = TRUE,
+                  caption = "Aid's Effect on MODIS Crop Veg Cover",
+                  override.se = sandwich_se,
+                  override.pvalues = p_values,
+        # passed to extract() method for "lm"
+                  include.adjr = TRUE,
+                  include.rsquared = FALSE,
+                  include.rmse = FALSE,
+                  include.nobs = TRUE
+                  )
+```
+
+
+
+
+### Aid, State-Guerilla Conflict, and Election Effects
+
+```{r, echo = FALSE}
+# 1) base model: cropshare = aid + state_guer conflict
+# 2) base model + aid*state-guer
+# 3) base model + pol vars
+# 4) base model + pol vars + aid*state_guer
+
+formulae.cropveg3 <- list(
+  trendcropveg ~ muni_locd + vio_34_mean + SPI12m_sd + geo_3 + upstream +
+                 altitude + vio_31_mean + vio_32_mean,
+  trendcropveg ~ muni_locd + vio_34_mean + SPI12m_sd + geo_3 + upstream +
+                 altitude + vio_31_mean + vio_32_mean + muni_locd:vio_34_mean,
+  trendcropveg ~ muni_locd + vio_34_mean + SPI12m_sd + geo_3 + upstream +
+                 altitude + vio_31_mean + vio_32_mean + c_match_presdept +
+                 c_match_munidept + c_match_munideptpres + pres_pidmuni +
+                 s_match_presseat + s_match_muniseatpres,
+  trendcropveg ~ muni_locd + vio_34_mean + SPI12m_sd + geo_3 + upstream +
+                 altitude + vio_31_mean + vio_32_mean + c_match_presdept +
+                 c_match_munidept + c_match_munideptpres + pres_pidmuni +
+                 s_match_presseat + s_match_muniseatpres + muni_locd:vio_34_mean
+)
+
+cropveg.aid.dispute <- map(formulae.cropveg3, ~ lm(.x, data = eac, model = TRUE))
+
+## regression output
+# cropveg.aid.dispute %>% map(summary)
+cropveg.aid.dispute.r <- cropveg.aid.dispute %>% map(robust)
+
+## outliers: dropped Uribia in La Guajira
+cropveg.aid.dispute.out <- map(formulae.cropveg3, ~ lm(.x, data = cropveg_out, model = TRUE))
+# cropveg.aid.dispute.out %>% map(summary)
+cropveg.aid.dispute.out.r <- cropveg.aid.dispute.out %>% map(robust)
+
+sandwich_se <- list(cropveg.aid.dispute.r[[1]]$sandwich_se,
+                    cropveg.aid.dispute.r[[2]]$sandwich_se,
+                    cropveg.aid.dispute.r[[3]]$sandwich_se,
+                    cropveg.aid.dispute.r[[4]]$sandwich_se)
+p_values <- list(cropveg.aid.dispute.r[[1]]$p_values,
+                 cropveg.aid.dispute.r[[2]]$p_values,
+                 cropveg.aid.dispute.r[[3]]$p_values,
+                 cropveg.aid.dispute.r[[4]]$p_values)
+
+sandwich_se_out <- list(cropveg.aid.dispute.out.r[[1]]$sandwich_se,
+                        cropveg.aid.dispute.out.r[[2]]$sandwich_se,
+                        cropveg.aid.dispute.out.r[[3]]$sandwich_se,
+                        cropveg.aid.dispute.out.r[[4]]$sandwich_se)
+p_values_out <- list(cropveg.aid.dispute.out.r[[1]]$p_values,
+                     cropveg.aid.dispute.out.r[[2]]$p_values,
+                     cropveg.aid.dispute.out.r[[3]]$p_values,
+                     cropveg.aid.dispute.out.r[[4]]$p_values)
+
+
+## output regression tables ----------------------------------------------------
+
+# specify changes that will go into the Robust SEs table
+coefnames <- c("(Intercept)", "Aid given", "State-Guer Dispute", "SPI.sd",
+               "Muni area", "Upstream", "Altitude", "Pop. vs. State Exposure",
+               "Pop. vs. Guer. Exposure", "c_match_presdept",
+               "c_match_munidept", "c_match_munideptpres",
+               "pres_pidmuni", "s_match_presseat", "s_match_muniseatpres",
+               "Aid * Dispute")
+
+note <- "OLS regressions with MODIS cropveg trend as the dependent variable.
+'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
+exclusive categories compared against a category where there is no match
+in ideology. 'State-Guerilla Dispute' is the proportion of years in which a
+municipality observed violent conflict among government and guerilla forces
+(e.g. FARC)."
+
+
+cropveg_table3 <- htmlreg(cropveg.aid.dispute,
+                          custom.note = note,
+                          digits = 2,
+                          leading.zero = TRUE,
+                          # better for markdown
+                          doctype = FALSE,
+                          html.tag = FALSE,
+                          head.tag = FALSE,
+                          body.tag = FALSE,
+                          # passed to extract() method for "lm"
+                          include.adjr = TRUE,
+                          include.rsquared = FALSE,
+                          include.rmse = FALSE,
+                          include.nobs = TRUE,
+                          custom.model.names = str_c("(", seq_along(cropveg.aid.dispute), ")"),
+                          custom.coef.names = coefnames,
+                          caption.above = TRUE,
+                          caption = "Aid's Effect on MODIS Crop Veg Cover (conditioned by state-guerilla disputes)",
+                          override.se = sandwich_se,
+                          override.pvalues = p_values,
+                          star.symbol = "*"
+)
+
+cropveg_table3 %>% HTML() %>% browsable()
+
+# outlier table
+cropveg_table3_out <- htmlreg(cropveg.aid.dispute.out,
+                              custom.note = note,
+                              digits = 2,
+                              leading.zero = TRUE,
+                              # better for markdown
+                              doctype = FALSE,
+                              html.tag = FALSE,
+                              head.tag = FALSE,
+                              body.tag = FALSE,
+                              # passed to extract() method for "lm"
+                              include.adjr = TRUE,
+                              include.rsquared = FALSE,
+                              include.rmse = FALSE,
+                              include.nobs = TRUE,
+                              custom.model.names = str_c("(", seq_along(cropveg.aid.dispute.out), ")"),
+                              custom.coef.names = coefnames,
+                              caption.above = TRUE,
+                              caption = "Aid's Effect on MODIS Crop Veg Cover (w/out Uribia)",
+                              override.se = sandwich_se_out,
+                              override.pvalues = p_values_out,
+                              star.symbol = "*"
+)
+cropveg_table3_out %>% HTML() %>% browsable()
+
+
+
+## interaction plots ------------------------------------------------------------
+
+# aid*coca
+interplot(m = cropveg.aid.dispute[[2]], var1 = "muni_locd", var2 = "vio_34_mean") +
+  ylab("Aid's Effect on Crop Veg Cover") + xlab("Proportion of State-Guerilla Disputes ()") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by the Proportion of Disputes (1998-2012)")
+
+# setwd(dir.figures.tables)
+# ggsave("cropveg_aid-dispute.pdf", plot = last_plot(), device = "pdf", width = 7,
+#        height = 7, units = "in", dpi = 300)
+
+# aid*coca + pol
+interplot(m = cropveg.aid.dispute[[4]], var1 = "muni_locd", var2 = "vio_34_mean") +
+  ylab("Aid's Effect on Crop Veg Cover") + xlab("Coca Presence (1 = yes)") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by the Proportion of Disputes (1998-2012)",
+          subtitle = "controlling for election effects")
+
+# setwd(dir.figures.tables)
+# ggsave("cropveg_aid-dispute_elecs.pdf", plot = last_plot(), device = "pdf", width = 7,
+#        height = 7, units = "in", dpi = 300)
+# 
+
+```
+
+
+
+
+### Aid, Conflict Incidence, and Elections Effects
+```{r, echo = FALSE}
+# 1) base model: cropshare = aid + conflict incidence
+# 2) base model + aid*conflict-incidence
+# 3) base model + pol vars
+# 4) base model + pol vars + aid*conflict-incidence
+
+formulae.cropveg4 <- list(
+  trendcropveg ~ muni_locd + vio_46 + SPI12m_sd + geo_3 + upstream +
+    altitude + vio_31_mean + vio_32_mean,
+  trendcropveg ~ muni_locd + vio_46 + SPI12m_sd + geo_3 + upstream +
+    altitude + vio_31_mean + vio_32_mean + muni_locd:vio_46,
+  trendcropveg ~ muni_locd + vio_46 + SPI12m_sd + geo_3 + upstream +
+    altitude + vio_31_mean + vio_32_mean + c_match_presdept +
+    c_match_munidept + c_match_munideptpres + pres_pidmuni +
+    s_match_presseat + s_match_muniseatpres,
+  trendcropveg ~ muni_locd + vio_46 + SPI12m_sd + geo_3 + upstream +
+    altitude + vio_31_mean + vio_32_mean + c_match_presdept +
+    c_match_munidept + c_match_munideptpres + pres_pidmuni +
+    s_match_presseat + s_match_muniseatpres + muni_locd:vio_46
+)
+
+cropveg.aid.incidence <- map(formulae.cropveg4, ~ lm(.x, data = eac, model = TRUE))
+
+## regression output
+# cropveg.aid.incidence %>% map(summary)
+cropveg.aid.incidence.r <- cropveg.aid.incidence %>% map(robust)
+
+## outliers: dropped Uribia in La Guajira
+cropveg.aid.incidence.out <- map(formulae.cropveg4, ~ lm(.x, data = cropveg_out, model = TRUE))
+# cropveg.aid.incidence.out %>% map(summary)
+cropveg.aid.incidence.out.r <- cropveg.aid.incidence.out %>% map(robust)
+
+sandwich_se <- list(cropveg.aid.incidence.r[[1]]$sandwich_se,
+                    cropveg.aid.incidence.r[[2]]$sandwich_se,
+                    cropveg.aid.incidence.r[[3]]$sandwich_se,
+                    cropveg.aid.incidence.r[[4]]$sandwich_se)
+p_values <- list(cropveg.aid.incidence.r[[1]]$p_values,
+                 cropveg.aid.incidence.r[[2]]$p_values,
+                 cropveg.aid.incidence.r[[3]]$p_values,
+                 cropveg.aid.incidence.r[[4]]$p_values)
+
+sandwich_se_out <- list(cropveg.aid.incidence.out.r[[1]]$sandwich_se,
+                        cropveg.aid.incidence.out.r[[2]]$sandwich_se,
+                        cropveg.aid.incidence.out.r[[3]]$sandwich_se,
+                        cropveg.aid.incidence.out.r[[4]]$sandwich_se)
+p_values_out <- list(cropveg.aid.incidence.out.r[[1]]$p_values,
+                     cropveg.aid.incidence.out.r[[2]]$p_values,
+                     cropveg.aid.incidence.out.r[[3]]$p_values,
+                     cropveg.aid.incidence.out.r[[4]]$p_values)
+
+
+## output regression tables ----------------------------------------------------
+
+# specify changes that will go into the Robust SEs table
+coefnames <- c("(Intercept)", "Aid given", "Conflict Incidence", "SPI.sd",
+               "Muni area", "Upstream", "Altitude", "Pop. vs. State Exposure",
+               "Pop. vs. Guer. Exposure", "c_match_presdept",
+               "c_match_munidept", "c_match_munideptpres",
+               "pres_pidmuni", "s_match_presseat", "s_match_muniseatpres",
+               "Aid * Incidence")
+
+note <- "OLS regressions with MODIS cropveg trend as the dependent variable.
+'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
+exclusive categories compared against a category where there is no match
+in ideology. 'Conflict Incidence' takes on values 1-5 moving from low levels of
+conflict occurence to high levels of conflict occurence."
+
+
+cropveg_table4 <- htmlreg(cropveg.aid.incidence,
+                          custom.note = note,
+                          digits = 2,
+                          leading.zero = TRUE,
+                          # better for markdown
+                          doctype = FALSE,
+                          html.tag = FALSE,
+                          head.tag = FALSE,
+                          body.tag = FALSE,
+                          # passed to extract() method for "lm"
+                          include.adjr = TRUE,
+                          include.rsquared = FALSE,
+                          include.rmse = FALSE,
+                          include.nobs = TRUE,
+                          custom.model.names = str_c("(", seq_along(cropveg.aid.incidence), ")"),
+                          custom.coef.names = coefnames,
+                          caption.above = TRUE,
+                          caption = "Aid's Effect on MODIS Crop Veg Cover (conditioned by state-guerilla disputes)",
+                          override.se = sandwich_se,
+                          override.pvalues = p_values,
+                          star.symbol = "*"
+)
+
+cropveg_table4 %>% HTML() %>% browsable()
+
+# outlier table
+cropveg_table4_out <- htmlreg(cropveg.aid.incidence.out,
+                              custom.note = note,
+                              digits = 2,
+                              leading.zero = TRUE,
+                              # better for markdown
+                              doctype = FALSE,
+                              html.tag = FALSE,
+                              head.tag = FALSE,
+                              body.tag = FALSE,
+                              # passed to extract() method for "lm"
+                              include.adjr = TRUE,
+                              include.rsquared = FALSE,
+                              include.rmse = FALSE,
+                              include.nobs = TRUE,
+                              custom.model.names = str_c("(", seq_along(cropveg.aid.incidence.out), ")"),
+                              custom.coef.names = coefnames,
+                              caption.above = TRUE,
+                              caption = "Aid's Effect on MODIS Crop Veg Cover (w/out Uribia)",
+                              override.se = sandwich_se_out,
+                              override.pvalues = p_values_out,
+                              star.symbol = "*"
+)
+cropveg_table4_out %>% HTML() %>% browsable()
+
+
+
+## interaction plots ------------------------------------------------------------
+
+# aid*coca
+interplot(m = cropveg.aid.incidence[[2]], var1 = "muni_locd", var2 = "vio_46") +
+  ylab("Aid's Effect on Crop Veg Cover") + xlab("Conflict Incidence Index (2002-2013)") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Conflict Incidence (2002-2013)")
+
+# setwd(dir.figures.tables)
+# ggsave("cropveg_aid-incidence.pdf", plot = last_plot(), device = "pdf", width = 7,
+#        height = 7, units = "in", dpi = 300)
+
+# aid*coca + pol
+interplot(m = cropveg.aid.incidence[[4]], var1 = "muni_locd", var2 = "vio_46") +
+  ylab("Aid's Effect on Crop Veg Cover") + xlab("Conflict Incidence Index (2002-2013)") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Conflict Incidence (2002-2013)",
+          subtitle = "controlling for election effects")
+
+# setwd(dir.figures.tables)
+# ggsave("cropveg_aid-incidence_elecs.pdf", plot = last_plot(), device = "pdf", width = 7,
+#        height = 7, units = "in", dpi = 300)
+
+
+```
+
+
+
+
+### Aid and Population Exposure to Fighting Groups
+```{r, echo = FALSE}
+formulae.cropveg6 <- list(
+  trendcropveg ~ muni_locd + vio_34_mean + SPI12m_sd + geo_3 + upstream +
+    altitude + vio_31_mean + vio_32_mean + vio_13 + muni_locd:vio_32_mean,
+  trendcropveg ~ muni_locd + vio_34_mean + SPI12m_sd + geo_3 + upstream +
+    altitude + vio_31_mean + vio_32_mean + vio_13 + muni_locd:vio_31_mean)
+
+cropveg.aid.popexpo <- map(formulae.cropveg6, ~ lm(.x, data = eac, model = TRUE))
+
+## regression output
+# cropveg.aid.popexpo %>% map(summary)
+cropveg.aid.popexpo.r <- cropveg.aid.popexpo %>% map(robust)
+
+## outliers: dropped Uribia in La Guajira
+cropveg.aid.popexpo.out <- map(formulae.cropveg6, ~ lm(.x, data = cropveg_out, model = TRUE))
+# cropveg.aid.popexpo.out %>% map(summary)
+cropveg.aid.popexpo.out.r <- cropveg.aid.popexpo.out %>% map(robust)
+
+sandwich_se <- list(cropveg.aid.popexpo.r[[1]]$sandwich_se,
+                    cropveg.aid.popexpo.r[[2]]$sandwich_se
+                    )
+p_values <- list(cropveg.aid.popexpo.r[[1]]$p_values,
+                 cropveg.aid.popexpo.r[[2]]$p_values
+                 )
+                 
+sandwich_se_out <- list(cropveg.aid.popexpo.out.r[[1]]$sandwich_se,
+                        cropveg.aid.popexpo.out.r[[2]]$sandwich_se
+                        )
+p_values_out <- list(cropveg.aid.popexpo.out.r[[1]]$p_values,
+                     cropveg.aid.popexpo.out.r[[2]]$p_values
+                     )
+
+
+## output regression tables ----------------------------------------------------
+
+# specify changes that will go into the Robust SEs table
+coefnames <- c("(Intercept)", "Aid given", "State-Guer Dispute", "SPI.sd",
+               "Muni area", "Upstream", "Altitude", "Pop. - State Exposure",
+               "Pop. - Guer. Exposure", "Avg Coca Presence",
+               "Aid * Pop-Guer", "Aid * Pop-State")
+
+note <- "OLS regressions with MODIS cropveg trend as the dependent variable.
+'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
+exclusive categories compared against a category where there is no match
+in ideology. 'Pop-Guer' and 'Pop-State' Exposure variables are a proportion of
+the encounters that the population has with these groups during conflict."
+
+
+cropveg_table6 <- htmlreg(cropveg.aid.popexpo,
+                          custom.note = note,
+                          digits = 2,
+                          leading.zero = TRUE,
+                          # better for markdown
+                          doctype = FALSE,
+                          html.tag = FALSE,
+                          head.tag = FALSE,
+                          body.tag = FALSE,
+                          # passed to extract() method for "lm"
+                          include.adjr = TRUE,
+                          include.rsquared = FALSE,
+                          include.rmse = FALSE,
+                          include.nobs = TRUE,
+                          custom.model.names = str_c("(", seq_along(cropveg.aid.popexpo), ")"),
+                          custom.coef.names = coefnames,
+                          caption.above = TRUE,
+                          caption = "Aid's Effect on MODIS Crop Veg Cover (conditioned by population exposure)",
+                          override.se = sandwich_se,
+                          override.pvalues = p_values,
+                          star.symbol = "*"
+)
+
+cropveg_table6 %>% HTML() %>% browsable()
+
+# outlier table
+cropveg_table6_out <- htmlreg(cropveg.aid.popexpo.out,
+                              custom.note = note,
+                              digits = 2,
+                              leading.zero = TRUE,
+                              # better for markdown
+                              doctype = FALSE,
+                              html.tag = FALSE,
+                              head.tag = FALSE,
+                              body.tag = FALSE,
+                              # passed to extract() method for "lm"
+                              include.adjr = TRUE,
+                              include.rsquared = FALSE,
+                              include.rmse = FALSE,
+                              include.nobs = TRUE,
+                              custom.model.names = str_c("(", seq_along(cropveg.aid.popexpo.out), ")"),
+                              custom.coef.names = coefnames,
+                              caption.above = TRUE,
+                              caption = "Aid's Effect on MODIS Crop Veg Cover (w/out Uribia)",
+                              override.se = sandwich_se_out,
+                              override.pvalues = p_values_out,
+                              star.symbol = "*"
+)
+cropveg_table6_out %>% HTML() %>% browsable()
+
+
+
+## interaction plots -----------------------------------------------------------
+
+# aid*coca
+interplot(m = cropveg.aid.popexpo[[1]], var1 = "muni_locd", var2 = "vio_32_mean") +
+  ylab("Aid's Effect on Crop Veg Cover") + xlab("Muni Population's Exposure to Guerilla Conflict (2002-2013)") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Population Exposure (2002-2013)")
+
+# setwd(dir.figures.tables)
+# ggsave("cropveg_aid-popexpo_guer.pdf", plot = last_plot(), device = "pdf", width = 7,
+#        height = 7, units = "in", dpi = 300)
+
+# aid*coca + pol
+interplot(m = cropveg.aid.popexpo[[2]], var1 = "muni_locd", var2 = "vio_31_mean") +
+  ylab("Aid's Effect on Crop Veg Cover") + xlab("Muni Population's Exposure to Government Conflict (2002-2013)") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Population Exposure (2002-2013)",
+          subtitle = "controlling for election effects")
+
+# setwd(dir.figures.tables)
+# ggsave("cropveg_aid-popexpo_govt.pdf", plot = last_plot(), device = "pdf", width = 7,
+#        height = 7, units = "in", dpi = 300)
+
+
+```
+
+
+
+
+## Extra Tables & Figures
+
+### Aid, Coca Presence (Dummy), and MODIS Crop Veg Cover
+```{r, echo = FALSE}
+formulae.cropveg2 <- list(
+  trendcropveg ~ muni_locd + illegal_crops + SPI12m_sd + geo_3 + upstream + altitude,
+  trendcropveg ~ muni_locd + illegal_crops + SPI12m_sd + geo_3 + upstream + altitude +
+    muni_locd:illegal_crops,
+  trendcropveg ~ muni_locd + illegal_crops + SPI12m_sd + geo_3 + upstream + altitude +
+    c_match_presdept + c_match_munidept + c_match_munideptpres +
+    pres_pidmuni + s_match_presseat +
+    s_match_muniseatpres,
+  trendcropveg ~ muni_locd + illegal_crops + SPI12m_sd + geo_3 + upstream + altitude +
+    c_match_presdept + c_match_munidept + c_match_munideptpres +
+    pres_pidmuni + s_match_presseat +
+    s_match_muniseatpres +
+    muni_locd:illegal_crops
+)
+
+cropveg.aid.coca2 <- map(formulae.cropveg2, ~ lm(.x, data = eac, model = TRUE))
+
+## regression output
+# cropveg.aid.coca2 %>% map(summary)
+cropveg.aid.coca2.r <- cropveg.aid.coca2 %>% map(robust)
+
+## outliers: dropped Uribia in La Guajira
+cropveg.aid.coca2.out <- map(formulae.cropveg2, ~ lm(.x, data = cropveg_out, model = TRUE))
+# cropveg.aid.coca2.out %>% map(summary)
+cropveg.aid.coca2.out.r <- cropveg.aid.coca2.out %>% map(robust)
+
+sandwich_se <- list(cropveg.aid.coca2.r[[1]]$sandwich_se,
+                    cropveg.aid.coca2.r[[2]]$sandwich_se,
+                    cropveg.aid.coca2.r[[3]]$sandwich_se,
+                    cropveg.aid.coca2.r[[4]]$sandwich_se)
+p_values <- list(cropveg.aid.coca2.r[[1]]$p_values,
+                 cropveg.aid.coca2.r[[2]]$p_values,
+                 cropveg.aid.coca2.r[[3]]$p_values,
+                 cropveg.aid.coca2.r[[4]]$p_values)
+
+sandwich_se_out <- list(cropveg.aid.coca2.out.r[[1]]$sandwich_se,
+                     cropveg.aid.coca2.out.r[[2]]$sandwich_se,
+                     cropveg.aid.coca2.out.r[[3]]$sandwich_se,
+                     cropveg.aid.coca2.out.r[[4]]$sandwich_se)
+p_values_out <- list(cropveg.aid.coca2.out.r[[1]]$p_values,
+                  cropveg.aid.coca2.out.r[[2]]$p_values,
+                  cropveg.aid.coca2.out.r[[3]]$p_values,
+                  cropveg.aid.coca2.out.r[[4]]$p_values)
+
+
+## output regression tables ----------------------------------------------------
+
+# specify changes that will go into the Robust SEs table
+coefnames <- c("(Intercept)", "Aid given", "Coca presence dummy", "SPI.sd",
+               "Muni area", "Upstream", "Altitude",
+               "c_match_presdept", "c_match_munidept", "c_match_munideptpres",
+               "pres_pidmuni", "s_match_presseat", "s_match_muniseatpres",
+               "Aid * Coca")
+note <- "OLS regressions with MODIS cropveg trend as the dependent variable.
+        'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
+        exclusive categories compared against a category where there is no match
+        in ideology."
+
+
+cropveg_table2 <- htmlreg(cropveg.aid.coca2,
+                         custom.note = note,
+                         digits = 2,
+                         leading.zero = TRUE,
+                         # better for markdown
+                         doctype = FALSE,
+                         html.tag = FALSE,
+                         head.tag = FALSE,
+                         body.tag = FALSE,
+                         # passed to extract() method for "lm"
+                         include.adjr = TRUE,
+                         include.rsquared = FALSE,
+                         include.rmse = FALSE,
+                         include.nobs = TRUE,
+                         custom.model.names = str_c("(", seq_along(cropveg.aid.coca2), ")"),
+                         custom.coef.names = coefnames,
+                         caption.above = TRUE,
+                         caption = "Aid's Effect on MODIS Crop Veg Cover",
+                         override.se = sandwich_se,
+                         override.pvalues = p_values,
+                         star.symbol = "*"
+)
+
+cropveg_table2 %>% HTML() %>% browsable()
+
+# outlier table
+cropveg_table2_out <- htmlreg(cropveg.aid.coca2.out,
+                          custom.note = note,
+                          digits = 2,
+                          leading.zero = TRUE,
+                          # better for markdown
+                          doctype = FALSE,
+                          html.tag = FALSE,
+                          head.tag = FALSE,
+                          body.tag = FALSE,
+                          # passed to extract() method for "lm"
+                          include.adjr = TRUE,
+                          include.rsquared = FALSE,
+                          include.rmse = FALSE,
+                          include.nobs = TRUE,
+                          custom.model.names = str_c("(", seq_along(cropveg.aid.coca2.out), ")"),
+                          custom.coef.names = coefnames,
+                          caption.above = TRUE,
+                          caption = "Aid's Effect on MODIS Crop Veg Cover (w/out Uribia)",
+                          override.se = sandwich_se_out,
+                          override.pvalues = p_values_out,
+                          star.symbol = "*"
+)
+cropveg_table2_out %>% HTML() %>% browsable()
+
+
+
+## interaction plots ------------------------------------------------------------
+
+# aid*coca
+interplot(m = cropveg.aid.coca2[[2]], var1 = "muni_locd", var2 = "illegal_crops") +
+  ylab("Aid's Effect on Crop Veg Cover") + xlab("Coca Presence (1 = yes)") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Coca Presence (2013)")
+
+# setwd(dir.figures.tables)
+# ggsave("cropveg2_aid-muni.pdf", plot = last_plot(), device = "pdf", width = 7,
+#        height = 7, units = "in", dpi = 300)
+
+# aid*coca + pol
+interplot(m = cropveg.aid.coca2[[4]], var1 = "muni_locd", var2 = "illegal_crops") +
+  ylab("Aid's Effect on Crop Veg Cover") + xlab("Coca Presence (1 = yes)") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Coca Presence (2013)",
+          subtitle = "controlling for election effects")
+
+# setwd(dir.figures.tables)
+# ggsave("cropveg2_aid-muni_elecs.pdf", plot = last_plot(), device = "pdf", width = 7,
+#        height = 7, units = "in", dpi = 300)
+
+
+```
+
+
+
+
+### Aid, State-Guerilla Conflict, Elections, and Coca Presence
+```{r, echo = FALSE}
+triple_effect <- lm(trendcropveg ~ muni_locd + vio_34_mean + SPI12m_sd + geo_3 +
+                      upstream + altitude + vio_31_mean + vio_32_mean + vio_13 +
+                      muni_locd:vio_34_mean:vio_13,
+                      data = eac)
+
+## interaction plots -----------------------------------------------------------
+ThreewayME.f(M = triple_effect,
+             X = eac$muni_locd,
+             Z = eac$vio_13,
+             W = eac$vio_34_mean,
+             xlab = "Proportion of Years w/ Coca Presence (1993-2015)",
+             ylab = "Aid's Effect on Crop Veg Cover",
+             lloc = "bottomleft",
+             Min = "Min Value",
+             Q1 = "First Quantile",
+             Mean = "Mean",
+             Q3 = "Third Quantile",
+             Max = "Max Value",
+             level = 95,
+             rob = TRUE
+            )
+
+ThreewayME.f(M = triple_effect,
+             X = eac$muni_locd,
+             Z = eac$vio_34_mean,
+             W = eac$vio_13,
+             xlab = "Proportion of Years w/ State-Guerilla Conflict (1998-2012)",
+             ylab = "Aid's Effect on Crop Veg Cover",
+             lloc = "topleft",
+             Min = "Min Value",
+             Q1 = "First Quantile",
+             Mean = "Mean",
+             Q3 = "Third Quantile",
+             Max = "Max Value",
+             level = 95,
+             rob = TRUE
+            )
+
+```
+
+
+
