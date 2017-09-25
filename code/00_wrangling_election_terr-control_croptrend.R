@@ -333,8 +333,10 @@ dmyr_pres <- as.tibble(dmyr_pres)
 # =-=-=-=-=-=-=-=-=-=-=-=-=-= #
 
 ## SAVE BINDED RAW ELECTION DATA (i.e before changes)
-write_csv(elec_sen1, file.path(dir.elec, "senado_2002-2014.csv"))
-write_csv(elec_cam1, file.path(dir.elec, "camara_2002-2014.csv"))
+# write_csv(elec_sen1, file.path(dir.elec, "senado_2002-2014.csv"))
+# write_csv(elec_cam1, file.path(dir.elec, "camara_2002-2014.csv"))
+
+
 
 ## BRING IN .CSV W/ PARTY CODE NAMES AND #s
 dir.party <- file.path(dir.home,
@@ -506,9 +508,10 @@ elec_cam7$cam_dpvote <- ""
 elec_cam7 <- elec_cam7 %>%
                 group_by(year, coddept, dtot_d, codpartido) %>% 
                 mutate(cam_dpvote = if_else(codmuni == 99,
-                                            sum(votos),
+                                            sum(votos, na.rm = TRUE),
                                             as.numeric(cam_dpvote)))
 
+# elec_cam7 %>% arrange(year, coddept, codpartido) %>% View()
 
 ## CREATE "DEPT - VOTE TOTAL" VAR = 'dvote' & "MUNI-VOTE TOTAL" = 'mvote'
 elec_cam7$cam_dvote <- ""
@@ -580,7 +583,7 @@ min06 <- c(38, 43, 190, 15)
 # 2010 minority/other party
 min10 <- c(34, 199, 233)
 # 2002 uribismo party
-urib02 <- c(154, 73, 195, 41, 165, 730, 751, 754, 759, 762, 764, 765, 778, 791,
+urib02 <- c(154, 73, 195, 41, 165, 730, 751, 754, 759, 762, 764, 765, 778, 791, # c(1, 804, 791, 733, 769, 845, 795, 811, 982, 828, 802, 983, 726)
             832, 849, 855, 985, 69, 158, 2, 848, 69, 158)
 # 2006 uribismo
 urib06 <- c(urib02, 198, 762, 845, 759, 802, 848, 983, 839, 726, 748, 827, 847,
@@ -684,6 +687,7 @@ cam$cam_ideo <- as.factor(cam$cam_ideo)
 # create var to count the # of seats won
 cam$curules <- as.integer(cam$curules)
 cam$sumseat <- ""
+
 cam1 <- cam %>%
           arrange(year, coddept, desc(curules)) %>%
           group_by(year, coddept) %>%
@@ -1230,8 +1234,8 @@ cam_sum4 <- cam_sum4 %>%
 # matches ideology that holds the highest seat proportion at dept.
 # Note--0 can mean multiple things.
 cam_sum4$cam_pidseatR1[is.na(cam_sum4$cam_pidseatR1)] <- 0
-  
-cam_sum5 <- cam_sum4 %>%
+
+cam_sum5 <- cam_sum4_temp %>%
   mutate(
     c_match_munidept = if_else((cam_seatpro_iR == 1 &
                                 cam_mipro_r == 1 &
@@ -1311,18 +1315,41 @@ yes_match1 %<>% select(elec_id, codmuni, year,
 cam_muniyr <- yes_match1
 
 
+## 5c.5 fix coding error in the c_match_ vars ----
+# some of the c_match_ end up w/ double counting in the match b/c of coalitions
+# that are formed
+
+cam_muniyr1 <- cam_muniyr %>% 
+  mutate(
+    c_match_munideptpres = if_else(
+                            c_match_munidept == 1 & c_match_presdept == 1,
+                            1,
+                            c_match_munideptpres)
+  ) %>% 
+  mutate(c_match_munidept = if_else(
+                              c_match_munidept == 1 & c_match_munideptpres == 1,
+                              0,
+                              c_match_munidept)
+  ) %>% 
+  mutate(c_match_presdept = if_else(
+                              c_match_presdept == 1 & c_match_munideptpres == 1,
+                              0,
+                              c_match_presdept)
+  )
+    
+
 ## 5c.5) save muni-year panel ----
 setwd(dir.outdata)
-write_csv(cam_muniyr, "camara_muni_year_2002-2014.csv")
-
+write_csv(cam_muniyr1, "camara_muni_year_2002-2014.csv")
+save(cam_muniyr1, file = "camara_muni_year_2002-2014.RData")
 
 
 ## 5d) CREATE MUNI CROSS SECTION DATA ----
 
 # replace -99 values back w/ NA
-cam_muniyr <- na_if(cam_muniyr, -99)
+cam_muniyr1 <- na_if(cam_muniyr1, -99)
 
-cam_cs <- cam_muniyr %>%
+cam_cs <- cam_muniyr1 %>%
   group_by(codmuni) %>%
   summarise(elec_id = first(elec_id),
             municipio = first(municipio),
@@ -2187,18 +2214,43 @@ yes_match1 %<>% select(elec_id, codmuni, year,
 sen_muniyr <- yes_match1
 
 
-## 7c.5) save muni-year panel ----
+## 7c.5) fix coding error in the s_match_ vars ----
+# some of the s_match_ end up w/ double counting in the match b/c of coalitions
+# that are formed
+
+sen_muniyr1 <- sen_muniyr %>% 
+  mutate(
+    s_match_muniseatpres = if_else(
+                            s_match_muniseat == 1 & s_match_presseat == 1,
+                            1,
+                            s_match_muniseatpres)
+  ) %>% 
+  mutate(s_match_muniseat = if_else(
+                              s_match_muniseat == 1 & s_match_muniseatpres == 1,
+                              0,
+                              s_match_muniseat)
+  ) %>% 
+  mutate(s_match_presseat = if_else(
+                              s_match_presseat == 1 & s_match_muniseatpres == 1,
+                              0,
+                              s_match_presseat)
+  )
+
+
+
+
+## 7c.6) save muni-year panel ----
 setwd(dir.outdata)
-write_csv(sen_muniyr, "senate_muni_year_2002-2014.csv")
+write_csv(sen_muniyr1, "senate_muni_year_2002-2014.csv")
 
 
 
 ## 7d) CREATE MUNI CROSS SECTION DATA ----
 
 # replace -99 values back w/ NA
-sen_muniyr <- na_if(sen_muniyr, -99)
+sen_muniyr1 <- na_if(sen_muniyr1, -99)
 
-sen_cs <- sen_muniyr %>%
+sen_cs <- sen_muniyr1 %>%
   group_by(codmuni) %>%
   summarise(elec_id = first(elec_id),
             municipio = first(municipio),
