@@ -28,6 +28,7 @@ library(tidyverse)
 library(readstata13)
 library(stringr)
 library(magrittr)
+library(haven)
 
 ## 1a) SET FILE PATHS ----
 # Set working directory to where you saved project directory (folder)
@@ -191,6 +192,13 @@ modis_g <- read.dta13(trendvar[4])
 # orig_panel %>% summarise(n_distinct(admin2Pcod)) # 1118 munis
 
 
+## 2d) CROP AND AGRICULTURE CS DATA ----
+load(file = file.path(
+  dir.rawdata,
+  "uniandes_panel_agriculture/crops_cs_colombia.RData")
+)
+
+
 
 
 # =-=-=-=-=-=-=-=-=-=-=-=-=- # 
@@ -325,6 +333,7 @@ dmyr_pres <- as.tibble(dmyr_pres)
 #               ) %>%
 #         dplyr::select(-contains(".y")) %>%
 #         variable.names()
+
 
 
 
@@ -2595,8 +2604,17 @@ co_combined %<>%
 
 
 
+
+# =-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-= # 
+####    X. MERGE CROP CS DATA    #### 
+# =-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-= #
+co_combined %<>% left_join(co_combined, crops_cs, by = 'codmuni')
+
+
+
+
 # =-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=- # 
-####    X. WRITE CROSS-SECTIONAL DATA    #### 
+####    XI. WRITE CROSS-SECTIONAL DATA    #### 
 # =-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=- #
 setwd(dir.outdata)
 save(co_combined, file = "eac_vio_muni_cross-section.RData")
