@@ -1,0 +1,75 @@
+---
+title: "Tables to Explore Individual Cases"
+output:
+  html_document:
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 7
+    highlight: tango
+    theme: readable
+  pdf_document:
+    fig_caption: yes
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir="..")
+```
+
+```{r, include=FALSE}
+library(knitr)
+library(kableExtra)
+load("./01_outputdata/eac_cross-section_and_polygons.RData")
+```
+
+## Municipalities Receiving Aid with Positive Trend
+```{r aid-trend-df, include=FALSE}
+pos_trend_aid <- spdf_eac_df %>%
+  group_by(codmuni
+  ) %>%
+  summarise_all(first
+  ) %>%
+  filter(trendcropveg_cat == "Positive Trend" & muni_locd == 1
+  ) %>%
+  dplyr::select(codane = codmuni,
+         department,
+         municipality,
+         trend_cropveg = trendcropveg,
+         state_exposure = vio_31_mean,
+         guerilla_exposure = vio_32_mean,
+         coca_yrs_avg = vio_13,
+         coca_in_2013 = illegal_crops,
+         conflict_incidence = vio_46,
+         state_guer_dispute = vio_34_mean,
+         trend_direction = trendcropveg_cat,
+         aid_given = muni_locd
+  ) %>%
+  arrange(department, municipality)
+```
+
+```{r aid-trend-table}
+pos_trend_aid %>%
+  kable("html", digits = 2) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                font_size = 8)
+```
+## Variable Descriptions
+*trend_cropveg* = positive trend/growth in MODIS Cropland/Natural Vegetation Cover (hectares)
+
+*state_exposure* = proportion of years in which municipality population comes in contact with govt forces
+
+*guerilla_exposure* = proportion of years in which municipality population comes in contact with guerilla forces
+
+*coca_yrs_avg* = proportion of years in which municipality contains coca growth
+
+*conflict_incidence* = 1-5 index of conflict intensity. Moving from low to high incidence
+
+*state_guer_dispute* = proportion of years with govt and guerilla force conflict
+
+*state_guer_dispute* = proportion of years with govt and guerilla force conflict
+
+
+
+
+
