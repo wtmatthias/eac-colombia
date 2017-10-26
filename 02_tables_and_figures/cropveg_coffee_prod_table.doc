@@ -1,0 +1,166 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Aid's Effect on MODIS Crop Veg Cover</title>
+<style type="text/css">
+table {
+border: none;
+}
+th {
+text-align: left;
+border-top: 2px solid black;
+border-bottom: 1px solid black;
+padding-right: 12px;
+}
+.midRule {
+border-top: 1px solid black;
+}
+.bottomRule {
+border-bottom: 2px solid black;
+}
+td {
+padding-right: 12px;
+border: none;
+}
+sup {
+vertical-align: 0px;
+}
+</style>
+</head>
+
+<body>
+<table cellspacing="0" align="center">
+<caption align="top" style="margin-bottom:0.3em;">Aid's Effect on MODIS Crop Veg Cover</caption>
+<tr>
+<th><b></b></th>
+<th><b>(1)</b></th>
+<th><b>(2)</b></th>
+</tr>
+<tr>
+<td>(Intercept)</td>
+<td>152.48</td>
+<td>157.85</td>
+</tr>
+<tr>
+<td></td>
+<td>(134.17)</td>
+<td>(136.97)</td>
+</tr>
+<tr>
+<td>Aid given</td>
+<td>199.58<sup>***</sup></td>
+<td>211.90<sup>***</sup></td>
+</tr>
+<tr>
+<td></td>
+<td>(71.26)</td>
+<td>(81.78)</td>
+</tr>
+<tr>
+<td>SPI (std dev)</td>
+<td>82.76</td>
+<td>75.91</td>
+</tr>
+<tr>
+<td></td>
+<td>(172.79)</td>
+<td>(176.74)</td>
+</tr>
+<tr>
+<td>Muni area</td>
+<td>0.11<sup>***</sup></td>
+<td>0.11<sup>***</sup></td>
+</tr>
+<tr>
+<td></td>
+<td>(0.04)</td>
+<td>(0.04)</td>
+</tr>
+<tr>
+<td>Upstream</td>
+<td>-0.00<sup>**</sup></td>
+<td>-0.00<sup>**</sup></td>
+</tr>
+<tr>
+<td></td>
+<td>(0.00)</td>
+<td>(0.00)</td>
+</tr>
+<tr>
+<td>Altitude</td>
+<td>-0.01</td>
+<td>-0.01</td>
+</tr>
+<tr>
+<td></td>
+<td>(0.02)</td>
+<td>(0.02)</td>
+</tr>
+<tr>
+<td>Exposure to State</td>
+<td>123.19<sup>**</sup></td>
+<td>122.98<sup>**</sup></td>
+</tr>
+<tr>
+<td></td>
+<td>(54.22)</td>
+<td>(54.24)</td>
+</tr>
+<tr>
+<td>Exposure to Guerillas</td>
+<td>-252.93<sup>***</sup></td>
+<td>-253.75<sup>***</sup></td>
+</tr>
+<tr>
+<td></td>
+<td>(59.28)</td>
+<td>(59.11)</td>
+</tr>
+<tr>
+<td>Coca Presence Avg</td>
+<td>-227.45<sup>*</sup></td>
+<td>-225.48<sup>*</sup></td>
+</tr>
+<tr>
+<td></td>
+<td>(120.97)</td>
+<td>(121.68)</td>
+</tr>
+<tr>
+<td>Aid * Coffee Production</td>
+<td></td>
+<td>-0.03</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(0.06)</td>
+</tr>
+<tr>
+<td>Coffee Production (Ha)</td>
+<td>-0.06<sup>***</sup></td>
+<td>-0.06<sup>***</sup></td>
+</tr>
+<tr>
+<td></td>
+<td>(0.01)</td>
+<td>(0.01)</td>
+</tr>
+<tr>
+<td class="midRule">Adj. R<sup>2</sup></td>
+<td class="midRule">0.11</td>
+<td class="midRule">0.11</td>
+</tr>
+<tr>
+<td class="bottomRule">Num. obs.</td>
+<td class="bottomRule">937</td>
+<td class="bottomRule">937</td>
+</tr>
+<tr>
+<td colspan="4"><span style="font-size:0.8em"><sup>***</sup>p &lt; 0.01, <sup>**</sup>p &lt; 0.05, <sup>*</sup>p &lt; 0.1. OLS regressions with MODIS cropveg trend as the dependent
+variable. Table shows robust SEs.</span></td>
+</tr>
+</table>
+</body>
+</html>
