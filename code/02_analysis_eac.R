@@ -4,13 +4,12 @@
 #  Email:        bmatthias88@gmail.com
 #  Purpose:      (1) exploratory data analysis
 #                (2) stats analysis
-#  Last Update:  2017-Sept-14
 #  Data Output:    
 #-----------------------------------------------------------------------------#
 
 
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
-                          ####    SETUP    #### 
+    ####    SETUP    #### 
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= #
 rm(list=ls())
 
@@ -30,25 +29,19 @@ library(broom)
 library(htmltools)
 library(stringr)
 
+
+
 ## Set file paths --------------------------------------------------------------
-# Set working directory to where you saved project directory (folder)
-# 'dir.home' the only file path you need to change!
-dir.home <- file.path("/Users/wtmatthias/Google Drive/Mike RA")
+dir.outdata <- file.path("./01_outputdata")
 
-dir.outdata <- file.path(dir.home,
-                         "elections_aid_cropshare/data_201708/01_outputdata")
+dir.figures.tables <- file.path("./02_tables_and_figures")
 
-dir.analysis <- file.path(dir.home,
-                          "elections_aid_cropshare/data_201708")
-dir.figures.tables <- file.path(
-                    dir.home,
-                    "elections_aid_cropshare/data_201708/02_tables_and_figures")
+
 
 ## Load Data -------------------------------------------------------------------
-load(file = file.path(
-  dir.outdata,
-  "eac_vio_muni_cross-section.RData"
-))
+load(file = file.path(dir.outdata,
+                      "eac_vio_muni_cross-section.RData")
+)
 
 
 
@@ -397,115 +390,6 @@ rm(aid_merged)
 eac_names <- as.data.frame(variable.names(eac))
 View(eac_names)
 
-# DV AND COVARIATES:
-#   DVs: - trendcrop
-#        - trendcropveg
-#        - trendgrass
-#        - trendc3
-#        - muni_locd -> aid targeted to muni
-#        - cropsha_chg
-
-#   IVs: - cropsha_pct01: 
-#        - SPI12m_sd:
-#        - sq_km_mun:  area km2 muni
-#        - geo_3:  area km2 muni (DANE official), 1993-2014
-#        - upstream:
-#        - altitude:
-#        - road0:
-#        - illegal_crops:  illegal crop presence dummy
-#        - vio_13:  avg coca pres dummy, 1993-2015
-#        - farc_zone:  FARC presence dummy
-#        - vio_15: avg FARC presence over 1993-2015 (might be useful to have a modal value, dummy)
-#        - "i.coddepto": department fixed effects (*create dept dummies)
-
-#        PRES. VARS
-#        - pres_centro:
-#        - pres_conserv:
-#        - pres_izqui:
-#        - pres_tv:
-#        - pres_lib:
-#        - pres_min:
-#        - pres_urib:
-#        - pol_9:  tie
-#        - pol_11:  % "minority" gets most votes
-#        - pol_12:  % "conservador" gets most votes
-#        - pol_13:  % "centro" gets most votes
-#        - pol_14:  % "izquierda" gets most votes
-#        - pol_15:  % "liberal" gets most votes
-#        - pol_16:  % "tv" gets most votes
-#        - pol_17:  % "uribismo" gets most votes
-#        - pol_18:  total of valid votes
-#        - pres_turnout:  pol_18/demo_3_mean (*need to create)
-#        - pres_pidmuni:  pres ideo & muni ideo w/ highest vote the same? y = 1  
-
-#        CAMARA VARS
-#        - c_turnout:  avg camara elec turnout, 2002-2014
-#        - c_dvote_avg
-#        - c_mvote_avg
-#        - c_match_munidept
-#        - c_match_presdept
-#        - c_match_munideptpres
-#        - c_match_none
-#        - c_votepro_centro: avg vote proportion @ muni
-#        - c_votepro_conserv
-#        - c_votepro_iz
-#        - c_votepro_lib
-#        - c_votepro_min
-#        - c_votepro_other
-#        - c_votepro_tv
-#        - c_votepro_urib
-#        - c_seatpro_centro: avg proportion of seats won
-#        - c_seatpro_conserv
-#        - c_seatpro_iz
-#        - c_seatpro_lib
-#        - c_seatpro_min
-#        - c_seatpro_other
-#        - c_seatpro_tv
-#        - c_seatpro_urib
-
-#        SENADO VARS
-#        - s_turnout:  senado elec turnout
-#        - s_match_muniseat:
-#        - s_match_presseat:
-#        - s_match_muniseatpres:
-#        - s_match_none
-#        - s_votepro_centro: avg vote proportion @ muni
-#        - s_votepro_conserv
-#        - s_votepro_iz
-#        - s_votepro_lib
-#        - s_votepro_min
-#        - s_votepro_other
-#        - s_votepro_tv
-#        - s_votepro_urib
-#        - s_seatpro_centro: avg proportion of seats won
-#        - s_seatpro_conserv
-#        - s_seatpro_iz
-#        - s_seatpro_lib
-#        - s_seatpro_min
-#        - s_seatpro_other
-#        - s_seatpro_tv
-#        - s_seatpro_urib
-
-#        VIOLENCE VARS
-#        - vio_1: length of conflict. 0-3 (w/out conflict to permanent conflict). 2000-2012
-#        - vio_2: armed conflict typology. 0-5 (no conflict to strongly effected/persistent)
-#        - vio_3: conflict intensity. 0-2. no conflict, low, high. 2000-2012
-#        - vio_9: # displacement occurence (what's this var mean?)
-#        - vio_10: police reinforcements of "seguridad democratica". 1993-2015
-#        - vio_11: dummy AUC presence. 1993-2015
-#        - vio_14 dummy ELN
-#        - vio_15: FARC
-#        - vio_26: est vs. guer. to 2009
-#        - vio_27: est vs. para/neopara
-#        - vio_28: para/neopara vs. gue
-#        - vio_31-33: (31) pop exposure est (32) pop exposure guer (33) pop exposure par/neo
-#        - vio_34-36: (34) dispute est vs. guer (35) dispute est vs. par/neopar
-#                     (36) dispute par/neopar vs. guer
-#        - vio_30: lincoln-petersen calculation for displaced persons
-#        - vio_46: incidence of conflict 1 to 5 (low to high), 2002-2013
-#        - vio_47: incidence of conflict %, 2002-2013 (same as vio_46?)
-#        - vio_87: # of ppl displaced, 1999-2014
-
 
 ## Summary/Descriptive Stats Table -----------------------------------------
 
@@ -522,9 +406,24 @@ descriptive_vars <- eac %>%
          starts_with("c_"),
          starts_with("s_"),
          num_range("vio_", c(1:3, 9:11, 14, 26:28, 31:36, 46:47, 87)),
-         vio_26_mean, vio_27_mean, vio_28_mean, vio_31_mean, vio_32_mean,
-         vio_33_mean, vio_34_mean, vio_35_mean, vio_36_mean
+         vio_31_mean, vio_32_mean, vio_33_mean, vio_34_mean, vio_35_mean,
+         vio_36_mean
   )
+
+##  WITH COFFEE VARS
+# descriptive_vars <- eac %>%
+#   ungroup() %>% 
+#   select(trendcrop, trendcropveg, muni_locd, SPI12m_sd,
+#          upstream, altitude,
+#          illegal_crops, vio_13,
+#          pres_pidmuni,
+#          starts_with("c_match"),
+#          starts_with("s_match"),
+#          vio_31_mean, vio_32_mean, vio_34_mean,
+#          p_cafe, r_cafe, coffee_2014, coffee_avg
+#   )
+
+
 
 # "Inf" values in cropsha_pct01 compute descriptive stats properly
 descriptive_vars %<>%
@@ -747,8 +646,26 @@ ggplot(eac) + geom_bar(aes(x = vio_46))
 
 
 
+## p_cafe: coffee production (tons) ----
 
-# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
+p_cafe_outlier <- eac %>%
+  filter(p_cafe < 10000)
+
+eac %>%
+  filter(p_cafe < 10000) %>% 
+  ggplot() +
+  geom_histogram(aes(x = p_cafe), binwidth = 100)
+
+## r_cafe: coffee production (tons) ----
+
+## coffee_avg: coffee production (tons) ----
+
+## coffee_2014: coffee production (tons) ----
+
+
+
+
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= #
     ####   I. CROPSHARE (cropveg & crop): AID + COCA (avg.) +  POL   ####
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
 
@@ -792,11 +709,6 @@ ggplot(crop_out) +
 
 
 ## models ----
-# 1) base model: cropshare = aid + coca
-# 2) base model + aid*coca
-# 3) base model + pol vars (_match_none dropped out!)
-# 4) base model + aid*coca + pol vars
-
 ## VARS TO INCLUDE IN MODEL
 dep_var <- ~trendcropveg
 dep_var2 <- ~trendcrop
@@ -810,18 +722,30 @@ pol_vars <- ~c_match_presdept + c_match_munidept + c_match_munideptpres +
 # cropveg dv model
 linear.model.form <- formulas(.response = dep_var,
                               base = base_vars,
-                              interact =  add_predictors(base, interact_vars),
-                              politics =  add_predictors(base, pol_vars),
-                              full = add_predictors(politics, interact_vars)
+                              interact =  add_predictors(base, interact_vars)
 )
+
+##  FOR APPENDIX - W/ POLITICAL VARS
+# linear.model.form <- formulas(.response = dep_var,
+#                               base = base_vars,
+#                               interact =  add_predictors(base, interact_vars),
+#                               politics =  add_predictors(base, pol_vars),
+#                               full = add_predictors(politics, interact_vars)
+# )
 
 # crop dv model
 linear.model.form2 <- formulas(.response = dep_var2,
                               base = base_vars,
-                              interact =  add_predictors(base, interact_vars),
-                              politics =  add_predictors(base, pol_vars),
-                              full = add_predictors(politics, interact_vars)
+                              interact =  add_predictors(base, interact_vars)
 )
+
+## FOR APPENDIX - W/ POLITICAL VARS
+# linear.model.form2 <- formulas(.response = dep_var2,
+#                               base = base_vars,
+#                               interact =  add_predictors(base, interact_vars),
+#                               politics =  add_predictors(base, pol_vars),
+#                               full = add_predictors(politics, interact_vars)
+# )
 
 
 ## LINEAR MODEL
@@ -870,23 +794,37 @@ title_out2 <- "Aid's Effect on MODIS Crop Cover (without Uribia, La Guajira)"
 coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
                   "SPI12m_sd" = "SPI (std dev)", "geo_3" = "Muni area",
                   "upstream" = "Upstream", "altitude" = "Altitude",
-                  "vio_13" = "Coca presence avg", "c_match_presdept" = NA,
-                  "c_match_munidept" = NA, "c_match_munideptpres" = NA,
-                  "pres_pidmuni" = NA, "s_match_presseat" = NA,
-                  "s_match_muniseatpres" = NA,
+                  "vio_13" = "Coca presence avg",
                   "muni_locd:vio_13" = "Aid * Coca")
+
+## FOR APPENDIX TABLE (W/ POLITICAL VARS)
+# coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
+#                   "SPI12m_sd" = "SPI (std dev)", "geo_3" = "Muni area",
+#                   "upstream" = "Upstream", "altitude" = "Altitude",
+#                   "vio_13" = "Coca presence avg", "c_match_presdept" = NA,
+#                   "c_match_munidept" = NA, "c_match_munideptpres" = NA,
+#                   "pres_pidmuni" = NA, "s_match_presseat" = NA,
+#                   "s_match_muniseatpres" = NA,
+#                   "muni_locd:vio_13" = "Aid * Coca")
 
 ## NOTE FOR BOTTOM OF TABLE
 # %stars puts p-value definitions in Note
 note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
-variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
-exclusive categories compared against a category where there is no match
-in ideology. Table shows robust standard errors."
+variable. Table shows robust standard errors."
 
 note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
-variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
-exclusive categories compared against a category where there is no match
-in ideology. Table shows robust standard errors."
+variable. Table shows robust standard errors."
+
+## FOR APPENDIX TABLES (W/ POL VARS)
+# note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
+# variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
+# exclusive categories compared against a category where there is no match
+# in ideology. Table shows robust standard errors."
+# 
+# note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
+# variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
+# exclusive categories compared against a category where there is no match
+# in ideology. Table shows robust standard errors."
 
 
 ## SAVE REG OUTPUT TABLE W/ ROBUST SEs
@@ -894,13 +832,13 @@ setwd(dir.figures.tables)
 # table to .doc
 robust_table(linear.model, filename = filename, title, coefnames, note,
              latex = FALSE)
-robust_table(linear.model.out, filename = filename_out, title_out, coefnames,
-             note, latex = FALSE)
+# robust_table(linear.model.out, filename = filename_out, title_out, coefnames,
+#              note, latex = FALSE)
 
 robust_table(linear.model2, filename = filename2, title2, coefnames, note2,
              latex = FALSE)
-robust_table(linear.model.out2, filename = filename_out2, title_out2, coefnames,
-             note2, latex = FALSE)
+# robust_table(linear.model.out2, filename = filename_out2, title_out2, coefnames,
+#              note2, latex = FALSE)
 
 
 ## SHOW REG OUTPUT TABLE W/ ROBUST SEs
@@ -942,7 +880,7 @@ robust_table(linear.model.out2, filename = filename_out2, title_out2, coefnames,
 # aid*coca
 interplot(m = linear.model[[2]], var1 = "muni_locd", var2 = "vio_13",
           hist = TRUE) +
-  ylab("Aid's Effect on Crop Veg Cover") + xlab("Avg. Coca Presence") + 
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") + xlab("Avg. Coca Presence") + 
   geom_hline(yintercept = 0, color="grey35", size = .3) +
   ggtitle("Estimated Coefficient of Aid by Coca Presence (1993-2015)")
 
@@ -953,7 +891,7 @@ ggsave("cropveg_aid-coca1.pdf", plot = last_plot(), device = "pdf", width = 7,
 # aid*coca + pol
 interplot(m = linear.model[[4]], var1 = "muni_locd", var2 = "vio_13",
           hist = TRUE) +
-  ylab("Aid's Effect on Crop Veg Cover") + xlab("Avg. Coca Presence") + 
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") + xlab("Avg. Coca Presence") + 
   geom_hline(yintercept = 0, color="grey35", size = .3) +
   ggtitle("Estimated Coefficient of Aid by Coca Presence (1993-2015)",
           subtitle = "controlling for election effects")
@@ -964,7 +902,7 @@ ggsave("cropveg_aid-coca1_elecs.pdf", plot = last_plot(), device = "pdf", width 
 
 
 ## CROP PLOTS
-title_ylab_crop <- "Aid's Effect on Crop Cover"
+title_ylab_crop <- "Aid's Effect on Crop Cover (in Ha)"
 
 # aid*coca
 interplot(m = linear.model2[[2]], var1 = "muni_locd", var2 = "vio_13",
@@ -1010,28 +948,40 @@ interact_vars <- ~muni_locd:illegal_crops
 # set models
 linear.model.form <- formulas(.response = dep_var,
                               base = base_vars,
-                              interact =  add_predictors(base, interact_vars),
-                              politics =  add_predictors(base, pol_vars),
-                              full = add_predictors(politics, interact_vars)
+                              interact =  add_predictors(base, interact_vars)
 )
+
+## FOR APPENDIX (W/ POL VARS)
+# linear.model.form <- formulas(.response = dep_var,
+#                               base = base_vars,
+#                               interact =  add_predictors(base, interact_vars),
+#                               politics =  add_predictors(base, pol_vars),
+#                               full = add_predictors(politics, interact_vars)
+# )
 
 linear.model.form2 <- formulas(.response = dep_var2,
                               base = base_vars,
-                              interact =  add_predictors(base, interact_vars),
-                              politics =  add_predictors(base, pol_vars),
-                              full = add_predictors(politics, interact_vars)
+                              interact =  add_predictors(base, interact_vars)
 )
+
+## FOR APPENDIX (W/ POL VARS)
+# linear.model.form2 <- formulas(.response = dep_var2,
+#                               base = base_vars,
+#                               interact =  add_predictors(base, interact_vars),
+#                               politics =  add_predictors(base, pol_vars),
+#                               full = add_predictors(politics, interact_vars)
+# )
 
 
 ## LINEAR MODEL
 linear.model <- map(linear.model.form, ~ lm(.x, data = eac, model = TRUE))
 # w/out outlier (Uribia in La Guajira)
-linear.model.out <- map(linear.model.form, ~ lm(.x, data = cropveg_out, model = TRUE))
+# linear.model.out <- map(linear.model.form, ~ lm(.x, data = cropveg_out, model = TRUE))
 
 
 linear.model2 <- map(linear.model.form2, ~ lm(.x, data = eac, model = TRUE))
 # w/out outlier (Uribia in La Guajira)
-linear.model.out2 <- map(linear.model.form2, ~ lm(.x, data = crop_out, model = TRUE))
+# linear.model.out2 <- map(linear.model.form2, ~ lm(.x, data = crop_out, model = TRUE))
 
 ## REGRESSION OUTPUT
 # linear.model %>% map(summary)
@@ -1062,25 +1012,41 @@ coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
                   "SPI12m_sd" = "SPI (std dev)", "geo_3" = "Muni area",
                   "upstream" = "Upstream", "altitude" = "Altitude",
                   "illegal_crops" = "Coca Presence (1 = Yes)",
-                  "c_match_presdept" = NA, "c_match_munidept" = NA,
-                  "c_match_munideptpres" = NA, "pres_pidmuni" = NA,
-                  "s_match_presseat" = NA, "s_match_muniseatpres" = NA,
                   "muni_locd:illegal_crops" = "Aid * Coca")
+
+## FOR APPENDIX (W/ POL VARS)
+# coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
+#                   "SPI12m_sd" = "SPI (std dev)", "geo_3" = "Muni area",
+#                   "upstream" = "Upstream", "altitude" = "Altitude",
+#                   "illegal_crops" = "Coca Presence (1 = Yes)",
+#                   "c_match_presdept" = NA, "c_match_munidept" = NA,
+#                   "c_match_munideptpres" = NA, "pres_pidmuni" = NA,
+#                   "s_match_presseat" = NA, "s_match_muniseatpres" = NA,
+#                   "muni_locd:illegal_crops" = "Aid * Coca")
 
 
 ## NOTE FOR BOTTOM OF TABLE
 # %stars puts p-value definitions in Note
 note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
-variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
-exclusive categories compared against a category where there is no match
-in ideology. 'Coca Presence' is a dummy variable counting measured coca growth
+variable. 'Coca Presence' is a dummy variable counting measured coca growth
 in 2013. Table shows robust standard errors."
 
 note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
-variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
-exclusive categories compared against a category where there is no match
-in ideology. 'Coca Presence' is a dummy variable counting measured coca growth
+variable. 'Coca Presence' is a dummy variable counting measured coca growth
 in 2013. Table shows robust standard errors."
+
+## FOR APPENDIX (W/ POL VARS):
+# note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
+# variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
+# exclusive categories compared against a category where there is no match
+# in ideology. 'Coca Presence' is a dummy variable counting measured coca growth
+# in 2013. Table shows robust standard errors."
+# 
+# note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
+# variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
+# exclusive categories compared against a category where there is no match
+# in ideology. 'Coca Presence' is a dummy variable counting measured coca growth
+# in 2013. Table shows robust standard errors."
 
 
 ## SAVE REG OUTPUT TABLE W/ ROBUST SEs
@@ -1113,7 +1079,7 @@ robust_table(linear.model.out2, filename = filename_out2, title_out2, coefnames,
 # aid*coca
 interplot(m = linear.model[[2]], var1 = "muni_locd", var2 = "illegal_crops",
           hist = TRUE) +
-  ylab("Aid's Effect on Crop Veg Cover") + xlab("Coca Presence (1 = yes)") + 
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") + xlab("Coca Presence (1 = yes)") + 
   geom_hline(yintercept = 0, color="grey35", size = .3) +
   ggtitle("Estimated Coefficient of Aid by Coca Presence (2013)")
 
@@ -1181,17 +1147,29 @@ interact_vars <- ~muni_locd:vio_34_mean
 # set models
 linear.model.form <- formulas(.response = dep_var,
                               base = base_vars,
-                              interact =  add_predictors(base, interact_vars),
-                              politics =  add_predictors(base, pol_vars),
-                              full = add_predictors(politics, interact_vars)
+                              interact =  add_predictors(base, interact_vars)
 )
+
+## FOR APPENDIX (W/ POL VARS):
+# linear.model.form <- formulas(.response = dep_var,
+#                               base = base_vars,
+#                               interact =  add_predictors(base, interact_vars),
+#                               politics =  add_predictors(base, pol_vars),
+#                               full = add_predictors(politics, interact_vars)
+# )
 
 linear.model.form2 <- formulas(.response = dep_var2,
                               base = base_vars,
-                              interact =  add_predictors(base, interact_vars),
-                              politics =  add_predictors(base, pol_vars),
-                              full = add_predictors(politics, interact_vars)
+                              interact =  add_predictors(base, interact_vars)
 )
+
+## FOR APPENDIX (W/ POL VARS):
+# linear.model.form2 <- formulas(.response = dep_var2,
+#                               base = base_vars,
+#                               interact =  add_predictors(base, interact_vars),
+#                               politics =  add_predictors(base, pol_vars),
+#                               full = add_predictors(politics, interact_vars)
+# )
 
 ## LINEAR MODEL
 linear.model <- map(linear.model.form, ~ lm(.x, data = eac, model = TRUE))
@@ -1230,33 +1208,59 @@ coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
                   "vio_34_mean" = "State-Guerilla Dispute",
                   "vio_31_mean" = "Exposure to State",
                   "vio_32_mean" = "Exposure to Guerillas",
-                  "c_match_presdept" = NA, "c_match_munidept" = NA,
-                  "c_match_munideptpres" = NA, "pres_pidmuni" = NA,
-                  "s_match_presseat" = NA, "s_match_muniseatpres" = NA,
                   "muni_locd:vio_34_mean" = "Aid * State-Guer Dispute")
+
+## FOR APPENDIX (W/ POL VARS):
+# coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
+#                   "SPI12m_sd" = "SPI (std dev)", "geo_3" = "Muni area",
+#                   "upstream" = "Upstream", "altitude" = "Altitude",
+#                   "vio_34_mean" = "State-Guerilla Dispute",
+#                   "vio_31_mean" = "Exposure to State",
+#                   "vio_32_mean" = "Exposure to Guerillas",
+#                   "c_match_presdept" = NA, "c_match_munidept" = NA,
+#                   "c_match_munideptpres" = NA, "pres_pidmuni" = NA,
+#                   "s_match_presseat" = NA, "s_match_muniseatpres" = NA,
+#                   "muni_locd:vio_34_mean" = "Aid * State-Guer Dispute")
 
 
 ## NOTE FOR BOTTOM OF TABLE
 # %stars puts p-value definitions in Note
 note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
-variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
-exclusive categories compared against a category where there is no match
-in ideology. 'State-Guerilla Dispute' = the
+variable. 'State-Guerilla Dispute' = the proportion of years (1998-2009) that 
+government and guerilla forces have a dispute in a given municipality. 
+'Exposure to State' = proportion of years (1998-2009) that the non-combatant 
+population comes in contact with government forces. 'Exposure to Guerilla' = 
+the same definition, but for guerilla forces. Table shows robust standard 
+errors."
+
+note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
+variable. 'State-Guerilla Dispute' = the
 proportion of years (1998-2009) that government and guerilla forces have a
 dispute in a given municipality. 'Exposure to State' = proportion of years
 (1998-2009) that the non-combatant population comes in contact with government
 forces. 'Exposure to Guerilla' = the same definition, but for guerilla forces.
 Table shows robust standard errors."
 
-note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
-variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
-exclusive categories compared against a category where there is no match
-in ideology. 'State-Guerilla Dispute' = the
-proportion of years (1998-2009) that government and guerilla forces have a
-dispute in a given municipality. 'Exposure to State' = proportion of years
-(1998-2009) that the non-combatant population comes in contact with government
-forces. 'Exposure to Guerilla' = the same definition, but for guerilla forces.
-Table shows robust standard errors."
+## FOR APPENDIX (W/ POL VARS):
+# note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
+# variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
+# exclusive categories compared against a category where there is no match
+# in ideology. 'State-Guerilla Dispute' = the
+# proportion of years (1998-2009) that government and guerilla forces have a
+# dispute in a given municipality. 'Exposure to State' = proportion of years
+# (1998-2009) that the non-combatant population comes in contact with government
+# forces. 'Exposure to Guerilla' = the same definition, but for guerilla forces.
+# Table shows robust standard errors."
+# 
+# note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
+# variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
+# exclusive categories compared against a category where there is no match
+# in ideology. 'State-Guerilla Dispute' = the
+# proportion of years (1998-2009) that government and guerilla forces have a
+# dispute in a given municipality. 'Exposure to State' = proportion of years
+# (1998-2009) that the non-combatant population comes in contact with government
+# forces. 'Exposure to Guerilla' = the same definition, but for guerilla forces.
+# Table shows robust standard errors."
 
 ## SAVE REG OUTPUT TABLE W/ ROBUST SEs
 setwd(dir.figures.tables)
@@ -1283,7 +1287,7 @@ robust_table(linear.model.out2, filename = filename_out2, title_out2, coefnames,
 # aid*coca
 interplot(m = linear.model[[2]], var1 = "muni_locd", var2 = "vio_34_mean",
           hist = TRUE) +
-  ylab("Aid's Effect on Crop Veg Cover") +
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") +
   xlab("Proportion of State-Guerilla Disputes (1998-2009)") + 
   geom_hline(yintercept = 0, color="grey35", size = .3) +
   ggtitle("Estimated Coefficient of Aid by the Proportion of Disputes (1998-2009)")
@@ -1353,18 +1357,30 @@ interact_vars <- ~muni_locd:vio_46
 # set models
 linear.model.form <- formulas(.response = dep_var,
                               base = base_vars,
-                              interact =  add_predictors(base, interact_vars),
-                              politics =  add_predictors(base, pol_vars),
-                              full = add_predictors(politics, interact_vars)
+                              interact =  add_predictors(base, interact_vars)
 )
+
+## FOR APPENDIX (W/ POL VARS):
+# linear.model.form <- formulas(.response = dep_var,
+#                               base = base_vars,
+#                               interact =  add_predictors(base, interact_vars),
+#                               politics =  add_predictors(base, pol_vars),
+#                               full = add_predictors(politics, interact_vars)
+# )
 
 
 linear.model.form2 <- formulas(.response = dep_var2,
                               base = base_vars,
-                              interact =  add_predictors(base, interact_vars),
-                              politics =  add_predictors(base, pol_vars),
-                              full = add_predictors(politics, interact_vars)
+                              interact =  add_predictors(base, interact_vars)
 )
+
+## FOR APPENDIX (W/ POL VARS):
+# linear.model.form2 <- formulas(.response = dep_var2,
+#                               base = base_vars,
+#                               interact =  add_predictors(base, interact_vars),
+#                               politics =  add_predictors(base, pol_vars),
+#                               full = add_predictors(politics, interact_vars)
+# )
 
 
 ## LINEAR MODEL
@@ -1407,31 +1423,55 @@ coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
                   "vio_46" = "Conflict Incidence",
                   "vio_31_mean" = "Exposure to State",
                   "vio_32_mean" = "Exposure to Guerillas",
-                  "c_match_presdept" = NA, "c_match_munidept" = NA,
-                  "c_match_munideptpres" = NA, "pres_pidmuni" = NA,
-                  "s_match_presseat" = NA, "s_match_muniseatpres" = NA,
-                  "muni_locd:vio_46" = "Conflict Incidence")
+                  "muni_locd:vio_46" = "Aid * Conflict Incidence")
+
+## FOR APPENDIX (W/ POL VARS):
+# coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
+#                   "SPI12m_sd" = "SPI (std dev)", "geo_3" = "Muni area",
+#                   "upstream" = "Upstream", "altitude" = "Altitude",
+#                   "vio_46" = "Conflict Incidence",
+#                   "vio_31_mean" = "Exposure to State",
+#                   "vio_32_mean" = "Exposure to Guerillas",
+#                   "c_match_presdept" = NA, "c_match_munidept" = NA,
+#                   "c_match_munideptpres" = NA, "pres_pidmuni" = NA,
+#                   "s_match_presseat" = NA, "s_match_muniseatpres" = NA,
+#                   "muni_locd:vio_46" = "Aid * Conflict Incidence")
 
 
 ## NOTE FOR BOTTOM OF TABLE
 # %stars puts p-value definitions in Note
 note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
 variable. 'Conflict Incidence' takes on values 1-5 moving from low levels of
-conflict occurence to high levels of conflict occurence. 'c_match', 's_match',
-and 'pres_pidmuni' variables indicate mutually exclusive categories compared
-against a category where there is no match in ideology. 'Exposure to State' = 
-proportion of years (1998-2009) that the non-combatant population comes in
-contact with government forces. 'Exposure to Guerilla' = the same definition,
+conflict occurence to high levels of conflict occurence. 'Exposure to State' = 
+proportion of years (1998-2009) that the non-combatant population comes in 
+contact with government forces. 'Exposure to Guerilla' = the same definition, 
 but for guerilla forces. Table shows robust SEs."
 
 note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
 variable. 'Conflict Incidence' takes on values 1-5 moving from low levels of
-conflict occurence to high levels of conflict occurence. 'c_match', 's_match',
-and 'pres_pidmuni' variables indicate mutually exclusive categories compared
-against a category where there is no match in ideology. 'Exposure to State' = 
+conflict occurence to high levels of conflict occurence. 'Exposure to State' = 
 proportion of years (1998-2009) that the non-combatant population comes in
 contact with government forces. 'Exposure to Guerilla' = the same definition,
 but for guerilla forces. Table shows robust SEs."
+
+## FOR APPENDIX (W/ POL VARS):
+# note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
+# variable. 'Conflict Incidence' takes on values 1-5 moving from low levels of
+# conflict occurence to high levels of conflict occurence. 'c_match', 's_match',
+# and 'pres_pidmuni' variables indicate mutually exclusive categories compared
+# against a category where there is no match in ideology. 'Exposure to State' = 
+# proportion of years (1998-2009) that the non-combatant population comes in
+# contact with government forces. 'Exposure to Guerilla' = the same definition,
+# but for guerilla forces. Table shows robust SEs."
+# 
+# note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
+# variable. 'Conflict Incidence' takes on values 1-5 moving from low levels of
+# conflict occurence to high levels of conflict occurence. 'c_match', 's_match',
+# and 'pres_pidmuni' variables indicate mutually exclusive categories compared
+# against a category where there is no match in ideology. 'Exposure to State' = 
+# proportion of years (1998-2009) that the non-combatant population comes in
+# contact with government forces. 'Exposure to Guerilla' = the same definition,
+# but for guerilla forces. Table shows robust SEs."
 
 ## SAVE REG OUTPUT TABLE W/ ROBUST SEs
 setwd(dir.figures.tables)
@@ -1459,7 +1499,8 @@ robust_table(linear.model.out2, filename = filename_out2, title_out2, coefnames,
 # aid*coca
 interplot(m = linear.model[[2]], var1 = "muni_locd", var2 = "vio_46",
           hist = TRUE) +
-  ylab("Aid's Effect on Crop Veg Cover") + xlab("Conflict Incidence Index (2002-2013)") + 
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") + 
+  xlab("Conflict Incidence Index (2002-2013)") + 
   geom_hline(yintercept = 0, color="grey35", size = .3) +
   ggtitle("Estimated Coefficient of Aid by Conflict Incidence (2002-2013)")
 
@@ -1470,7 +1511,8 @@ ggsave("cropveg_aid-incidence.pdf", plot = last_plot(), device = "pdf", width = 
 # aid*coca + pol
 interplot(m = linear.model[[4]], var1 = "muni_locd", var2 = "vio_46",
           hist = TRUE) +
-  ylab("Aid's Effect on Crop Veg Cover") + xlab("Conflict Incidence Index (2002-2013)") + 
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") + 
+  xlab("Conflict Incidence Index (2002-2013)") + 
   geom_hline(yintercept = 0, color="grey35", size = .3) +
   ggtitle("Estimated Coefficient of Aid by Conflict Incidence (2002-2013)",
           subtitle = "controlling for election effects")
@@ -1515,22 +1557,37 @@ ggsave("crop_aid-incidence_elecs.pdf", plot = last_plot(), device = "pdf",
 ## VARS TO INCLUDE IN MODEL
 base_vars <- ~muni_locd + SPI12m_sd + geo_3 + upstream + altitude +
   vio_34_mean + vio_31_mean + vio_32_mean + vio_13
-interact_vars <- ~muni_locd:vio_34_mean:vio_13
+interact_vars <- ~muni_locd + vio_34_mean + vio_13 + SPI12m_sd + geo_3 +
+  upstream + altitude + vio_31_mean + vio_32_mean +
+  muni_locd:vio_34_mean + muni_locd:vio_13 + vio_34_mean:vio_13 +
+  muni_locd:vio_34_mean:vio_13
 
 # set models
 linear.model.form <- formulas(.response = dep_var,
                               base = base_vars,
-                              interact =  add_predictors(base, interact_vars),
-                              politics =  add_predictors(base, pol_vars),
-                              full = add_predictors(politics, interact_vars)
+                              interact =  interact_vars
 )
+
+## FOR APPENDIX (W/ POL VARS):
+# linear.model.form <- formulas(.response = dep_var,
+#                               base = base_vars,
+#                               interact =  add_predictors(base, interact_vars),
+#                               politics =  add_predictors(base, pol_vars),
+#                               full = add_predictors(politics, interact_vars)
+# )
 
 linear.model.form2 <- formulas(.response = dep_var2,
                               base = base_vars,
-                              interact =  add_predictors(base, interact_vars),
-                              politics =  add_predictors(base, pol_vars),
-                              full = add_predictors(politics, interact_vars)
+                              interact =  interact_vars
 )
+
+## FOR APPENDIX (W/ POL VARS):
+# linear.model.form2 <- formulas(.response = dep_var2,
+#                               base = base_vars,
+#                               interact =  add_predictors(base, interact_vars),
+#                               politics =  add_predictors(base, pol_vars),
+#                               full = add_predictors(politics, interact_vars)
+# )
 
 
 ## LINEAR MODEL
@@ -1556,11 +1613,13 @@ linear.model.out2 <- map(linear.model.form2, ~ lm(.x, data = crop_out, model = T
 
 ## ONLY THE VARS AND THEIR INTERACTIONS
 triple_effect <- lm(trendcropveg ~ muni_locd + vio_34_mean + vio_13 +
-                      muni_locd:vio_34_mean:vio_13,
+                      muni_locd:vio_34_mean + muni_locd:vio_13 +
+                      vio_34_mean:vio_13 + muni_locd:vio_34_mean:vio_13,
                       data = eac)
 
 triple_effect2 <- lm(trendcrop ~ muni_locd + vio_34_mean + vio_13 +
-                      muni_locd:vio_34_mean:vio_13,
+                      muni_locd:vio_34_mean + muni_locd:vio_13 +
+                      vio_34_mean:vio_13 + muni_locd:vio_34_mean:vio_13,
                       data = eac)
 
 
@@ -1584,10 +1643,23 @@ coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
                   "vio_31_mean" = "Exposure to State",
                   "vio_32_mean" = "Exposure to Guerillas",
                   "vio_13" = "Coca Presence Avg",
-                  "c_match_presdept" = NA, "c_match_munidept" = NA,
-                  "c_match_munideptpres" = NA, "pres_pidmuni" = NA,
-                  "s_match_presseat" = NA, "s_match_muniseatpres" = NA,
+                  "muni_locd:vio_34_mean" = "Aid * Dispute",
+                  "muni_locd:vio_13" = "Aid * Coca",
+                  "vio_34_mean:vio_13" = "Dispute * Coca",
                   "muni_locd:vio_34_mean:vio_13" = "Aid * Dispute * Coca")
+
+## FOR APPENDIX (W/ POL VARS):
+# coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
+#                   "SPI12m_sd" = "SPI (std dev)", "geo_3" = "Muni area",
+#                   "upstream" = "Upstream", "altitude" = "Altitude",
+#                   "vio_46" = "Conflict Incidence",
+#                   "vio_31_mean" = "Exposure to State",
+#                   "vio_32_mean" = "Exposure to Guerillas",
+#                   "vio_13" = "Coca Presence Avg",
+#                   "c_match_presdept" = NA, "c_match_munidept" = NA,
+#                   "c_match_munideptpres" = NA, "pres_pidmuni" = NA,
+#                   "s_match_presseat" = NA, "s_match_muniseatpres" = NA,
+#                   "muni_locd:vio_34_mean:vio_13" = "Aid * Dispute * Coca")
 
 
 ## NOTE FOR BOTTOM OF TABLE
@@ -1595,8 +1667,6 @@ coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
 note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
 variable. 'State-Guerilla Dispute' = the proportion of years (1998-2009) that
 government and guerilla forces have a dispute in a given municipality. 
-'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually exclusive
-categories compared against a category where there is no match in ideology. 
 'Exposure to State' = proportion of years (1998-2009) that the non-combatant
 population comes in contact with government forces. 'Exposure to Guerilla' = the 
 same definition, but for guerilla forces. Table shows robust SEs."
@@ -1604,11 +1674,29 @@ same definition, but for guerilla forces. Table shows robust SEs."
 note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
 variable. 'State-Guerilla Dispute' = the proportion of years (1998-2009) that
 government and guerilla forces have a dispute in a given municipality. 
-'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually exclusive
-categories compared against a category where there is no match in ideology. 
 'Exposure to State' = proportion of years (1998-2009) that the non-combatant
 population comes in contact with government forces. 'Exposure to Guerilla' = the 
 same definition, but for guerilla forces. Table shows robust SEs."
+
+
+## FOR APPENDIX (W/ POL VARS):
+# note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
+# variable. 'State-Guerilla Dispute' = the proportion of years (1998-2009) that
+# government and guerilla forces have a dispute in a given municipality. 
+# 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually exclusive
+# categories compared against a category where there is no match in ideology. 
+# 'Exposure to State' = proportion of years (1998-2009) that the non-combatant
+# population comes in contact with government forces. 'Exposure to Guerilla' = the 
+# same definition, but for guerilla forces. Table shows robust SEs."
+# 
+# note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
+# variable. 'State-Guerilla Dispute' = the proportion of years (1998-2009) that
+# government and guerilla forces have a dispute in a given municipality. 
+# 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually exclusive
+# categories compared against a category where there is no match in ideology. 
+# 'Exposure to State' = proportion of years (1998-2009) that the non-combatant
+# population comes in contact with government forces. 'Exposure to Guerilla' = the 
+# same definition, but for guerilla forces. Table shows robust SEs."
 
 
 ## SAVE REG OUTPUT TABLE W/ ROBUST SEs
@@ -1640,7 +1728,7 @@ ThreewayME.f(M = triple_effect,
              Z = eac$vio_13,
              W = eac$vio_34_mean,
              xlab = "Proportion of Years w/ Coca Presence (1993-2015)",
-             ylab = "Aid's Effect on Crop Veg Cover",
+             ylab = "Aid's Effect on Crop Veg Cover (in Ha)",
              lloc = "bottomright",
              Min = "Min Value",
              Q1 = "First Quantile",
@@ -1651,10 +1739,6 @@ ThreewayME.f(M = triple_effect,
              rob,
              hist
             )
-setwd(dir.figures.tables)
-ggsave("cropveg_aid-coca_dispute-levs_simple.pdf", plot = last_plot(),
-       device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
-
 
 # base model + interactions
 ThreewayME.f(M = linear.model[[2]],
@@ -1662,7 +1746,7 @@ ThreewayME.f(M = linear.model[[2]],
              Z = eac$vio_13,
              W = eac$vio_34_mean,
              xlab = "Proportion of Years w/ Coca Presence (1993-2015)",
-             ylab = "Aid's Effect on Crop Veg Cover",
+             ylab = "Aid's Effect on Crop Veg Cover (in Ha)",
              lloc = "topleft",
              Min = "Min Value",
              Q1 = "First Quantile",
@@ -1673,9 +1757,9 @@ ThreewayME.f(M = linear.model[[2]],
              rob,
              hist
             )
-setwd(dir.figures.tables)
-ggsave("cropveg_aid-coca_dispute-levs.pdf", plot = last_plot(), device = "pdf",
-       width = 7, height = 7, units = "in", dpi = 300)
+# setwd(dir.figures.tables)
+# ggsave("cropveg_aid-coca_dispute-levs.pdf", plot = last_plot(), device = "pdf",
+#        width = 7, height = 7, units = "in", dpi = 300)
 
 
 # full model
@@ -1695,9 +1779,9 @@ ThreewayME.f(M = linear.model[[4]],
              rob,
              hist
             )
-setwd(dir.figures.tables)
-ggsave("cropveg_aid-coca_dispute-levs_elecs.pdf", plot = last_plot(),
-       device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
+# setwd(dir.figures.tables)
+# ggsave("cropveg_aid-coca_dispute-levs_elecs.pdf", plot = last_plot(),
+#        device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
 
 
 # CROP PLOTS
@@ -1717,9 +1801,9 @@ ThreewayME.f(M = triple_effect2,
              rob,
              hist
             )
-setwd(dir.figures.tables)
-ggsave("crop_aid-coca_dispute-levs_simple.pdf", plot = last_plot(),
-       device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
+# setwd(dir.figures.tables)
+# ggsave("crop_aid-coca_dispute-levs_simple.pdf", plot = last_plot(),
+#        device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
 
 
 # base model + interactions
@@ -1739,9 +1823,9 @@ ThreewayME.f(M = linear.model2[[2]],
              rob,
              hist
             )
-setwd(dir.figures.tables)
-ggsave("crop_aid-coca_dispute-levs.pdf", plot = last_plot(), device = "pdf",
-       width = 7, height = 7, units = "in", dpi = 300)
+# setwd(dir.figures.tables)
+# ggsave("crop_aid-coca_dispute-levs.pdf", plot = last_plot(), device = "pdf",
+#        width = 7, height = 7, units = "in", dpi = 300)
 
 
 # full model
@@ -1761,9 +1845,9 @@ ThreewayME.f(M = linear.model2[[4]],
              rob,
              hist
             )
-setwd(dir.figures.tables)
-ggsave("crop_aid-coca_dispute-levs_elecs.pdf", plot = last_plot(),
-       device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
+# setwd(dir.figures.tables)
+# ggsave("crop_aid-coca_dispute-levs_elecs.pdf", plot = last_plot(),
+#        device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
 
 
 
@@ -1776,7 +1860,7 @@ ThreewayME.f(M = triple_effect,
              Z = eac$vio_34_mean,
              W = eac$vio_13,
              xlab = "Proportion of Years w/ State-Guerilla Conflict (1998-2012)",
-             ylab = "Aid's Effect on Crop Veg Cover",
+             ylab = "Aid's Effect on Crop Veg Cover (in Ha)",
              lloc = "topleft",
              Min = "Min Value",
              Q1 = "First Quantile",
@@ -1787,9 +1871,9 @@ ThreewayME.f(M = triple_effect,
              rob,
              hist
             )
-setwd(dir.figures.tables)
-ggsave("cropveg_aid-dispute_coca-levs_simple.pdf", plot = last_plot(),
-       device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
+# setwd(dir.figures.tables)
+# ggsave("cropveg_aid-dispute_coca-levs_simple.pdf", plot = last_plot(),
+#        device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
 
 
 # base model + interactions
@@ -1798,7 +1882,7 @@ ThreewayME.f(M = linear.model[[2]],
              Z = eac$vio_34_mean,
              W = eac$vio_13,
              xlab = "Proportion of Years w/ State-Guerilla Conflict (1998-2012)",
-             ylab = "Aid's Effect on Crop Veg Cover",
+             ylab = "Aid's Effect on Crop Veg Cover (in Ha)",
              lloc = "topleft",
              Min = "Min Value",
              Q1 = "First Quantile",
@@ -1809,9 +1893,9 @@ ThreewayME.f(M = linear.model[[2]],
              rob,
              hist
             )
-setwd(dir.figures.tables)
-ggsave("cropveg_aid-dispute_coca-levs.pdf", plot = last_plot(),
-       device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
+# setwd(dir.figures.tables)
+# ggsave("cropveg_aid-dispute_coca-levs.pdf", plot = last_plot(),
+#        device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
 
 # full model
 ThreewayME.f(M = linear.model[[4]],
@@ -1853,9 +1937,9 @@ ThreewayME.f(M = triple_effect2,
              rob,
              hist
             )
-setwd(dir.figures.tables)
-ggsave("crop_aid-dispute_coca-levs_simple.pdf", plot = last_plot(),
-       device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
+# setwd(dir.figures.tables)
+# ggsave("crop_aid-dispute_coca-levs_simple.pdf", plot = last_plot(),
+#        device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
 
 
 # base model + interactions
@@ -1875,9 +1959,9 @@ ThreewayME.f(M = linear.model2[[2]],
              rob,
              hist
             )
-setwd(dir.figures.tables)
-ggsave("crop_aid-dispute_coca-levs.pdf", plot = last_plot(), device = "pdf",
-       width = 7, height = 7, units = "in", dpi = 300)
+# setwd(dir.figures.tables)
+# ggsave("crop_aid-dispute_coca-levs.pdf", plot = last_plot(), device = "pdf",
+#        width = 7, height = 7, units = "in", dpi = 300)
 
 # full model
 ThreewayME.f(M = linear.model2[[4]],
@@ -1896,9 +1980,9 @@ ThreewayME.f(M = linear.model2[[4]],
              rob,
              hist
             )
-setwd(dir.figures.tables)
-ggsave("crop_aid-dispute_coca-levs_elecs.pdf", plot = last_plot(),
-       device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
+# setwd(dir.figures.tables)
+# ggsave("crop_aid-dispute_coca-levs_elecs.pdf", plot = last_plot(),
+#        device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
 
 
 
@@ -1920,20 +2004,35 @@ interact_vars2 <- ~muni_locd:vio_32_mean
 linear.model.form <- formulas(.response = dep_var,
                               base = base_vars,
                               interact =  add_predictors(base, interact_vars),
-                              interact2 = add_predictors(base, interact_vars2),
-                              politics =  add_predictors(base, pol_vars),
-                              full = add_predictors(politics, interact_vars),
-                              full2 = add_predictors(politics, interact_vars2)
+                              interact2 = add_predictors(base, interact_vars2)
                       )
+
+## FOR APPENDIX (W/ POL VARS):
+# linear.model.form <- formulas(.response = dep_var,
+#                               base = base_vars,
+#                               interact =  add_predictors(base, interact_vars),
+#                               interact2 = add_predictors(base, interact_vars2),
+#                               politics =  add_predictors(base, pol_vars),
+#                               full = add_predictors(politics, interact_vars),
+#                               full2 = add_predictors(politics, interact_vars2)
+#                       )
 
 linear.model.form2 <- formulas(.response = dep_var2,
                               base = base_vars,
                               interact =  add_predictors(base, interact_vars),
-                              interact2 = add_predictors(base, interact_vars2),
-                              politics =  add_predictors(base, pol_vars),
-                              full = add_predictors(politics, interact_vars),
-                              full2 = add_predictors(politics, interact_vars2)
+                              interact2 = add_predictors(base, interact_vars2)
                       )
+
+
+## FOR APPENDIX (W/ POL VARS):
+# linear.model.form2 <- formulas(.response = dep_var2,
+#                               base = base_vars,
+#                               interact =  add_predictors(base, interact_vars),
+#                               interact2 = add_predictors(base, interact_vars2),
+#                               politics =  add_predictors(base, pol_vars),
+#                               full = add_predictors(politics, interact_vars),
+#                               full2 = add_predictors(politics, interact_vars2)
+#                       )
 
 
 ## LINEAR MODEL
@@ -1976,30 +2075,54 @@ coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
                   "vio_31_mean" = "Exposure to State",
                   "vio_32_mean" = "Exposure to Guerillas",
                   "vio_13" = "Coca Presence Avg",
-                  "c_match_presdept" = NA, "c_match_munidept" = NA,
-                  "c_match_munideptpres" = NA, "pres_pidmuni" = NA,
-                  "s_match_presseat" = NA, "s_match_muniseatpres" = NA,
                   "muni_locd:vio_31_mean" = "Aid * Exposure to State",
                   "muni_locd:vio_32_mean" = "Aid * Exposure to Guer")
+
+## FOR APPENDIX (W/ POL VARS):
+# coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
+#                   "SPI12m_sd" = "SPI (std dev)", "geo_3" = "Muni area",
+#                   "upstream" = "Upstream", "altitude" = "Altitude",
+#                   "vio_31_mean" = "Exposure to State",
+#                   "vio_32_mean" = "Exposure to Guerillas",
+#                   "vio_13" = "Coca Presence Avg",
+#                   "c_match_presdept" = NA, "c_match_munidept" = NA,
+#                   "c_match_munideptpres" = NA, "pres_pidmuni" = NA,
+#                   "s_match_presseat" = NA, "s_match_muniseatpres" = NA,
+#                   "muni_locd:vio_31_mean" = "Aid * Exposure to State",
+#                   "muni_locd:vio_32_mean" = "Aid * Exposure to Guer")
 
 
 ## NOTE FOR BOTTOM OF TABLE
 # %stars puts p-value definitions in Note
 note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
-variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually 
-exclusive categories compared against a category where there is no match in 
-ideology. 'Exposure to State' = proportion of years (1998-2009) that the 
+variable. 'Exposure to State' = proportion of years (1998-2009) that the 
 non-combatant population comes in contact with government forces. 'Exposure to 
 Guerilla' = the same definition, but for guerilla forces. Table shows robust 
 SEs."
 
 note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
-variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually 
-exclusive categories compared against a category where there is no match in 
-ideology. 'Exposure to State' = proportion of years (1998-2009) that the 
+variable. 'Exposure to State' = proportion of years (1998-2009) that the 
 non-combatant population comes in contact with government forces. 'Exposure to 
 Guerilla' = the same definition, but for guerilla forces. Table shows robust 
 SEs."
+
+
+## FOR APPENDIX (W/ POL VARS):
+# note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
+# variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually 
+# exclusive categories compared against a category where there is no match in 
+# ideology. 'Exposure to State' = proportion of years (1998-2009) that the 
+# non-combatant population comes in contact with government forces. 'Exposure to 
+# Guerilla' = the same definition, but for guerilla forces. Table shows robust 
+# SEs."
+# 
+# note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
+# variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually 
+# exclusive categories compared against a category where there is no match in 
+# ideology. 'Exposure to State' = proportion of years (1998-2009) that the 
+# non-combatant population comes in contact with government forces. 'Exposure to 
+# Guerilla' = the same definition, but for guerilla forces. Table shows robust 
+# SEs."
 
 
 ## SAVE REG OUTPUT TABLE W/ ROBUST SEs
@@ -2026,7 +2149,7 @@ robust_table(linear.model.out2, filename = filename_out2, title_out2, coefnames,
 # aid*vio_31_mean
 interplot(m = linear.model[[2]], var1 = "muni_locd", var2 = "vio_31_mean",
           hist = TRUE) +
-  ylab("Aid's Effect on Crop Veg Cover") +
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") +
   xlab("Muni Population's Exposure to State Conflict (2002-2013)") + 
   geom_hline(yintercept = 0, color="grey35", size = .3) +
   ggtitle("Estimated Coefficient of Aid by Exposure to Conflict (2002-2013)")
@@ -2034,10 +2157,11 @@ setwd(dir.figures.tables)
 ggsave("cropveg_aid-popexpo_state.pdf", plot = last_plot(),
        device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
 
+## FOR APPENDIX (W/ POL VARS):
 # aid*vio_31_mean
 interplot(m = linear.model[[5]], var1 = "muni_locd", var2 = "vio_31_mean",
           hist = TRUE) +
-  ylab("Aid's Effect on Crop Veg Cover") +
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") +
   xlab("Muni Population's Exposure to State Conflict (2002-2013)") + 
   geom_hline(yintercept = 0, color="grey35", size = .3) +
   ggtitle("Estimated Coefficient of Aid by Exposure to Conflict (2002-2013)")
@@ -2048,7 +2172,7 @@ ggsave("cropveg_aid-popexpo_state_elecs.pdf", plot = last_plot(),
 # aid*vio_32_mean
 interplot(m = linear.model[[3]], var1 = "muni_locd", var2 = "vio_32_mean",
           hist = TRUE) +
-  ylab("Aid's Effect on Crop Veg Cover") +
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") +
   xlab("Muni Population's Exposure to Guer Conflict (2002-2013)") + 
   geom_hline(yintercept = 0, color="grey35", size = .3) +
   ggtitle("Estimated Coefficient of Aid by Exposure to Conflict (2002-2013)")
@@ -2056,6 +2180,7 @@ setwd(dir.figures.tables)
 ggsave("cropveg_aid-popexpo_guer.pdf", plot = last_plot(),
        device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
 
+## FOR APPENDIX (W/ POL VARS):
 # aid*vio_32_mean
 interplot(m = linear.model[[6]], var1 = "muni_locd", var2 = "vio_32_mean",
           hist = TRUE) +
@@ -2080,6 +2205,7 @@ setwd(dir.figures.tables)
 ggsave("crop_aid-popexpo_state.pdf", plot = last_plot(),
        device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
 
+## FOR APPENDIX (W/ POL VARS):
 # aid*vio_31_mean
 interplot(m = linear.model2[[5]], var1 = "muni_locd", var2 = "vio_31_mean",
           hist = TRUE) +
@@ -2102,6 +2228,8 @@ setwd(dir.figures.tables)
 ggsave("crop_aid-popexpo_guer.pdf", plot = last_plot(),
        device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
 
+
+## FOR APPENDIX (W/ POL VARS):
 # aid*vio_32_mean
 interplot(m = linear.model2[[6]], var1 = "muni_locd", var2 = "vio_32_mean",
           hist = TRUE) +
@@ -2217,6 +2345,276 @@ eac %>%
 #         vars in general.
 
 
+
+
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
+    ####   AID + COCA (ADDING COFFEE CONTROL)    ####
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
+
+## models ----------------------------------------------------------------------
+
+## VARS TO INCLUDE IN MODEL
+dep_var <- ~trendcropveg
+dep_var2 <- ~trendcrop
+base_vars <- ~muni_locd + SPI12m_sd + geo_3 + upstream + altitude + vio_13
+coffee_dummy <- ~coffee_2014
+coffee_prod <- ~p_cafe
+interact_vars <- ~muni_locd:vio_13
+# political/election vars (camara, senate, president)
+pol_vars <- ~c_match_presdept + c_match_munidept + c_match_munideptpres +
+  pres_pidmuni + s_match_presseat + s_match_muniseatpres
+
+# set models
+# cropveg dv model
+linear.model.form <- formulas(.response = dep_var,
+                              base = base_vars,
+                              coffee = add_predictors(base, coffee_dummy),
+                              coffee2 = add_predictors(base, coffee_prod),
+                              interact1 =  add_predictors(base, coffee_dummy,
+                                                         interact_vars),
+                              interact2 = add_predictors(base, coffee_prod,
+                                                         interact_vars)
+)
+
+# crop dv model
+linear.model.form2 <- formulas(.response = dep_var2,
+                               base = base_vars,
+                               coffee = add_predictors(base, coffee_dummy),
+                               coffee2 = add_predictors(base, coffee_prod),
+                               interact1 =  add_predictors(base, coffee_dummy,
+                                                          interact_vars),
+                               interact2 = add_predictors(base, coffee_prod,
+                                                          interact_vars)
+)
+
+## LINEAR MODEL
+linear.model <- map(linear.model.form, ~ lm(.x, data = eac, model = TRUE))
+
+linear.model2 <- map(linear.model.form2, ~ lm(.x, data = eac, model = TRUE))
+
+## REGRESSION OUTPUT
+linear.model %>% map(summary)
+linear.model %>% map(robust)
+linear.model2 %>% map(summary)
+linear.model2 %>% map(robust)
+
+
+
+## output regression tables ----------------------------------------------------
+
+## FILENAME STRING - CROPVEG 
+filename <- "cropveg_aid_coca1_table.doc"
+
+## FILENAME STRING - CROP
+filename2 <- "crop_aid_coca1_table.doc"
+
+## TABLE TITLE - CROPVEG
+title <- "Aid's Effect on MODIS Crop Veg Cover"
+
+## TABLE TITLE - CROP
+title2 <- "Aid's Effect on MODIS Crop Cover"
+
+## RENAME VARS IN TABLE
+coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
+                  "SPI12m_sd" = "SPI (std dev)", "geo_3" = "Muni area",
+                  "upstream" = "Upstream", "altitude" = "Altitude",
+                  "vio_13" = "Coca presence avg",
+                  "muni_locd:vio_13" = "Aid * Coca")
+
+## FOR APPENDIX TABLE (W/ POLITICAL VARS)
+# coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
+#                   "SPI12m_sd" = "SPI (std dev)", "geo_3" = "Muni area",
+#                   "upstream" = "Upstream", "altitude" = "Altitude",
+#                   "vio_13" = "Coca presence avg", "c_match_presdept" = NA,
+#                   "c_match_munidept" = NA, "c_match_munideptpres" = NA,
+#                   "pres_pidmuni" = NA, "s_match_presseat" = NA,
+#                   "s_match_muniseatpres" = NA,
+#                   "muni_locd:vio_13" = "Aid * Coca")
+
+## NOTE FOR BOTTOM OF TABLE
+# %stars puts p-value definitions in Note
+note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
+variable. Table shows robust standard errors."
+
+note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
+variable. Table shows robust standard errors."
+
+## FOR APPENDIX TABLES (W/ POL VARS)
+# note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
+# variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
+# exclusive categories compared against a category where there is no match
+# in ideology. Table shows robust standard errors."
+# 
+# note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
+# variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually
+# exclusive categories compared against a category where there is no match
+# in ideology. Table shows robust standard errors."
+
+
+## SAVE REG OUTPUT TABLE W/ ROBUST SEs
+setwd(dir.figures.tables)
+# table to .doc
+robust_table(linear.model, filename = filename, title, coefnames, note,
+             latex = FALSE)
+# robust_table(linear.model.out, filename = filename_out, title_out, coefnames,
+#              note, latex = FALSE)
+
+robust_table(linear.model2, filename = filename2, title2, coefnames, note2,
+             latex = FALSE)
+# robust_table(linear.model.out2, filename = filename_out2, title_out2, coefnames,
+#              note2, latex = FALSE)
+
+
+## SHOW REG OUTPUT TABLE W/ ROBUST SEs
+## table to html code
+
+# cropveg tables
+# html_table <-  robust_table(linear.model, filename = NULL, title, coefnames, note,
+#                             latex = FALSE)
+# html_table
+# html_table %>% HTML() %>% browsable() # view the html in R's viewer
+
+# w/out outlier
+# html_table_out <- robust_table(linear.model.out, filename = NULL, title_out, coefnames,
+#                                note, latex = FALSE)
+# html_table_out
+# html_table_out %>% HTML() %>% browsable()
+
+# crop tables
+# html_table2 <- robust_table(linear.model2, filename = NULL, title2, coefnames, note2,
+#                             latex = FALSE)
+# html_table2
+# html_table2 %>% HTML() %>% browsable()
+# 
+# html_table2_out <- robust_table(linear.model.out2, filename = NULL, title_out2,
+#                                 coefnames, note2, latex = FALSE)
+# html_table2_out
+# html_table2_out %>% HTML() %>% browsable()
+
+
+# # TIDY, BROOM, GLANCE
+# linear.model
+# glance(linear.model[[4]])
+# tidy(linear.model[[4]])
+
+
+# interaction plots ----
+
+## CROPVEG PLOTS
+# aid*coca
+interplot(m = linear.model[[2]], var1 = "muni_locd", var2 = "vio_13",
+          hist = TRUE) +
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") + xlab("Avg. Coca Presence") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Coca Presence (1993-2015)")
+
+setwd(dir.figures.tables)
+ggsave("cropveg_aid-coca1.pdf", plot = last_plot(), device = "pdf", width = 7,
+       height = 7, units = "in", dpi = 300)
+
+# aid*coca + pol
+interplot(m = linear.model[[4]], var1 = "muni_locd", var2 = "vio_13",
+          hist = TRUE) +
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") + xlab("Avg. Coca Presence") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Coca Presence (1993-2015)",
+          subtitle = "controlling for election effects")
+
+setwd(dir.figures.tables)
+ggsave("cropveg_aid-coca1_elecs.pdf", plot = last_plot(), device = "pdf", width = 7,
+       height = 7, units = "in", dpi = 300)
+
+
+## CROP PLOTS
+title_ylab_crop <- "Aid's Effect on Crop Cover (in Ha)"
+
+# aid*coca
+interplot(m = linear.model2[[2]], var1 = "muni_locd", var2 = "vio_13",
+          hist = TRUE) +
+  ylab(title_ylab_crop) + xlab("Avg. Coca Presence") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Coca Presence (1993-2015)")
+
+setwd(dir.figures.tables)
+ggsave("crop_aid-coca1.pdf", plot = last_plot(), device = "pdf", width = 7,
+       height = 7, units = "in", dpi = 300)
+
+# aid*coca + pol
+interplot(m = linear.model2[[4]], var1 = "muni_locd", var2 = "vio_13",
+          hist = TRUE) +
+  ylab(title_ylab_crop) + xlab("Avg. Coca Presence") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Coca Presence (1993-2015)",
+          subtitle = "controlling for election effects")
+
+setwd(dir.figures.tables)
+ggsave("crop_aid-coca1_elecs.pdf", plot = last_plot(), device = "pdf",
+       width = 7, height = 7, units = "in", dpi = 300)
+
+
+
+
+
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
+####   AID + COFFEE    ####
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
+
+## models ----------------------------------------------------------------------
+
+## VARS TO INCLUDE IN MODEL
+base_vars <- ~muni_locd + SPI12m_sd + geo_3 + upstream + altitude +
+                vio_13 + p_cafe
+interact_vars <- ~muni_locd:p_cafe
+
+# set models
+# cropveg dv model
+linear.model.form <- formulas(.response = dep_var,
+                              base = base_vars,
+                              interact =  add_predictors(base,
+                                                          interact_vars)
+)
+
+# crop dv model
+linear.model.form2 <- formulas(.response = dep_var2,
+                               base = base_vars,
+                               interact = add_predictors(base,
+                                                          interact_vars)
+)
+
+## LINEAR MODEL
+linear.model <- map(linear.model.form, ~ lm(.x, data = eac, model = TRUE))
+linear.model.out <- map(linear.model.form, ~ lm(.x, data = p_cafe_outlier, model = TRUE))
+
+linear.model2 <- map(linear.model.form2, ~ lm(.x, data = eac, model = TRUE))
+linear.model2.out <- map(linear.model.form2, ~ lm(.x, data = p_cafe_outlier, model = TRUE))
+
+## REGRESSION OUTPUT
+linear.model %>% map(summary)
+linear.model %>% map(robust)
+linear.model.out %>% map(summary)
+linear.model.out %>% map(robust)
+
+linear.model2 %>% map(summary)
+linear.model2 %>% map(robust)
+
+
+interplot(m = linear.model[[2]], var1 = "muni_locd", var2 = "p_cafe",
+          hist = TRUE) +
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") +
+  xlab("Avg. Coffee Production") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Coffee Production (1993-2015)")
+
+interplot(m = linear.model.out[[2]], var1 = "muni_locd", var2 = "p_cafe",
+          hist = TRUE) +
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") +
+  xlab("Avg. Coffee Production") +
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Coffee Production (1993-2015)")
+
+
+
+
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
     ####   AID: POL MATCH    ####
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
@@ -2232,27 +2630,14 @@ eac %>%
 #                    local_parliament_match_mean, family = binomial(link='logit'), data = agaid)
 
 
-# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
-    ####   AID: POL IDEO    ####
-# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
-
-
-
-# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
-    ####   AID: POL    ####
-# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
 
 
 
 
 
 
-
-
-
-
-
-## TABLE HELP ####
+#-------------------------------------------------------------------------------
+## TABLE HELP
 ## LOGIT RESULTS TO EXCEL
 # setwd("/Users/wtmatthias/Google Drive/Research/colombia_pb_pleb/data/03_data_viz/")
 # results_df <-summary.glm(logit11)$coefficients
@@ -2302,5 +2687,3 @@ eac %>%
 #   scale_linetype_manual(breaks=c("CI","P"), values=c(2,1)) +
 #   ylab('Marginal effect of  on Aid') +
 #   guides(linetype=F)
-
-#-------------------------------------------------------------------------------

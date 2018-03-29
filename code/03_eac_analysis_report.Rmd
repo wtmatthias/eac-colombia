@@ -17,8 +17,13 @@ geometry: margin=1in
 fontsize: 10pt
 ---
 # Aid's Effect on Crop Coverage: Analysis Overview
+
 ```{r setup, include=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo=FALSE)
+knitr::opts_knit$set(root.dir="..")
+```
+
+```{r setup2, include=FALSE, warning=FALSE}
 
 library(sandwich)
 library(RCurl)
@@ -35,26 +40,20 @@ library(texreg)
 library(broom)
 library(htmltools)
 library(stringr)
+library(kableExtra)
+library(magick)
 
 ## Set file paths --------------------------------------------------------------
 # Set working directory to where you saved project directory (folder)
 # 'dir.home' the only file path you need to change!
-dir.home <- file.path("/Users/wtmatthias/Google Drive/Mike RA")
+# dir.home <- file.path("/Users/wtmatthias/Google Drive/Mike RA")
 
-dir.outdata <- file.path(dir.home,
-                         "elections_aid_cropshare/data_201708/01_outputdata")
+dir.outdata <- file.path("./01_outputdata")
 
-dir.analysis <- file.path(dir.home,
-                          "elections_aid_cropshare/data_201708")
-dir.figures.tables <- file.path(
-                    dir.home,
-                    "elections_aid_cropshare/data_201708/02_tables_and_figures")
+dir.figures.tables <- file.path("./02_tables_and_figures")
 
 ## Load Data -------------------------------------------------------------------
-load(file = file.path(
-  dir.outdata,
-  "eac_vio_muni_cross-section.RData"
-))
+load(file = file.path(dir.outdata, "eac_vio_muni_cross-section.RData"))
 
 
 
@@ -396,40 +395,42 @@ rm(aid_merged)
 
 
 
-
-
-
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
                   ####  II. EXPLORATORY DATA ANALYSIS  ####
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= # 
 
 eac_names <- as.data.frame(variable.names(eac))
-View(eac_names)
+
+# change coffee NA values to 0
+eac %<>% 
+  mutate(
+    p_cafe = if_else(is.na(p_cafe),
+                          0,
+                          p_cafe),
+    r_cafe = if_else(is.na(r_cafe),
+                          0,
+                          r_cafe),
+    
+    coffee_avg = if_else(is.na(coffee_avg),
+                          0,
+                          coffee_avg)
+    
+)
+
 
 ## 2a) Summary/Descriptive Stats Table -----------------------------------------
 
 # select() vars to use in "" function below
 descriptive_vars <- eac %>%
   ungroup() %>% 
-  select(trendcrop, trendc3, trendcropveg, trendgrass,
-         muni_locd, cropsha_pct01, SPI12m_mean, SPI12m_sd,
-         upstream, altitude, road0,
+  select(trendcrop, trendcropveg, muni_locd, SPI12m_sd,
+         upstream, altitude,
          illegal_crops, vio_13,
-         farc_zone, vio_15,
-         starts_with("pres_"),
-         num_range("pol_", 9:18),
-         starts_with("c_"),
-         starts_with("s_"),
-         num_range("vio_", c(1:3, 9:11, 14, 26:28, 31:36, 46:47, 87)),
-         vio_26_mean, vio_27_mean, vio_28_mean, vio_31_mean, vio_32_mean,
-         vio_33_mean, vio_34_mean, vio_35_mean, vio_36_mean
-  )
-
-# "Inf" values in cropsha_pct01 compute descriptive stats properly
-descriptive_vars %<>%
-  mutate(cropsha_pct01 = if_else(is.infinite(cropsha_pct01),
-                                 NA_real_,
-                                 cropsha_pct01)
+         pres_pidmuni,
+         starts_with("c_match"),
+         starts_with("s_match"),
+         vio_31_mean, vio_32_mean, vio_34_mean,
+         p_cafe, r_cafe, coffee_2014, coffee_avg
   )
 
 
@@ -463,7 +464,7 @@ summarized_vars <- bind_cols(summarized_n, summarized_mean, summarized_sd,
 # create a tidy df w/ no duplicate cols
 summarized_vars %<>% select(-num_range("name_var", c(1:5)))
 
-summarized_vars %<>% rename(Variable = name_var, Mean = mean, `Std Dev` = sd,
+summarized_vars %<>% rename(Variable = name_var, Mean = mean, Std_Dev = sd,
                             Median = median, Max = max, Min = min)
 
 
@@ -472,19 +473,27 @@ summarized_vars %<>% rename(Variable = name_var, Mean = mean, `Std Dev` = sd,
 
 ## Descriptive Stats for Covariates in Dataset
 
-```{r descriptive}
+```{r descriptive, warning=FALSE}
 # latex table
 # (if latex wanted change chunk options to results="asis")
 # xtable(summarized_vars, digits = 2)
 
 
-summarized_var_html <- xtable(summarized_vars, digits = 2)
+# summarized_var_html <- xtable(summarized_vars, digits = 2)
 # print(summarized_var_html, type = "html",
 #         html.table.attributes = "",
 #         include.rownames = FALSE,
 #         format.args = list(big.mark = ",")) %>% HTML() %>% browsable()
 
-kable(summarized_var_html, digits = 2)
+# html output
+kable(summarized_vars, digits = 2)
+
+kable(summarized_vars, format = "latex", digits = 2,
+      caption = "Descriptive Statistics for Variables", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "scale_down")) %>% 
+  kable_as_image(filename = "variable_summary",
+               file_format = "pdf",
+               density = 300)
 ```
 
 
@@ -495,11 +504,25 @@ kable(summarized_var_html, digits = 2)
 Between 1993-2015, municipalities are by and large going to fall under one of two categories: *"having coca crops present"* in their municipality or *"not having coca crops present"* in their municipality. **"illegal_crops"** is a dummy variable that counts whether there was coca growing in 2013. **"vio_13"** is the proportion of years (1993-2015) in which coca is present in a given municipality.
 
 ```{r, warning=FALSE}
-ggplot(eac) + geom_bar(aes(x = illegal_crops))
+ggplot(eac) + geom_bar(aes(x = illegal_crops)) +
+  labs(title = "Distribution of Coca Presence Dummy (2013)",
+       x = "Coca Presence Dummy ('illegal_crops')")
+ggsave(file.path(dir.figures.tables,
+                 "appendix/descriptive_stats/coca_dummy_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 7,
+       height = 7, units = "in", dpi = 300)
+
 eac %>% select(illegal_crops) %>% count()
 
 # vio_13 (coca presence dummy)
-ggplot(eac) + geom_freqpoly(aes(x = vio_13), binwidth = 0.05) # count
+ggplot(eac) + geom_freqpoly(aes(x = vio_13), binwidth = 0.05) +
+  labs(title = "Distribution of Coca Presence Avg. (1998-2014)",
+       x = "Coca Presence Avg. ('vio_13')")
+ggsave(file.path(dir.figures.tables,
+                 "appendix/descriptive_stats/coca_avg_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 7,
+       height = 7, units = "in", dpi = 300)
+
 ```
 
 
@@ -512,7 +535,17 @@ ggplot(eac) + geom_freqpoly(aes(x = vio_13), binwidth = 0.05) # count
 
 ```{r, warning=FALSE}
 eac$muni_locd <- as.integer(eac$muni_locd)
-ggplot(data = eac) + geom_bar(mapping = aes(x = muni_locd))
+
+ggplot(data = eac) + geom_bar(mapping = aes(x = muni_locd)) +
+  labs(title = "How many municipalities receive agricultural aid?",
+       subtitle = "1 = receives aid",
+       x = "Targeted with Ag. Aid ('muni_locd')")
+ggsave(file.path(dir.figures.tables,
+                 "appendix/descriptive_stats/aid_distribution.pdf"),
+       plot = last_plot(), device = "pdf", width = 7,
+       height = 7, units = "in", dpi = 300)
+
+
 eac %>% select(muni_locd) %>% count()
 ```
 
@@ -540,7 +573,16 @@ eac %>% select(codmuni, trendcrop) %>% filter(trendcrop < -500)
 
 ggplot(eac) +
   geom_histogram(aes(x = trendcrop), binwidth = 20) +
-  xlim(-500, 500)
+  xlim(-500, 500) +
+  labs(title = "Distribution of MODIS Cropland Cover Trend*",
+       caption = "*Zoomed in on x-axis for better visualization. Leaves out
+       around ~10 values.",
+       x = "MODIS Cropland Cover Trend ('trendcrop')")
+
+ggsave(file.path(dir.figures.tables,
+                 "appendix/descriptive_stats/trendcrop_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 7,
+       height = 7, units = "in", dpi = 300)
 ```
 
 
@@ -560,8 +602,16 @@ eac %>%
 # distribution with the limited x-axis
 ggplot(eac) +
   geom_histogram(aes(x = trendcropveg), binwidth = 20) +
-  xlim(-2000, 4000)
+  xlim(-2000, 4000) +
+  labs(title = "Distribution of MODIS Cropland/Natural Vegetation Cover Trend*",
+       caption = "*Zoomed in on x-axis for better visualization. Leaves out
+       around ~10 values.",
+       x = "MODIS Crop/Natural Veg. Cover Trend ('trendcropveg')")
 
+ggsave(file.path(dir.figures.tables,
+                 "appendix/descriptive_stats/trendcropveg_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 7,
+       height = 7, units = "in", dpi = 300)
 
 ```
 
@@ -573,16 +623,43 @@ ggplot(eac) +
 ```{r, warning=FALSE}
 ## vio_31-33: population exposure ----
 # vio_31: exposure to state
-ggplot(eac) + geom_histogram(aes(x = vio_31_mean), binwidth = .1)
+ggplot(eac) + geom_histogram(aes(x = vio_31_mean), binwidth = .1) +
+  labs(title = "Population's Contact with Government/State Military",
+       subtitle = "the proportion of years with contact",
+       x = "Population Exposure to State ('vio_31_mean')")
+
+ggsave(file.path(dir.figures.tables,
+                 "appendix/descriptive_stats/popexpo_state_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 7,
+       height = 7, units = "in", dpi = 300)
+
+
 # vio_32: exposure to guer
-ggplot(eac) + geom_histogram(aes(x = vio_32_mean), binwidth = .1)
+ggplot(eac) + geom_histogram(aes(x = vio_32_mean), binwidth = .1) +
+  labs(title = "Population's Contact with Guerilla Forces",
+       subtitle = "the proportion of years with contact",
+       x = "Population Exposure to Guerillas ('vio_32_mean')")
+
+ggsave(file.path(dir.figures.tables,
+                 "appendix/descriptive_stats/popexpo_guer_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 7,
+       height = 7, units = "in", dpi = 300)
 # vio_33: exposure to guer
 ggplot(eac) + geom_histogram(aes(x = vio_33_mean), binwidth = .1)
 
 
 ## vio_34-36: dispute ----
 # vio_34: state vs. guerilla conflict
-ggplot(eac) + geom_histogram(aes(x = vio_34_mean), binwidth = .1)
+ggplot(eac) + geom_histogram(aes(x = vio_34_mean), binwidth = .1) +
+  labs(title = "State vs. Guerilla Disputes in a Municipality (1998-2014)",
+       subtitle = "proportion of years with fighting",
+       x = "State vs. Guerilla Dispute ('vio_34_mean')")
+
+ggsave(file.path(dir.figures.tables,
+                 "appendix/descriptive_stats",
+                 "state-guerilla-dispute_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 7,
+       height = 7, units = "in", dpi = 300)
 
 # vio_35: state vs. paramilitary/neoparamilitary
 ggplot(eac) + geom_histogram(aes(x = vio_35_mean), binwidth = .1)
@@ -592,7 +669,17 @@ ggplot(eac) + geom_histogram(aes(x = vio_36_mean), binwidth = .1)
 
 
 ## vio_46: incidence of conflict ----
-ggplot(eac) + geom_bar(aes(x = vio_46))
+ggplot(eac) + geom_bar(aes(x = vio_46)) +
+  labs(title = "Conflict Incidence in a Municipality (2002-2013)",
+       x = "Conflict Incidence Index* ('vio_46')",
+       caption = "*Dept of National Planning, Colombia")
+ggsave(file.path(dir.figures.tables,
+                 "appendix/descriptive_stats",
+                 "incidence_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 7,
+       height = 7, units = "in", dpi = 300)
+
+  
 ```
 
 
@@ -622,7 +709,18 @@ cropveg_out <- eac %>% filter(trendcropveg < 8000)
 ## CROPVEG
 # box plot
 ggplot(cropveg_out, aes(muni_locd, trendcropveg, group = muni_locd)) +
-  geom_boxplot()
+  geom_boxplot() +
+  labs(title = "Aid and Cropland/Natural Veg. Cover (Trend)*",
+       subtitle = "1 = municipality receives aid",
+       x = "Receives Aid? ('muni_locd')",
+       y = "Trend in Crop/Natural Veg Cover ('trendcropveg')",
+       caption = "*Not including the outlier Uribia (La Guajira)")
+
+ggsave(file.path(dir.figures.tables,
+                 "appendix/descriptive_stats",
+                 "cropveg_aid_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 7,
+       height = 7, units = "in", dpi = 300)
 
 # distribution by receiving/not receiving aid
 cropveg_out$muni_locd_cat <- as.factor(cropveg_out$muni_locd)
@@ -642,10 +740,23 @@ crop_out <- eac %>% filter(trendcrop < 10000)
 # boxplot
 ggplot(crop_out, aes(muni_locd, trendcrop, group = muni_locd)) +
   geom_boxplot()
+  
 
 crop_out %>% filter(trendcrop < 2500) %>%
   ggplot(., aes(muni_locd, trendcrop, group = muni_locd)) +
-  geom_boxplot()
+  geom_boxplot() +
+  labs(title = "Aid and Cropland Cover (Trend)*",
+       subtitle = "1 = municipality receives aid",
+       x = "Receives Aid? ('muni_locd')",
+       y = "Trend in Crop Cover ('trendcrop')",
+       caption = "*Not showing 3 outliers (e.g. Uribia (La Guajira))"
+       )
+
+ggsave(file.path(dir.figures.tables,
+                 "appendix/descriptive_stats",
+                 "crop_aid_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 8,
+       height = 8, units = "in", dpi = 300)
 
 # distribution by receiving/not receiving aid
 crop_out$muni_locd_cat <- as.factor(crop_out$muni_locd)
@@ -1278,6 +1389,322 @@ interplot(m = linear.model2[[6]], var1 = "muni_locd", var2 = "vio_32_mean",
 
 
 
+## Aid, Coffee, and Coca
+```{r coffee-model, warning=FALSE}
+## models ----------------------------------------------------------------------
+
+## VARS TO INCLUDE IN MODEL
+base_vars <- ~muni_locd + SPI12m_sd + geo_3 + upstream + altitude +
+                vio_13 + p_cafe + vio_31_mean + vio_32_mean
+interact_vars <- ~muni_locd:p_cafe
+
+# set models
+# cropveg dv model
+linear.model.form <- formulas(.response = dep_var,
+                              base = base_vars,
+                              interact =  add_predictors(base,
+                                                          interact_vars)
+)
+
+# crop dv model
+linear.model.form2 <- formulas(.response = dep_var2,
+                               base = base_vars,
+                               interact = add_predictors(base,
+                                                          interact_vars)
+)
+
+## LINEAR MODEL
+linear.model <- map(linear.model.form, ~ lm(.x, data = eac, model = TRUE))
+linear.model.out <- map(linear.model.form, ~ lm(.x, data = p_cafe_outlier, model = TRUE))
+
+linear.model2 <- map(linear.model.form2, ~ lm(.x, data = eac, model = TRUE))
+linear.model2.out <- map(linear.model.form2, ~ lm(.x, data = p_cafe_outlier, model = TRUE))
+
+## REGRESSION OUTPUT
+linear.model %>% map(summary)
+linear.model %>% map(robust)
+# linear.model.out %>% map(summary)
+# linear.model.out %>% map(robust)
+
+linear.model2 %>% map(summary)
+linear.model2 %>% map(robust)
+
+
+```
+
+
+```{r coffee-output, warning=FALSE}
+## output regression tables ----------------------------------------------------
+
+## FILENAME STRING
+filename <- "cropveg_coffee_prod_table.doc"
+
+filename2 <- "crop_coffee_prod_table.doc"
+
+## TABLE TITLE - CROPVEG
+title <- "Aid's Effect on MODIS Crop Veg Cover"
+title2 <- "Aid's Effect on MODIS Crop Cover"
+
+
+## RENAME VARS IN TABLE
+coefnames <- list("(Intercept)" = NA, "muni_locd" = "Aid given",
+                  "SPI12m_sd" = "SPI (std dev)", "geo_3" = "Muni area",
+                  "upstream" = "Upstream", "altitude" = "Altitude",
+                  "vio_31_mean" = "Exposure to State",
+                  "vio_32_mean" = "Exposure to Guerillas",
+                  "vio_13" = "Coca Presence Avg",
+                  "muni_locd:p_cafe" = "Aid * Coffee Production",
+                  "p_cafe" = "Coffee Production (Ha)")
+
+## NOTE FOR BOTTOM OF TABLE
+# %stars puts p-value definitions in Note
+note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
+variable. Table shows robust SEs."
+
+note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
+variable. Table shows robust SEs."
+
+
+## FOR APPENDIX (W/ POL VARS):
+# note <- "%stars. OLS regressions with MODIS cropveg trend as the dependent
+# variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually 
+# exclusive categories compared against a category where there is no match in 
+# ideology. 'Exposure to State' = proportion of years (1998-2009) that the 
+# non-combatant population comes in contact with government forces. 'Exposure to 
+# Guerilla' = the same definition, but for guerilla forces. Table shows robust 
+# SEs."
+# 
+# note2 <- "%stars. OLS regressions with MODIS crop trend as the dependent
+# variable. 'c_match', 's_match', and 'pres_pidmuni' variables indicate mutually 
+# exclusive categories compared against a category where there is no match in 
+# ideology. 'Exposure to State' = proportion of years (1998-2009) that the 
+# non-combatant population comes in contact with government forces. 'Exposure to 
+# Guerilla' = the same definition, but for guerilla forces. Table shows robust 
+# SEs."
+
+
+## SAVE REG OUTPUT TABLE W/ ROBUST SEs
+setwd(dir.figures.tables)
+
+## table to .doc
+# cropveg tables
+robust_table(linear.model, filename = filename, title, coefnames, note, latex = FALSE)
+
+# crop tables
+robust_table(linear.model2, filename = filename2, title2, coefnames, note2,
+             latex = FALSE)
+
+
+
+## interaction plots -----------------------------------------------------------
+
+## CROPVEG PLOTS
+interplot(m = linear.model[[2]], var1 = "muni_locd", var2 = "p_cafe",
+          hist = TRUE) +
+  ylab("Aid's Effect on Crop Veg Cover (in Ha)") +
+  xlab("Avg. Coffee Production") + 
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Coffee Production (1993-2015)")
+ggsave("cropveg_coffee_prod.pdf", plot = last_plot(),
+       device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
+
+## CROP PLOTS
+interplot(m = linear.model2[[2]], var1 = "muni_locd", var2 = "p_cafe",
+          hist = TRUE) +
+  ylab("Aid's Effect on Crop Cover (in Ha)") +
+  xlab("Avg. Coffee Production") +
+  geom_hline(yintercept = 0, color="grey35", size = .3) +
+  ggtitle("Estimated Coefficient of Aid by Coffee Production (1993-2015)")
+ggsave("crop_coffee_prod.pdf", plot = last_plot(),
+       device = "pdf", width = 7, height = 7, units = "in", dpi = 300)
+
+
+```
+
+
+```{r, warning=FALSE}
+xtabs(~eac$illegal_crops + eac$coffee_2014)
+```
+There's only a 50% overlap in coffee (2014)  and coca (2013) municipalities. I would expect that if you're able to grow coca you're going to stick with growing that instead of coffee if you can. It probably brings in more money, requires less work, etc. In areas that are mixed with both it could be a function of the municipality's size and maybe a sign of some crackdown on coca growth? It would also be interesting to see this in FARC zones/non-FARC zones.
+
+```{r coff-coca-combo-df, warning=FALSE, include=FALSE}
+## CREATE DF TO SEE CROP/CROPVEG AND COFFEE/COCA/AID COMBOS
+# RECEIVE AID
+coffee_coca_aid <- eac %>%
+  select(codmuni, municipality, department,
+         coffee_2014, illegal_crops, muni_locd,
+         trendcropveg, trendcrop
+  ) %>%
+  filter(muni_locd == 1
+  ) %>% 
+  mutate(
+    coffee_coca = case_when(
+      coffee_2014 == 1 & illegal_crops == 1 ~ "Coff-Y-Coca-Y",
+      coffee_2014 == 1 & illegal_crops == 0 ~ "Coff-Y-Coca-N",
+      coffee_2014 == 0 & illegal_crops == 1 ~ "Coff-N-Coca-Y",
+      coffee_2014 == 0 & illegal_crops == 0 ~ "Coff-N-Coca-N",
+      TRUE ~ NA_character_
+      )
+  )
+coffee_coca_aid$coffee_coca <- as.factor(coffee_coca_aid$coffee_coca)
+
+# DON'T RECEIVE AID
+coffee_coca_no_aid <- eac %>%
+  select(codmuni, municipality, department,
+         coffee_2014, illegal_crops, muni_locd,
+         trendcropveg, trendcrop
+  ) %>%
+  filter(muni_locd == 0 & codmuni != 44847
+  ) %>% 
+  mutate(
+    coffee_coca = case_when(
+      coffee_2014 == 1 & illegal_crops == 1 ~ "Coff-Y-Coca-Y",
+      coffee_2014 == 1 & illegal_crops == 0 ~ "Coff-Y-Coca-N",
+      coffee_2014 == 0 & illegal_crops == 1 ~ "Coff-N-Coca-Y",
+      coffee_2014 == 0 & illegal_crops == 0 ~ "Coff-N-Coca-N",
+      TRUE ~ NA_character_
+      )
+  )
+  
+coffee_coca_no_aid$coffee_coca <- as.factor(coffee_coca_no_aid$coffee_coca)
+```
+
+
+```{r, warning=FALSE}
+## CROPVEG TREND ACROSS DIFFERENT COFFEE-COCA COMBOS
+
+# strings for titled, labels, legends
+legend_name <- "Coffee-Coca Presence?"
+legend_breaks <- c("Coff-N-Coca-N",
+                   "Coff-N-Coca-Y",
+                   "Coff-Y-Coca-N",
+                   "Coff-Y-Coca-Y")
+legend_labels <- c("Both No",
+                   "Coffee (No)/Coca (Yes)",
+                   "Coffee (Yes)/Coca (No)",
+                   "Both Yes")
+xaxis_var <- "Coffee & Coca Combo"
+yaxis_var_cropveg <- "Crop/Natural Veg Cover"
+yaxis_var_crop <- "Crop Cover"
+coff_coca_aid_title_cropveg <- "Crop/Natural Veg. Cover in Municipalities Receiving Aid*"
+coff_coca_aid_title_crop <- "Crop Cover in Municipalities Receiving Aid*"
+coff_coca_noaid_title_cropveg <- "Crop/Natural Veg. Cover in Municipalities Not Receiving Aid*"
+coff_coca_noaid_title_crop <- "Crop Cover in Municipalities Not Receiving Aid*"
+
+# function returning the n of each group to display on boxplot
+give.n <- function(x){
+  return(c(y = median(x)*1.1, label = length(x))) 
+  # experiment with the multiplier to find the perfect position
+}
+
+# receiving aid + cropveg
+ggplot(coffee_coca_aid, aes(x = coffee_coca, y = trendcropveg,
+                            fill = coffee_coca)) +
+  geom_boxplot(notch = FALSE
+  ) +
+  stat_summary(fun.data = give.n, geom = "text", fun.y = median
+  ) +
+  scale_fill_discrete(name = legend_name,
+                         breaks = legend_breaks,
+                         labels = legend_labels
+  ) +
+  labs(title = coff_coca_aid_title_cropveg,
+       x = xaxis_var,
+       y = yaxis_var_cropveg,
+       caption = "*n = 119 (w/ 'NA' = 1 muni)"
+  )
+
+ggsave(file.path(dir.figures.tables,
+                 "cropveg_coffee-coca_aid_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 9,
+       height = 7, units = "in", dpi = 300)
+
+
+# receiving aid + crop
+ggplot(coffee_coca_aid, aes(x = coffee_coca, y = trendcrop,
+                            fill = coffee_coca)) +
+  geom_boxplot(notch = FALSE
+  ) +
+  stat_summary(fun.data = give.n, geom = "text", fun.y = median
+  ) +
+  scale_fill_discrete(name = legend_name,
+                         breaks = legend_breaks,
+                         labels = legend_labels
+  ) +
+  labs(title = coff_coca_aid_title_crop, # make sure this is NOT 'cropveg'
+       x = xaxis_var,
+       y = yaxis_var_crop, # make sure this is NOT 'y_axis_var_cropveg'
+       caption = "*n = 119 (w/ 'NA' = 1 muni)"
+  )
+
+ggsave(file.path(dir.figures.tables,
+                 "crop_coffee-coca_aid_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 9,
+       height = 7, units = "in", dpi = 300)
+
+
+
+# NOT receiving aid + cropveg
+ggplot(coffee_coca_no_aid,
+       aes(x = coffee_coca, y = trendcropveg, fill = coffee_coca)
+  ) +
+  geom_boxplot(notch = FALSE
+  ) +
+  stat_summary(fun.data = give.n, geom = "text", fun.y = median
+  ) +
+  scale_fill_discrete(name = legend_name,
+                         breaks = legend_breaks,
+                         labels = legend_labels
+  ) +
+  labs(title = coff_coca_noaid_title_cropveg,
+       x = xaxis_var,
+       y = yaxis_var_cropveg,
+       caption = "*n = 1002 (w/ 'NA' = 25 munis)"
+  )
+
+ggsave(file.path(dir.figures.tables,
+                 "cropveg_coffee-coca_no-aid_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 9,
+       height = 7, units = "in", dpi = 300)
+
+
+
+# NOT receiving aid + crop
+ggplot(coffee_coca_no_aid,
+       aes(x = coffee_coca, y = trendcrop, fill = coffee_coca)
+  ) +
+  ylim(-2000, 500
+  ) +
+  geom_boxplot(notch = FALSE
+  ) +
+  stat_summary(fun.data = give.n, geom = "text", fun.y = median
+  ) +
+  scale_fill_discrete(name = legend_name,
+                         breaks = legend_breaks,
+                         labels = legend_labels
+  ) +
+  labs(title = coff_coca_noaid_title_crop, # make sure this is NOT 'cropveg'
+       x = xaxis_var,
+       y = yaxis_var_crop, # make sure this is NOT 'y_axis_var_cropveg'
+       caption = "*n = 1002 (w/ 'NA' = 5 munis)"
+  )
+
+ggsave(file.path(dir.figures.tables,
+                 "crop_coffee-coca_no-aid_distrib.pdf"),
+       plot = last_plot(), device = "pdf", width = 9,
+       height = 7, units = "in", dpi = 300)
+
+
+## N per Coffee/Coca Grouping
+# coffee_coca_aid %>% count(coffee_coca)
+# coffee_coca_no_aid %>% count(coffee_coca)
+
+
+## 
+```
+
+
+
 
 ## Extra Tables & Figures
 
@@ -1286,7 +1713,7 @@ interplot(m = linear.model2[[6]], var1 = "muni_locd", var2 = "vio_32_mean",
 
 #### Regression Tables and Marginal Effects Plots
 
-```{r aid-coca-dummy, echo = FALSE}
+```{r aid-coca-dummy, echo = FALSE, warning=FALSE}
 # 1) base model: cropshare = aid + coca
 # 2) base model + aid*coca
 # 3) base model + pol vars (_match_none dropped out!)

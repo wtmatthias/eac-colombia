@@ -86,3 +86,11 @@ write_csv(aid_merged, path = file.path(
                         "eac_vio_muni_cross-section.csv"
                         )
           )
+
+## .csv for STATA (NAs are ".")
+# change NaN to NA
+aid_merged2 <- aid_merged %>% map_df(function(x){ifelse(is.nan(x), NA, x)})
+write_csv(aid_merged2,
+          path = file.path(dir.outdata, "eac_vio_muni_cross-section_STATA.csv"),
+          na = "."
+)
