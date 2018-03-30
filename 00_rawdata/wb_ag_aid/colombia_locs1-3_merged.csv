@@ -1,3 +1,1123 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:95b6848b71fc0311577c6e8b74d81ed60ced292fb6d1b86044fc6cac141f70d4
-size 83553
+OBJECTID,ENTIDAD_TE,codmuni,coddept,Municipio,Divipola_3,Department,Municipality,locs3_project_n,locs1_project_n
+3693,Cabecera Municipal,54498,54,Ocaí±a,54498,Norte de Santander,Ocaí±a,1,0
+3872,Cabecera Municipal,25839,25,Ubalíç,25839,Cundinamarca,Ubalíç,0,0
+3941,Cabecera Municipal,19585,19,Purací© (Coconuco),19585,Cauca,Purací©,0,0
+3565,Cabecera Municipal,13300,13,Hatillo De Loba,13300,Bolí_var,Hatillo de Loba,0,0
+0,Cabecera Municipal,88564,88,Providencia (Santa Isabel),88564,Archipií©lago de San Andrí©s,Providencia,0,0
+3383,Cabecera Municipal,19517,19,Píçez (Belalcíçzar),19517,Cauca,Paez,0,0
+3384,Cabecera Municipal,19701,19,Santa Rosa,19701,Cauca,Santa Rosa,1,0
+3385,Cabecera Municipal,19533,19,Piamonte,19533,Cauca,Piamonte,0,0
+3386,Cabecera Municipal,19318,19,Guapi,19318,Cauca,Guapi,0,0
+3387,Cabecera Municipal,19809,19,Timbiquí_,19809,Cauca,Timbiquí_,0,0
+3388,Cabecera Municipal,19418,19,Lí_pez,19418,Cauca,Lí_pez,0,0
+3389,Cabecera Municipal,76845,76,Ulloa,76845,Valle del Cauca,Ulloa,0,0
+3390,Cabecera Municipal,76736,76,Sevilla,76736,Valle del Cauca,Sevilla,0,0
+3391,"Distrito Especiale, Industrial, Portuario, Biodiverso y Ecoturí_stico.",76109,76,Buenaventura,76109,Valle del Cauca,Buenaventura,0,0
+3392,Cabecera Municipal,52696,52,Santa Bíçrbara (Iscuandí©),52696,Narií±o,Santa Bíçrbara,0,0
+3393,Cabecera Municipal,52250,52,El Charco,52250,Narií±o,El Charco,0,0
+3394,Cabecera Municipal,52390,52,La Tola,52390,Narií±o,La Tola,0,0
+3395,Cabecera Municipal,52490,52,Olaya Herrera (Bocas De Satinga),52490,Narií±o,Olaya Herrera,0,0
+3396,Cabecera Municipal,52473,52,Mosquera,52473,Narií±o,Mosquera,0,0
+3397,"Distrito Especiale, Industrial, Portuario, Biodiverso y Ecoturí_stico.",52835,52,Tumaco,52835,Narií±o,San Andres de Tumaco,0,1
+3398,Cabecera Municipal,52520,52,Francisco Pizarro (Salahonda),52520,Narií±o,Francisco Pizarro,0,0
+3400,Cabecera Municipal,52621,52,Roberto Payíçn (San Josí©),52621,Narií±o,Roberto Payíçn,0,0
+3401,Cabecera Municipal,52079,52,Barbacoas,52079,Narií±o,Barbacoas,0,0
+3402,Cabecera Municipal,52612,52,Ricaurte,52612,Narií±o,Ricaurte,0,0
+3403,Cabecera Municipal,52227,52,Cumbal,52227,Narií±o,Cumbal,0,0
+3404,Cabecera Municipal,52224,52,Cuaspud (Carlosama),52224,Narií±o,Cuaspud,0,0
+3405,Cabecera Municipal,52356,52,Ipiales,52356,Narií±o,Ipiales,0,0
+3411,Cabecera Municipal,86320,86,Orito,86320,Putumayo,Orito,0,0
+3412,Cabecera Municipal,86885,86,Villagarzí_n,86885,Putumayo,Villagarzí_n,0,0
+3413,CAP. DEPTO,86001,86,Mocoa,86001,Putumayo,Mocoa,0,0
+3414,Cabecera Municipal,86568,86,Puerto Así_s,86568,Putumayo,Puerto Así_s,0,0
+3415,Cabecera Municipal,86569,86,Puerto Caicedo,86569,Putumayo,Puerto Caicedo,0,0
+3416,Cabecera Municipal,86573,86,Puerto Leguí_zamo,86573,Putumayo,Leguí_zamo,0,0
+3417,Cabecera Municipal,86571,86,Puerto Guzmíçn,86571,Putumayo,Puerto Guzmíçn,0,0
+3418,Cabecera Municipal,18029,18,Albania,18029,Caquetíç,Albania,0,0
+3419,Cabecera Municipal,18860,18,Valparaí_so,18860,Caquetíç,Valparaí_so,0,0
+3420,Cabecera Municipal,18785,18,Solita,18785,Caquetíç,Solita,0,0
+3421,Cabecera Municipal,18094,18,Belí©n De Los Andaquí_es,18094,Caquetíç,Belí©n de Los Andaquies,0,0
+3422,CAP. DEPTO,18001,18,Florencia,18001,Caquetíç,Florencia,0,0
+3423,Cabecera Municipal,18410,18,La Montaí±ita,18410,Caquetíç,La Montaí±ita,0,0
+3424,Cabecera Municipal,18256,18,El Paujil,18256,Caquetíç,El Paujil,0,0
+3425,Cabecera Municipal,18247,18,El Doncello,18247,Caquetíç,El Doncello,0,0
+3426,Cabecera Municipal,18592,18,Puerto Rico,18592,Caquetíç,Puerto Rico,0,0
+3427,Cabecera Municipal,18753,18,San Vicente Del Caguíçn,18753,Caquetíç,San Vicente del Caguíçn,0,1
+3428,Cabecera Municipal,18150,18,Cartagena Del Chairíç,18150,Caquetíç,Cartagena del Chairíç,0,0
+3429,Cabecera Municipal,18756,18,Solano,18756,Caquetíç,Solano,0,0
+3430,Cabecera Municipal,41206,41,Colombia,41206,Huila,Colombia,0,0
+3431,Cabecera Municipal,41078,41,Baraya,41078,Huila,Baraya,0,0
+3432,Cabecera Municipal,41016,41,Aipe,41016,Huila,Aipe,0,0
+3433,Cabecera Municipal,41799,41,Tello,41799,Huila,Tello,0,0
+3434,CAP. DEPTO,41001,41,Neiva,41001,Huila,Neiva,1,0
+3435,Cabecera Municipal,41524,41,Palermo,41524,Huila,Palermo,0,0
+3436,Cabecera Municipal,41615,41,Rivera,41615,Huila,Rivera,0,0
+3437,Cabecera Municipal,41676,41,Santa Marí_a,41676,Huila,Santa Marí_a,0,0
+3438,Cabecera Municipal,41885,41,Yaguaríç,41885,Huila,Yaguaríç,0,0
+3439,Cabecera Municipal,41349,41,Hobo,41349,Huila,Hobo,0,0
+3440,Cabecera Municipal,41357,41,Iquira,41357,Huila,Iquira,0,0
+3441,Cabecera Municipal,41020,41,Algeciras,41020,Huila,Algeciras,0,0
+3442,Cabecera Municipal,41306,41,Gigante,41306,Huila,Gigante,0,0
+3443,Cabecera Municipal,41797,41,Tesalia,41797,Huila,Tesalia,0,0
+3444,Cabecera Municipal,41548,41,Pital,41548,Huila,Pital,0,0
+3445,Cabecera Municipal,41791,41,Tarqui,41791,Huila,Tarqui,0,0
+3406,Cabecera Municipal,52207,52,Consacíç,52207,Narií±o,Consaca,0,0
+3407,Cabecera Municipal,52683,52,Sandoníç,52683,Narií±o,Sandoníç,0,0
+3408,Cabecera Municipal,52258,52,El Tablí_n,52258,Narií±o,El Tablí_n de Gí_mez,0,0
+3409,Cabecera Municipal,86865,86,Valle Del Guamuez (La Hormiga),86865,Putumayo,Valle del Guamuez,0,0
+3410,Cabecera Municipal,86757,86,San Miguel (La Dorada),86757,Putumayo,San Miguel,0,0
+3446,Cabecera Municipal,41378,41,La Argentina,41378,Huila,La Argentina,0,0
+3447,Cabecera Municipal,41660,41,Saladoblanco,41660,Huila,Saladoblanco,0,0
+3448,Cabecera Municipal,41244,41,Elí_as,41244,Huila,Elí_as,0,0
+3449,Cabecera Municipal,41359,41,Isnos,41359,Huila,Isnos,0,0
+3450,Cabecera Municipal,41551,41,Pitalito,41551,Huila,Pitalito,0,0
+3451,Cabecera Municipal,73349,73,Honda,73349,Tolima,Honda,0,0
+3452,Cabecera Municipal,73055,73,Armero (Guayabal),73055,Tolima,Armero,0,0
+3453,Cabecera Municipal,73270,73,Falan,73270,Tolima,Falan,0,0
+3454,Cabecera Municipal,73686,73,Santa Isabel,73686,Tolima,Santa Isabel,0,0
+3455,CAP. DEPTO,73001,73,Ibaguí©,73001,Tolima,Ibaguí©,0,0
+3456,Cabecera Municipal,73624,73,Rovira,73624,Tolima,Rovira,0,0
+3457,Cabecera Municipal,73124,73,Cajamarca,73124,Tolima,Cajamarca,0,0
+3458,Cabecera Municipal,73622,73,Roncesvalles,73622,Tolima,Roncesvalles,0,0
+3459,Cabecera Municipal,73675,73,San Antonio,73675,Tolima,San Antonio,0,0
+3460,Cabecera Municipal,73555,73,Planadas,73555,Tolima,Planadas,0,0
+3461,Cabecera Municipal,73067,73,Ataco,73067,Tolima,Ataco,0,0
+3462,Cabecera Municipal,73483,73,Natagaima,73483,Tolima,Natagaima,0,0
+3463,Cabecera Municipal,73024,73,Alpujarra,73024,Tolima,Alpujarra,0,0
+3464,Cabecera Municipal,73236,73,Dolores,73236,Tolima,Dolores,0,0
+3465,Cabecera Municipal,73563,73,Prado,73563,Tolima,Prado,0,0
+3466,Cabecera Municipal,73585,73,Purificacií_n,73585,Tolima,Purificacií_n,0,0
+3467,Cabecera Municipal,73504,73,Ortega,73504,Tolima,Ortega,0,0
+3468,Cabecera Municipal,73770,73,Suíçrez,73770,Tolima,Suíçrez,0,0
+3469,Cabecera Municipal,73678,73,San Luis,73678,Tolima,San Luis,0,0
+3470,Cabecera Municipal,73148,73,Carmen De Apicalíç,73148,Tolima,Carmen de Apicalíç,0,0
+3471,Cabecera Municipal,73449,73,Melgar,73449,Tolima,Melgar,0,0
+3472,Cabecera Municipal,63272,63,Filandia,63272,Quindio,Filandia,0,0
+3473,Cabecera Municipal,63190,63,Circasia,63190,Quindio,Circasia,0,0
+3474,Cabecera Municipal,63594,63,Quimbaya,63594,Quindio,Quimbaya,0,0
+3523,Cabecera Municipal,5234,5,Dabeiba,5234,Antioquia,Dabeiba,0,0
+3524,Cabecera Municipal,5480,5,Mutatíç,5480,Antioquia,Mutatíç,0,0
+3525,Cabecera Municipal,5154,5,Caucasia,5154,Antioquia,Caucasia,0,0
+3526,Cabecera Municipal,5120,5,Cíçceres,5120,Antioquia,Cíçceres,0,0
+3527,Cabecera Municipal,5790,5,Tarazíç,5790,Antioquia,Tarazíç,0,0
+3528,Cabecera Municipal,5837,5,Turbo,5837,Antioquia,Turbo,0,0
+3529,Cabecera Municipal,5490,5,Necoclí_,5490,Antioquia,Necoclí_,0,0
+3530,Cabecera Municipal,5659,5,San Juan De Urabíç,5659,Antioquia,San Juan de Urabíç,0,0
+3475,CAP. DEPTO,63001,63,Armenia,63001,Quindio,Armenia,0,0
+3531,Cabecera Municipal,5051,5,Arboletes,5051,Antioquia,Arboletes,0,0
+3532,CAP. DEPTO,23001,23,Monterí_a,23001,Cí_rdoba,Monterí_a,0,0
+3533,Cabecera Municipal,23419,23,Los Cí_rdobas,23419,Cí_rdoba,Los Cí_rdobas,0,0
+3534,Cabecera Municipal,23090,23,Canalete,23090,Cí_rdoba,Canalete,0,0
+3535,Cabecera Municipal,23574,23,Puerto Escondido,23574,Cí_rdoba,Puerto Escondido,0,0
+3536,Cabecera Municipal,23500,23,Moí±itos,23500,Cí_rdoba,Moí±itos,0,0
+3537,Cabecera Municipal,23675,23,San Bernardo Del Viento,23675,Cí_rdoba,San Bernardo del Viento,0,0
+3538,Cabecera Municipal,23672,23,San Antero,23672,Cí_rdoba,San Antero,0,0
+3539,Cabecera Municipal,23168,23,Chimíç,23168,Cí_rdoba,Chimíç,0,0
+3540,Cabecera Municipal,23670,23,San Andrí©s De Sotavento,23670,Cí_rdoba,San Andrí©s Sotavento (1) (3),0,0
+3541,Cabecera Municipal,23182,23,Chiní_,23182,Cí_rdoba,Chiní_,0,0
+3542,Cabecera Municipal,23189,23,Cií©naga De Oro,23189,Cí_rdoba,Cií©naga de Oro,0,0
+3543,Cabecera Municipal,23570,23,Pueblo Nuevo,23570,Cí_rdoba,Pueblo Nuevo,0,0
+3476,Cabecera Municipal,63130,63,Calarcíç,63130,Quindio,Calarca,0,0
+3544,Cabecera Municipal,23068,23,Ayapel,23068,Cí_rdoba,Ayapel,0,0
+3545,Cabecera Municipal,23580,23,Puerto Libertador,23580,Cí_rdoba,Puerto Libertador,0,0
+3546,Cabecera Municipal,23686,23,San Pelayo,23686,Cí_rdoba,San Pelayo,0,0
+3692,Cabecera Municipal,54871,54,Villa Caro,54871,Norte de Santander,Villa Caro,0,0
+3694,Cabecera Municipal,54398,54,La Playa,54398,Norte de Santander,La Playa,1,0
+3695,Cabecera Municipal,54670,54,San Calixto,54670,Norte de Santander,San Calixto,0,0
+3696,Cabecera Municipal,54385,54,La Esperanza,54385,Norte de Santander,La Esperanza,0,0
+3697,Cabecera Municipal,54128,54,Cíçchira,54128,Norte de Santander,Cachiríç,0,0
+3477,Cabecera Municipal,63212,63,Cí_rdoba,63212,Quindio,Cí_rdoba,0,0
+3478,CAP. DEPTO,66001,66,Pereira,66001,Risaralda,Pereira,0,0
+3479,Cabecera Municipal,66383,66,La Celia,66383,Risaralda,La Celia,0,0
+3560,Cabecera Municipal,13473,13,Morales,13473,Bolí_var,Morales,0,1
+3561,Cabecera Municipal,13688,13,Santa Rosa Del Sur,13688,Bolí_var,Santa Rosa del Sur,0,2
+3562,Cabecera Municipal,13160,13,Cantagallo,13160,Bolí_var,Cantagallo,0,2
+3563,Cabecera Municipal,13006,13,Achí_,13006,Bolí_var,Achí_,0,0
+3564,Cabecera Municipal,13030,13,Altos Del Rosario,13030,Bolí_var,Altos del Rosario,0,0
+3566,Cabecera Municipal,13810,13,Tiquisio (Puerto Rico),13810,Bolí_var,Tiquisio,0,0
+3567,Cabecera Municipal,8372,8,Juan De Acosta,8372,Atlíçntico,Juan de Acosta,0,0
+3568,Cabecera Municipal,8573,8,Puerto Colombia,8573,Atlíçntico,Puerto Colombia,0,0
+3569,"CAP. DEPTO Distrito Especial, Industrial y Portuario",8001,8,"Barranquilla (Distrito Especial, Industrial Y Portuario)",8001,Atlíçntico,Barranquilla,0,0
+3698,Cabecera Municipal,54874,54,Villa Del Rosario,54874,Norte de Santander,Villa del Rosario,0,0
+3699,Cabecera Municipal,54599,54,Ragonvalia,54599,Norte de Santander,Ragonvalia,1,0
+3700,Cabecera Municipal,54347,54,Herríçn,54347,Norte de Santander,Herríçn,1,0
+3701,Cabecera Municipal,54820,54,Toledo,54820,Norte de Santander,Toledo,1,0
+3702,Cabecera Municipal,68575,68,Puerto Wilches,68575,Santander,Puerto Wilches,1,1
+3703,Cabecera Municipal,68655,68,Sabana De Torres,68655,Santander,Sabana de Torres,0,2
+3480,Cabecera Municipal,66687,66,Santuario,66687,Risaralda,Santuario,0,0
+3570,Cabecera Municipal,8685,8,Santo Tomíçs,8685,Atlíçntico,Santo Tomíçs,0,0
+3704,Cabecera Municipal,68615,68,Rionegro,68615,Santander,Rionegro,2,0
+3481,Cabecera Municipal,66088,66,Belí©n De Umbrí_a,66088,Risaralda,Belí©n de Umbrí_a,0,0
+3571,Cabecera Municipal,8520,8,Palmar De Varela,8520,Atlíçntico,Palmar de Varela,0,0
+3572,Cabecera Municipal,8560,8,Ponedera,8560,Atlíçntico,Ponedera,0,0
+3573,Cabecera Municipal,8549,8,Piojí_,8549,Atlíçntico,Piojí_,0,0
+3574,Cabecera Municipal,8832,8,Tubaríç,8832,Atlíçntico,Tubaríç,0,0
+3705,Cabecera Municipal,68255,68,El Playí_n,68255,Santander,El Playí_n,0,0
+3706,Cabecera Municipal,68780,68,Suratíç,68780,Santander,Suratíç,0,0
+4168,Cabecera Municipal,23586,23,Purí_sima,23586,Cí_rdoba,Purí_sima,0,0
+4169,Cabecera Municipal,23660,23,Sahagí_n,23660,Cí_rdoba,Sahagí_n,0,0
+4170,Cabecera Municipal,23678,23,San Carlos,23678,Cí_rdoba,San Carlos,0,0
+4171,Cabecera Municipal,23555,23,Planeta Rica,23555,Cí_rdoba,Planeta Rica,0,0
+4172,Cabecera Municipal,23079,23,Buenavista,23079,Cí_rdoba,Buenavista,0,0
+3482,Cabecera Municipal,66572,66,Pueblo Rico,66572,Risaralda,Pueblo Rico,0,0
+3483,Cabecera Municipal,66456,66,Mistratí_,66456,Risaralda,Mistratí_,0,0
+3740,Cabecera Municipal,68500,68,Oiba,68500,Santander,Oiba,0,0
+4173,Cabecera Municipal,23350,23,La Apartada,23350,Cí_rdoba,La Apartada,0,0
+4174,Cabecera Municipal,23466,23,Montelí_bano,23466,Cí_rdoba,Montelí_bano(1)(3),0,0
+4175,Cabecera Municipal,70204,70,Colosí_,70204,Sucre,Coloso,0,1
+4176,Cabecera Municipal,70230,70,Chalíçn,70230,Sucre,Chalíçn,1,0
+4177,Cabecera Municipal,70508,70,Ovejas,70508,Sucre,Ovejas,1,0
+4178,Cabecera Municipal,70823,70,Toluviejo,70823,Sucre,Tolí_ Viejo,1,0
+4179,CAP. DEPTO,70001,70,Sincelejo,70001,Sucre,Sincelejo,1,0
+4180,Cabecera Municipal,70215,70,Corozal,70215,Sucre,Corozal,1,0
+4181,Cabecera Municipal,70702,70,San Juan De Betulia,70702,Sucre,San Juan de Betulia,0,0
+4182,Cabecera Municipal,70742,70,Sincí©,70742,Sucre,San Luis de Sincí©,0,0
+4183,Cabecera Municipal,70110,70,Buenavista,70110,Sucre,Buenavista,0,0
+4184,Cabecera Municipal,70717,70,San Pedro,70717,Sucre,San Pedro,0,0
+4185,Cabecera Municipal,70235,70,Galeras,70235,Sucre,Galeras,0,0
+3484,Cabecera Municipal,66318,66,Guíçtica,66318,Risaralda,Guíçtica,0,0
+3485,Cabecera Municipal,27250,27,El Litoral Del San Juan,27250,Chocí_,El Litoral del San Juan,0,0
+3486,Cabecera Municipal,27077,27,Bajo Baudí_  (Pizarro),27077,Chocí_,Bajo Baudí_,0,0
+3487,Cabecera Municipal,27660,27,San Josí© Del Palmar,27660,Chocí_,San Josí© del Palmar,0,0
+3488,Cabecera Municipal,27413,27,Llorí_,27413,Chocí_,Llorí_,0,0
+3489,Cabecera Municipal,27025,27,Alto Baudí_ (Pie De Patí_),27025,Chocí_,Alto Baudo,0,0
+3490,Cabecera Municipal,27495,27,Nuquí_,27495,Chocí_,Nuquí_,0,0
+3491,CAP. DEPTO,27001,27,Quibdí_,27001,Chocí_,Quibdí_,0,0
+3492,Cabecera Municipal,27075,27,Bahí_a Solano (Mutis),27075,Chocí_,Bahí_a Solano,0,0
+3493,Cabecera Municipal,27150,27,Carmen Del Darií©n  (Curbaradí_),27150,Chocí_,Carmen del Darien,0,0
+3494,Cabecera Municipal,27615,27,Riosucio,27615,Chocí_,Riosucio(2),0,0
+3495,Cabecera Municipal,27372,27,Juradí_,27372,Chocí_,Juradí_,0,0
+3496,Cabecera Municipal,27800,27,Unguí_a,27800,Chocí_,Unguí_a,0,0
+3497,Cabecera Municipal,27006,27,Acandí_,27006,Chocí_,Acandí_,0,0
+3745,Cabecera Municipal,68167,68,Charalíç,68167,Santander,Charalíç,0,0
+3746,Cabecera Municipal,68572,68,Puente Nacional,68572,Santander,Puente Nacional,0,0
+4186,Cabecera Municipal,70233,70,El Roble,70233,Sucre,El Roble,0,0
+4187,Cabecera Municipal,70670,70,Sampuí©s,70670,Sucre,Sampuí©s,0,0
+4188,Cabecera Municipal,70678,70,San Benito Abad,70678,Sucre,San Benito Abad,0,0
+4189,Cabecera Municipal,70265,70,Guaranda,70265,Sucre,Guaranda,0,0
+4190,Cabecera Municipal,70124,70,Caimito,70124,Sucre,Caimito,0,0
+4191,Cabecera Municipal,70708,70,San Marcos,70708,Sucre,San Marcos,0,0
+4192,Cabecera Municipal,13222,13,Clemencia,13222,Bolí_var,Clemencia,0,0
+4193,Cabecera Municipal,13683,13,Santa Rosa,13683,Bolí_var,Santa Rosa,0,0
+3498,Cabecera Municipal,17665,17,San Josí©,17665,Caldas,San Josí©,0,0
+3580,Cabecera Municipal,91540,91,Puerto Narií±o,91540,Amazonas,Puerto Narií±o,0,0
+3581,Corregimiento Departamental,91460,91,C.D Mirití_-Paraníç (Campoamor),91460,Amazonas,Miriti - Paraníç (ANM),0,0
+3582,Corregimiento Departamental,91430,91,C.D La Victoria (Pacoa),91430,Amazonas,La Victoria (ANM),0,0
+3583,Corregimiento Departamental,91405,91,C.D La Chorrera,91405,Amazonas,La Chorrera (ANM),0,0
+3584,Corregimiento Departamental,91669,91,C.D Santander (Araracuara),91669,Amazonas,Puerto Santander (ANM),0,0
+3585,Corregimiento Departamental,91407,91,C.D La Pedrera,91407,Amazonas,La Pedrera (ANM),0,0
+3586,Cabecera Municipal,95200,95,Miraflores,95200,Guaviare,Miraflores,0,0
+3587,Cabecera Municipal,95025,95,El Retorno,95025,Guaviare,El Retorno,0,0
+3588,Cabecera Municipal,95015,95,Calamar,95015,Guaviare,Calamar,1,0
+3589,CAP. DEPTO,95001,95,San Josí© Del Guaviare,95001,Guaviare,San Josí© del Guaviare,0,0
+3590,Cabecera Municipal,97666,97,Taraira,97666,Vaupí©s,Taraira,0,0
+3591,Corregimiento Departamental,97511,97,C.D Pacoa,97511,Vaupí©s,Pacoa (ANM),0,0
+3592,Cabecera Municipal,97161,97,Carurí_,97161,Vaupí©s,Caruru,0,0
+3593,Corregimiento Departamental,97777,97,C.D Papunaua,97777,Vaupí©s,Papunaua (ANM),0,0
+3594,CAP. DEPTO,97001,97,Mití_,97001,Vaupí©s,Mití_,0,0
+3499,Cabecera Municipal,17616,17,Risaralda,17616,Caldas,Risaralda,0,0
+3500,Cabecera Municipal,17614,17,Riosucio,17614,Caldas,Riosucio,0,0
+3501,Cabecera Municipal,17380,17,La Dorada,17380,Caldas,La Dorada,0,0
+3595,Corregimiento Departamental,97889,97,C.D Yavaratí©,97889,Vaupí©s,Yavaratí© (ANM),0,0
+3596,Corregimiento Departamental,94663,94,C.D Mapiripana,94663,Guainí_a,Mapiripana (ANM),0,0
+3597,Corregimiento Departamental,94343,94,C.D Barranco Mina,94343,Guainí_a,Barranco Minas (ANM),0,0
+3598,CAP. DEPTO,94001,94,Inirida,94001,Guainí_a,Iní_rida,0,0
+3599,Corregimiento Departamental,94886,94,C.D Cacahual,94886,Guainí_a,Cacahual (ANM),0,0
+3600,Corregimiento Departamental,94884,94,C.D Puerto Colombia,94884,Guainí_a,Puerto Colombia (ANM),0,0
+3601,Corregimiento Departamental,94885,94,C.D La Guadalupe,94885,Guainí_a,La Guadalupe (ANM),0,0
+3602,Corregimiento Departamental,94888,94,C.D Morichal (Morichal Nuevo),94888,Guainí_a,Morichal (ANM),0,0
+3603,Corregimiento Departamental,94887,94,C.D Paníç Paníç (Campo Alegre),94887,Guainí_a,Pana Pana (ANM),0,0
+3604,Corregimiento Departamental,94883,94,C.D San Felipe,94883,Guainí_a,San Felipe (ANM),0,0
+3605,Cabecera Municipal,99624,99,Santa Rosalí_a,99624,Vichada,Santa Rosalí_a,0,0
+3606,Cabecera Municipal,99524,99,La Primavera,99524,Vichada,La Primavera,0,0
+3607,CAP. DEPTO,99001,99,Puerto Carreí±o,99001,Vichada,Puerto Carreí±o,0,0
+3608,Cabecera Municipal,99773,99,Cumaribo,99773,Vichada,Cumaribo,0,0
+3609,Cabecera Municipal,50350,50,La Macarena,50350,Meta,La Macarena,0,0
+3610,Cabecera Municipal,50370,50,Uribe,50370,Meta,Uribe,0,0
+3611,Cabecera Municipal,50330,50,Mesetas,50330,Meta,Mesetas,0,0
+3612,Cabecera Municipal,50683,50,San Juan De Arama,50683,Meta,San Juan de Arama,0,0
+3613,Cabecera Municipal,50287,50,Fuente De Oro,50287,Meta,Fuente de Oro,0,0
+3502,Cabecera Municipal,17444,17,Marquetalia,17444,Caldas,Marquetalia,0,0
+3503,Cabecera Municipal,17433,17,Manzanares,17433,Caldas,Manzanares,0,0
+3504,Cabecera Municipal,17446,17,Marulanda,17446,Caldas,Marulanda,0,0
+3505,CAP. DEPTO,17001,17,Manizales,17001,Caldas,Manizales,0,0
+3506,Cabecera Municipal,5148,5,Carmen De Viboral,5148,Antioquia,El Carmen de Viboral,0,0
+3614,Cabecera Municipal,50313,50,Granada,50313,Meta,Granada,1,0
+3615,Cabecera Municipal,50689,50,San Martí_n,50689,Meta,San Martí_n,0,0
+3616,Cabecera Municipal,50223,50,Cubarral,50223,Meta,Cubarral,0,0
+3617,Cabecera Municipal,50150,50,Castilla La Nueva,50150,Meta,Castilla la Nueva,0,0
+3618,CAP. DEPTO,50001,50,Villavicencio,50001,Meta,Villavicencio,0,0
+3619,Cabecera Municipal,50226,50,Cumaral,50226,Meta,Cumaral,0,0
+3620,Cabecera Municipal,50110,50,Barranca De Upí_a,50110,Meta,Barranca de Upí_a,0,0
+3621,Cabecera Municipal,50124,50,Cabuyaro,50124,Meta,Cabuyaro,0,0
+3622,Cabecera Municipal,50573,50,Puerto Lí_pez,50573,Meta,Puerto Lí_pez,0,0
+3623,Cabecera Municipal,50680,50,San Carlos De Guaroa,50680,Meta,San Carlos de Guaroa,0,0
+3624,Cabecera Municipal,50577,50,Puerto Lleras,50577,Meta,Puerto Lleras,0,0
+3625,Cabecera Municipal,50590,50,Puerto Rico,50590,Meta,Puerto Rico,0,0
+3626,Cabecera Municipal,50450,50,Puerto Concordia,50450,Meta,Puerto Concordia,0,0
+3507,Cabecera Municipal,5360,5,Itaguí_,5360,Antioquia,Itagui,0,0
+3508,Cabecera Municipal,5615,5,Rionegro,5615,Antioquia,Rionegro,1,0
+3627,Cabecera Municipal,50325,50,Mapiripíçn,50325,Meta,Mapiripíçn,0,0
+3628,Cabecera Municipal,50568,50,Puerto Gaitíçn,50568,Meta,Puerto Gaitíçn,0,0
+3629,Cabecera Municipal,50711,50,Vistahermosa,50711,Meta,Vistahermosa,0,0
+3630,Cabecera Municipal,85440,85,Villanueva,85440,Casanare,Villanueva,0,0
+3631,Cabecera Municipal,85300,85,Sabanalarga,85300,Casanare,Sabanalarga,0,0
+3632,Cabecera Municipal,85162,85,Monterrey,85162,Casanare,Monterrey,0,0
+3633,Cabecera Municipal,85410,85,Tauramena,85410,Casanare,Tauramena,0,0
+3634,Cabecera Municipal,85279,85,Recetor,85279,Casanare,Recetor,0,0
+3635,Cabecera Municipal,85010,85,Aguazul,85010,Casanare,Aguazul,0,0
+3636,CAP. DEPTO,85001,85,Yopal,85001,Casanare,Yopal,0,0
+3637,Cabecera Municipal,85225,85,Nunchí_a,85225,Casanare,Nunchí_a,0,0
+3638,Cabecera Municipal,85263,85,Pore,85263,Casanare,Pore,0,0
+3639,Cabecera Municipal,85430,85,Trinidad,85430,Casanare,Trinidad,0,0
+3640,Cabecera Municipal,15223,15,Cubaríç,15223,Boyacíç,Cubaríç,0,0
+3641,Cabecera Municipal,85325,85,San Luis De Palenque,85325,Casanare,San Luis de Palenque,0,0
+3642,Cabecera Municipal,85139,85,Maní_,85139,Casanare,Maní_,0,0
+3643,Cabecera Municipal,85230,85,Orocuí©,85230,Casanare,Orocuí©,0,0
+3644,Cabecera Municipal,81794,81,Tame,81794,Arauca,Tame,0,0
+3846,Cabecera Municipal,25430,25,Madrid,25430,Cundinamarca,Madrid,0,0
+4194,Cabecera Municipal,13873,13,Villanueva,13873,Bolí_var,Villanueva,0,0
+4195,Cabecera Municipal,13647,13,San Estanislao,13647,Bolí_var,San Estanislao,0,0
+3509,Cabecera Municipal,5440,5,Marinilla,5440,Antioquia,Marinilla,1,0
+3510,Cabecera Municipal,5541,5,Peí±ol,5541,Antioquia,Peí±ol,0,0
+3511,Cabecera Municipal,5206,5,Concepcií_n,5206,Antioquia,Concepcií_n,1,0
+3512,CAP. DEPTO,5001,5,Medellí_n,5001,Antioquia,Medellí_n,0,0
+3513,Cabecera Municipal,5674,5,San Vicente,5674,Antioquia,San Vicente,1,0
+3656,Cabecera Municipal,44420,44,La Jagua Del Pilar,44420,La Guajira,La Jagua del Pilar,0,0
+3657,Cabecera Municipal,44279,44,Fonseca,44279,La Guajira,Fonseca,0,0
+3658,Cabecera Municipal,44078,44,Barrancas,44078,La Guajira,Barrancas,0,0
+3659,Cabecera Municipal,44378,44,Hato Nuevo,44378,La Guajira,Hatonuevo,0,0
+3660,Cabecera Municipal,44035,44,Albania,44035,La Guajira,Albania,0,0
+3661,Cabecera Municipal,44430,44,Maicao,44430,La Guajira,Maicao,0,0
+3514,Cabecera Municipal,5240,5,Ebí©jico,5240,Antioquia,Ebí©jico,0,0
+3515,Cabecera Municipal,5044,5,Anzíç,5044,Antioquia,Anza,0,0
+3516,Cabecera Municipal,27099,27,Bojayíç (Bellavista),27099,Chocí_,Bojaya,0,0
+3517,Cabecera Municipal,5475,5,Murindí_,5475,Antioquia,Murindí_,0,0
+3518,Cabecera Municipal,5042,5,Santa Fe De Antioquia,5042,Antioquia,Santafí© de Antioquia,0,0
+3662,Cabecera Municipal,44847,44,Uribia,44847,La Guajira,Uribia,0,0
+3663,Cabecera Municipal,44560,44,Manaure,44560,La Guajira,Manaure,0,0
+3664,Cabecera Municipal,47745,47,Sitionuevo,47745,Magdalena,Sitionuevo,0,0
+3665,Cabecera Municipal,47570,47,Puebloviejo,47570,Magdalena,Puebloviejo,0,0
+3666,Cabecera Municipal,47189,47,Cií©naga,47189,Magdalena,Cií©naga,0,0
+3667,CAP. DEPTO,47001,47,Santa Marta (Distrito Turíåstico Cultural e Histí_rico),47001,Magdalena,Santa Marta,0,0
+3668,Cabecera Municipal,47288,47,Fundacií_n,47288,Magdalena,Fundacií_n,0,0
+3669,Cabecera Municipal,47030,47,Algarrobo,47030,Magdalena,Algarrobo,0,0
+3670,Cabecera Municipal,47660,47,Sabanas De San íçngel (San íngel),47660,Magdalena,Sabanas de San Angel,0,0
+3671,Cabecera Municipal,47268,47,El Retí©n,47268,Magdalena,El Retí©n,0,0
+3672,Cabecera Municipal,47551,47,Pivijay,47551,Magdalena,Pivijay,0,0
+3673,Cabecera Municipal,47053,47,Aracataca,47053,Magdalena,Aracataca,0,0
+3674,Cabecera Municipal,20621,20,La Paz,20621,Cesar,La Paz,0,0
+3675,Cabecera Municipal,20443,20,Manaure Balcí_n Del Cesar,20443,Cesar,Manaure,0,0
+3676,Cabecera Municipal,20013,20,Agustí_n Codazzi,20013,Cesar,Agustí_n Codazzi,0,0
+3677,Cabecera Municipal,20238,20,El Copey,20238,Cesar,El Copey,0,0
+3678,Cabecera Municipal,20045,20,Becerril,20045,Cesar,Becerril,0,0
+3519,Cabecera Municipal,5656,5,San Jerí_nimo,5656,Antioquia,San Jerí_nimo,0,0
+3520,Cabecera Municipal,5761,5,Sopetríçn,5761,Antioquia,Sopetríçn,0,0
+3521,Cabecera Municipal,5038,5,Angostura,5038,Antioquia,Angostura,0,0
+3522,Cabecera Municipal,5887,5,Yarumal,5887,Antioquia,Yarumal,0,1
+3547,Cabecera Municipal,70221,70,Coveí±as,70221,Sucre,Coveí±as,0,0
+3548,Cabecera Municipal,70523,70,Palmito,70523,Sucre,Palmito,0,0
+3549,Cabecera Municipal,70820,70,Tolí_,70820,Sucre,Santiago de Tolí_,0,0
+3550,Cabecera Municipal,70713,70,San Onofre,70713,Sucre,San Onofre,1,0
+3551,Cabecera Municipal,70473,70,Morroa,70473,Sucre,Morroa,1,0
+3552,Cabecera Municipal,70418,70,Los Palmitos,70418,Sucre,Los Palmitos,0,1
+3553,Cabecera Municipal,70771,70,Sucre,70771,Sucre,Sucre,0,0
+3554,Cabecera Municipal,70429,70,Majagual,70429,Sucre,Majagual,0,0
+3555,CAP. DEPTO Distrito Turí_stico y Cultural,13001,13,Cartagena De Indias (Distrito Turíåstico Y Cultural),13001,Bolí_var,Cartagena,0,0
+3556,Cabecera Municipal,13673,13,Santa Catalina,13673,Bolí_var,Santa Catalina,0,0
+3557,Cabecera Municipal,13549,13,Pinillos,13549,Bolí_var,Pinillos,0,0
+3558,Cabecera Municipal,13074,13,Barranco De Loba,13074,Bolí_var,Barranco de Loba,0,0
+3559,Cabecera Municipal,13600,13,Rioviejo,13600,Bolí_var,Rí_o Viejo (1)(3),0,2
+3575,Corregimiento Departamental,91530,91,C.D Puerto Alegrí_a,91530,Amazonas,Puerto Alegrí_a (ANM),0,0
+3576,Corregimiento Departamental,91263,91,C.D El Encanto,91263,Amazonas,El Encanto (ANM),0,0
+3577,Corregimiento Departamental,91536,91,C.D Puerto Arica,91536,Amazonas,Puerto Arica (ANM),0,0
+3578,Corregimiento Departamental,91798,91,C.D Tarapacíç,91798,Amazonas,Tarapacíç (ANM),0,0
+3579,CAP. DEPTO,91001,91,Leticia,91001,Amazonas,Leticia,0,0
+3679,Cabecera Municipal,20400,20,La Jagua De Ibirico,20400,Cesar,La Jagua de Ibirico,0,0
+3680,Cabecera Municipal,20178,20,Chiriguaníç,20178,Cesar,Chiriguaníç,0,0
+3681,Cabecera Municipal,20228,20,Curumaní_,20228,Cesar,Curumaní_,0,1
+3682,Cabecera Municipal,20310,20,Gonzíçlez,20310,Cesar,Gonzíçlez,0,0
+3683,Cabecera Municipal,54245,54,El Carmen,54245,Norte de Santander,El Carmen,1,0
+3684,Cabecera Municipal,54206,54,Convencií_n,54206,Norte de Santander,Convencií_n,0,0
+3685,Cabecera Municipal,54800,54,Teorama,54800,Norte de Santander,Teorama,0,0
+3686,Cabecera Municipal,54810,54,Tibí_,54810,Norte de Santander,Tibí_,0,0
+3687,Cabecera Municipal,54553,54,Puerto Santander,54553,Norte de Santander,Puerto Santander,0,0
+3688,CAP. DEPTO Distrito Especial Fronterizo y Turí_stico,54001,54,Cí_cuta,54001,Norte de Santander,Cí_cuta,1,0
+3865,Cabecera Municipal,25486,25,Nemocí_n,25486,Cundinamarca,Nemocí_n,0,0
+3866,Cabecera Municipal,25772,25,Suesca,25772,Cundinamarca,Suesca,0,0
+3867,Cabecera Municipal,25793,25,Tausa,25793,Cundinamarca,Tausa,0,0
+3645,Cabecera Municipal,81736,81,Saravena,81736,Arauca,Saravena,0,0
+3646,Cabecera Municipal,81065,81,Arauquita,81065,Arauca,Arauquita,0,0
+3647,Cabecera Municipal,81591,81,Puerto Rondí_n,81591,Arauca,Puerto Rondí_n,0,0
+3648,CAP. DEPTO,81001,81,Arauca,81001,Arauca,Arauca,0,0
+3649,Cabecera Municipal,81220,81,Cravo Norte,81220,Arauca,Cravo Norte,0,0
+3650,Cabecera Municipal,44090,44,Dibulla,44090,La Guajira,Dibulla,0,0
+3651,CAP. DEPTO,44001,44,Riohacha,44001,La Guajira,Riohacha,0,0
+3652,Cabecera Municipal,44650,44,San Juan Del Cesar,44650,La Guajira,San Juan del Cesar,0,0
+3653,Cabecera Municipal,44110,44,El Molino,44110,La Guajira,El Molino,0,0
+3654,Cabecera Municipal,44874,44,Villanueva,44874,La Guajira,Villanueva,0,0
+3655,Cabecera Municipal,44855,44,Urumita,44855,La Guajira,Urumita,0,0
+3689,Cabecera Municipal,54418,54,Lourdes,54418,Norte de Santander,Lourdes,0,0
+3690,Cabecera Municipal,54313,54,Gramalote,54313,Norte de Santander,Gramalote,0,0
+3691,Cabecera Municipal,54109,54,Bucarasica,54109,Norte de Santander,Bucarasica,0,0
+3707,Cabecera Municipal,68432,68,Míçlaga,68432,Santander,Míçlaga,0,0
+3898,Cabecera Municipal,19130,19,Cajibí_o,19130,Cauca,Cajibí_o,0,0
+3899,"CAP. DEPTO Distrito Especial Ecoturí_stico, Histí_rico y Universitario",19001,19,Popayíçn,19001,Cauca,Popayíçn,0,0
+3900,Cabecera Municipal,19256,19,El Tambo,19256,Cauca,El Tambo,1,0
+3901,Cabecera Municipal,19050,19,Argelia,19050,Cauca,Argelia,0,0
+3902,Cabecera Municipal,19075,19,Balboa,19075,Cauca,Balboa,1,0
+3903,Cabecera Municipal,76233,76,Dagua,76233,Valle del Cauca,Dagua,0,0
+3904,Cabecera Municipal,76377,76,La Cumbre,76377,Valle del Cauca,La Cumbre,0,0
+3905,Cabecera Municipal,76364,76,Jamundí_,76364,Valle del Cauca,Jamundí_,0,0
+3906,Cabecera Municipal,52435,52,Mallama (Piedrancha),52435,Narií±o,Mallama,0,0
+3907,Cabecera Municipal,52699,52,Santa Cruz (Guachaví©s),52699,Narií±o,Santacruz,0,0
+4220,Cabecera Municipal,13655,13,San Jacinto Del Cauca,13655,Bolí_var,San Jacinto del Cauca,0,0
+3708,Cabecera Municipal,68266,68,Enciso,68266,Santander,Enciso,0,0
+3962,Cabecera Municipal,76036,76,Andalucí_a,76036,Valle del Cauca,Andalucí_a,0,0
+3963,Cabecera Municipal,76100,76,Bolí_var,76100,Valle del Cauca,Bolí_var,0,0
+3964,Cabecera Municipal,76828,76,Trujillo,76828,Valle del Cauca,Trujillo,0,0
+3965,Cabecera Municipal,76616,76,Riofrí_o,76616,Valle del Cauca,Riofrí_o,0,0
+3966,Cabecera Municipal,76834,76,Tuluíç,76834,Valle del Cauca,Tuluíç,0,0
+3967,Cabecera Municipal,76670,76,San Pedro,76670,Valle del Cauca,San Pedro,0,0
+3968,Cabecera Municipal,76111,76,Buga,76111,Valle del Cauca,Guadalajara de Buga,0,0
+3969,Cabecera Municipal,76126,76,Calima (El Darií©n),76126,Valle del Cauca,Calima,0,0
+3970,Cabecera Municipal,76606,76,Restrepo,76606,Valle del Cauca,Restrepo,0,0
+3971,Cabecera Municipal,76890,76,Yotoco,76890,Valle del Cauca,Yotoco,0,0
+3709,Cabecera Municipal,68468,68,Molagavita,68468,Santander,Molagavita,0,0
+3710,Cabecera Municipal,68684,68,San Josí© De Miranda,68684,Santander,San Josí© de Miranda,0,0
+3711,Cabecera Municipal,68498,68,Ocamonte,68498,Santander,Ocamonte,0,0
+3712,Cabecera Municipal,68533,68,Píçramo,68533,Santander,Píçramo,0,0
+3972,Cabecera Municipal,76869,76,Vijes,76869,Valle del Cauca,Vijes,0,0
+3973,Cabecera Municipal,76318,76,Guacarí_,76318,Valle del Cauca,Guacarí_,0,0
+3974,Cabecera Municipal,76306,76,Ginebra,76306,Valle del Cauca,Ginebra,0,0
+3975,Cabecera Municipal,76248,76,El Cerrito,76248,Valle del Cauca,El Cerrito,0,0
+3976,Cabecera Municipal,76520,76,Palmira,76520,Valle del Cauca,Palmira,0,0
+3977,Cabecera Municipal,76130,76,Candelaria,76130,Valle del Cauca,Candelaria,0,0
+3978,Cabecera Municipal,76275,76,Florida,76275,Valle del Cauca,Florida,0,0
+3979,Cabecera Municipal,76892,76,Yumbo,76892,Valle del Cauca,Yumbo,0,0
+3980,CAP. DEPTO,76001,76,Cali,76001,Valle del Cauca,Cali,0,0
+3981,Cabecera Municipal,52254,52,El Peí±ol,52254,Narií±o,El Peí±ol,1,0
+3982,Cabecera Municipal,52540,52,Policarpa,52540,Narií±o,Policarpa,0,1
+3983,Cabecera Municipal,52256,52,El Rosario,52256,Narií±o,El Rosario,1,0
+3984,Cabecera Municipal,52405,52,Leiva,52405,Narií±o,Leiva,0,1
+3713,Cabecera Municipal,68855,68,Valle De San Josí©,68855,Santander,Valle de San Josí©,0,0
+3714,Cabecera Municipal,68679,68,San Gil,68679,Santander,San Gil,0,0
+3715,Cabecera Municipal,68051,68,Aratoca,68051,Santander,Aratoca,0,0
+3985,Cabecera Municipal,52786,52,Taminango,52786,Narií±o,Taminango,1,0
+3986,Cabecera Municipal,52687,52,San Lorenzo,52687,Narií±o,San Lorenzo,1,0
+3716,Cabecera Municipal,68370,68,Jordíçn,68370,Santander,Jordíçn,0,0
+3717,Cabecera Municipal,68895,68,Zapatoca,68895,Santander,Zapatoca,0,0
+3718,Cabecera Municipal,68081,68,Barrancabermeja,68081,Santander,Barrancabermeja,0,1
+3719,Cabecera Municipal,68190,68,Cimitarra,68190,Santander,Cimitarra,0,2
+3720,Cabecera Municipal,68101,68,Bolí_var,68101,Santander,Bolí_var,0,1
+3721,Cabecera Municipal,68250,68,El Peí±í_n,68250,Santander,El Peí±í_n,0,1
+3722,Cabecera Municipal,68385,68,Landíçzuri,68385,Santander,Landíçzuri,0,2
+3723,Cabecera Municipal,68377,68,La Belleza,68377,Santander,La Belleza,0,0
+3724,Cabecera Municipal,68271,68,Floriíçn,68271,Santander,Floriíçn,0,0
+3725,Cabecera Municipal,68020,68,Albania,68020,Santander,Albania,0,0
+3726,Cabecera Municipal,68368,68,Jesí_s Marí_a,68368,Santander,Jesí_s Marí_a,0,0
+3727,Cabecera Municipal,68773,68,Sucre,68773,Santander,Sucre,0,0
+3728,Cabecera Municipal,68324,68,Guavatíç,68324,Santander,Guavatíç,0,0
+3729,Cabecera Municipal,68861,68,Ví©lez,68861,Santander,Ví©lez,0,1
+3730,Cabecera Municipal,68327,68,Guepsa,68327,Santander,Gí_epsa,0,0
+3731,Cabecera Municipal,68013,68,Aguada,68013,Santander,Aguada,0,0
+3732,Cabecera Municipal,68397,68,La Paz,68397,Santander,La Paz,0,0
+3733,Cabecera Municipal,68673,68,San Benito,68673,Santander,San Benito,0,0
+3734,Cabecera Municipal,68770,68,Suaita,68770,Santander,Suaita,0,0
+3735,Cabecera Municipal,68245,68,El Guacamayo,68245,Santander,El Guacamayo,0,0
+3736,Cabecera Municipal,68320,68,Guadalupe,68320,Santander,Guadalupe,0,0
+3737,Cabecera Municipal,68211,68,Contratacií_n,68211,Santander,Contratacií_n,0,0
+3738,Cabecera Municipal,68720,68,Santa Helena Del Opí_n,68720,Santander,Santa Helena del Opí_n,0,0
+3739,Cabecera Municipal,68176,68,Chima,68176,Santander,Chima,0,0
+3741,Cabecera Municipal,68524,68,Palmas Del Socorro,68524,Santander,Palmas del Socorro,0,0
+3742,Cabecera Municipal,68872,68,Villanueva,68872,Santander,Villanueva,0,0
+3743,Cabecera Municipal,68298,68,Gíçmbita,68298,Santander,Gambita,0,1
+3744,Cabecera Municipal,68264,68,Encino,68264,Santander,Encino,0,0
+3747,Cabecera Municipal,68077,68,Barbosa,68077,Santander,Barbosa,0,0
+3748,Cabecera Municipal,15332,15,Guicíçn,15332,Boyacíç,Gí_icíçn,0,0
+4005,Cabecera Municipal,86760,86,Santiago,86760,Putumayo,Santiago,0,0
+4006,Cabecera Municipal,86219,86,Colí_n,86219,Putumayo,Colí_n,0,0
+4007,Cabecera Municipal,86755,86,San Francisco,86755,Putumayo,San Francisco,0,0
+4008,Cabecera Municipal,18610,18,San Josí© Del Fragua,18610,Caquetíç,San Josí© del Fragua,0,0
+4009,Cabecera Municipal,18205,18,Curillo,18205,Caquetíç,Curillo,0,0
+4010,Cabecera Municipal,18479,18,Morelia,18479,Caquetíç,Morelia,0,0
+4011,Cabecera Municipal,18460,18,Milíçn,18460,Caquetíç,Milíçn,0,0
+4012,Cabecera Municipal,41132,41,Campoalegre,41132,Huila,Campoalegre,0,0
+4013,Cabecera Municipal,41801,41,Teruel,41801,Huila,Teruel,0,0
+4014,Cabecera Municipal,41483,41,Níçtaga,41483,Huila,Níçtaga,0,0
+4015,Cabecera Municipal,41518,41,Paicol,41518,Huila,Paicol,0,0
+4016,Cabecera Municipal,41396,41,La Plata,41396,Huila,La Plata,0,0
+4017,Cabecera Municipal,41013,41,Agrado,41013,Huila,Agrado,0,0
+4018,Cabecera Municipal,41298,41,Garzí_n,41298,Huila,Garzí_n,0,0
+3749,Cabecera Municipal,15244,15,El Cocuy,15244,Boyacíç,El Cocuy,0,0
+3750,Cabecera Municipal,15673,15,San Mateo,15673,Boyacíç,San Mateo,0,0
+3751,Cabecera Municipal,15097,15,Boavita,15097,Boyacíç,Boavita,0,0
+3752,Cabecera Municipal,15403,15,La Uvita,15403,Boyacíç,La Uvita,0,0
+3753,Cabecera Municipal,15183,15,Chita,15183,Boyacíç,Chita,0,0
+3754,Cabecera Municipal,15774,15,Susací_n,15774,Boyacíç,Susací_n,0,0
+3755,Cabecera Municipal,15720,15,Sativanorte,15720,Boyacíç,Sativanorte,0,0
+3756,Cabecera Municipal,15368,15,Jericí_,15368,Boyacíç,Jericí_,0,0
+3757,Cabecera Municipal,15755,15,Socotíç,15755,Boyacíç,Socotíç,0,0
+3758,Cabecera Municipal,15757,15,Socha,15757,Boyacíç,Socha,0,0
+3759,Cabecera Municipal,15533,15,Paya,15533,Boyacíç,Paya,0,0
+3760,Cabecera Municipal,15550,15,Pisva,15550,Boyacíç,Pisba,0,0
+3761,Cabecera Municipal,15377,15,Labranzagrande,15377,Boyacíç,Labranzagrande,0,0
+3762,Cabecera Municipal,15518,15,Pajarito,15518,Boyacíç,Pajarito,0,0
+3763,Cabecera Municipal,15047,15,Aquitania,15047,Boyacíç,Aquitania,0,0
+3764,Cabecera Municipal,15362,15,Iza,15362,Boyacíç,Iza,0,0
+3765,Cabecera Municipal,15759,15,Sogamoso,15759,Boyacíç,Sogamoso,0,0
+3766,Cabecera Municipal,15464,15,Mongua,15464,Boyacíç,Mongua,0,0
+3767,Cabecera Municipal,15296,15,Gíçmeza,15296,Boyacíç,Gameza,0,0
+4022,Cabecera Municipal,41530,41,Palestina,41530,Huila,Palestina,0,0
+4023,Cabecera Municipal,41006,41,Acevedo,41006,Huila,Acevedo,0,0
+3768,Cabecera Municipal,15215,15,Corrales,15215,Boyacíç,Corrales,0,0
+4024,Cabecera Municipal,41770,41,Suaza,41770,Huila,Suaza,0,0
+4025,Cabecera Municipal,41026,41,Altamira,41026,Huila,Altamira,0,0
+4026,Cabecera Municipal,41872,41,Villavieja,41872,Huila,Villavieja,0,0
+3769,Cabecera Municipal,15114,15,Busbanzíç,15114,Boyacíç,Busbanzíç,0,0
+3770,Cabecera Municipal,15693,15,Santa Rosa De Viterbo,15693,Boyacíç,Santa Rosa de Viterbo,0,0
+3771,Cabecera Municipal,15790,15,Tasco,15790,Boyacíç,Tasco,0,0
+3772,Cabecera Municipal,15092,15,Betí©itiva,15092,Boyacíç,Betí©itiva,0,0
+3773,Cabecera Municipal,15087,15,Belí©n,15087,Boyacíç,Belí©n,0,0
+3774,Cabecera Municipal,15537,15,Paz De Rio,15537,Boyacíç,Paz de Rí_o,0,0
+3775,Cabecera Municipal,15238,15,Duitama,15238,Boyacíç,Duitama,0,0
+4221,Cabecera Municipal,13620,13,San Cristí_bal,13620,Bolí_var,San Cristí_bal,0,0
+4222,Cabecera Municipal,13062,13,Arroyohondo,13062,Bolí_var,Arroyohondo,0,0
+4223,Cabecera Municipal,13140,13,Calamar,13140,Bolí_var,Calamar,0,0
+4224,Cabecera Municipal,13440,13,Margarita,13440,Bolí_var,Margarita,0,0
+3776,Cabecera Municipal,15806,15,Tibasosa,15806,Boyacíç,Tibasosa,0,0
+3777,Cabecera Municipal,15516,15,Paipa,15516,Boyacíç,Paipa,0,0
+3778,Cabecera Municipal,15763,15,Sotaquiríç,15763,Boyacíç,Sotaquiríç,0,0
+3779,Cabecera Municipal,15837,15,Tuta,15837,Boyacíç,Tuta,0,0
+3780,Cabecera Municipal,15204,15,Cí_mbita,15204,Boyacíç,Cí_mbita,0,0
+4237,Cabecera Municipal,8421,8,Luruaco,8421,Atlíçntico,Luruaco,0,0
+4238,Cabecera Municipal,8849,8,Usiacurí_,8849,Atlíçntico,Usiacurí_,0,0
+4239,Cabecera Municipal,50400,50,Lejaní_as,50400,Meta,Lejaní_as,0,0
+4240,Cabecera Municipal,50318,50,Guamal,50318,Meta,Guamal,0,0
+3781,Cabecera Municipal,15494,15,Nuevo Colí_n,15494,Boyacíç,Nuevo Colí_n,0,0
+3782,Cabecera Municipal,15090,15,Berbeo,15090,Boyacíç,Berbeo,0,0
+3783,Cabecera Municipal,15660,15,San Eduardo,15660,Boyacíç,San Eduardo,0,0
+3784,Cabecera Municipal,15455,15,Miraflores,15455,Boyacíç,Miraflores,0,0
+3785,Cabecera Municipal,15514,15,Píçez,15514,Boyacíç,Píçez,0,0
+3786,Cabecera Municipal,15135,15,Campohermoso,15135,Boyacíç,Campohermoso,0,0
+3787,Cabecera Municipal,15667,15,San Luis De Gaceno,15667,Boyacíç,San Luis de Gaceno,0,0
+3788,Cabecera Municipal,15690,15,Santa Marí_a,15690,Boyacíç,Santa Marí_a,0,0
+3789,Cabecera Municipal,15236,15,Chivor,15236,Boyacíç,Chivor,0,0
+4071,Cabecera Municipal,17877,17,Viterbo,17877,Caldas,Viterbo,0,0
+4241,Cabecera Municipal,50006,50,Acací_as,50006,Meta,Acací_as,0,0
+3790,Cabecera Municipal,15325,15,Guayatíç,15325,Boyacíç,Guayatíç,0,0
+4242,Cabecera Municipal,50606,50,Restrepo,50606,Meta,Restrepo,0,0
+4243,Cabecera Municipal,50686,50,San Juanito,50686,Meta,San Juanito,0,0
+4244,Cabecera Municipal,50251,50,El Castillo,50251,Meta,El Castillo,0,0
+4245,Cabecera Municipal,50270,50,El Dorado,50270,Meta,El Dorado,0,0
+4246,Cabecera Municipal,85015,85,Chíçmeza,85015,Casanare,Chameza,0,0
+4247,Cabecera Municipal,85400,85,Tíçmara,85400,Casanare,Tíçmara,0,0
+4248,Cabecera Municipal,85315,85,Síçcama,85315,Casanare,Síçcama,0,0
+4249,Cabecera Municipal,85136,85,La Salina,85136,Casanare,La Salina,0,0
+4250,Cabecera Municipal,85250,85,Paz De Ariporo,85250,Casanare,Paz de Ariporo,0,0
+4251,Cabecera Municipal,85125,85,Hato Corozal,85125,Casanare,Hato Corozal,0,0
+4252,Cabecera Municipal,81300,81,Fortul,81300,Arauca,Fortul,0,0
+4253,Cabecera Municipal,44098,44,Distraccií_n,44098,La Guajira,Distraccií_n,0,0
+4254,Cabecera Municipal,47605,47,Remolino,47605,Magdalena,Remolino,0,0
+4255,Cabecera Municipal,47058,47,Ariguaní_ (El Difíåcil),47058,Magdalena,Ariguaní_,0,0
+4256,Cabecera Municipal,47460,47,Nueva Granada (Granada),47460,Magdalena,Nueva Granada,0,0
+4257,Cabecera Municipal,47170,47,Chivolo,47170,Magdalena,Chivolo,0,0
+3791,Cabecera Municipal,15322,15,Guateque,15322,Boyacíç,Guateque,0,0
+4258,Cabecera Municipal,47960,47,Zapayíçn (Punta De Piedras),47960,Magdalena,Zapayíçn,0,0
+4259,Cabecera Municipal,47798,47,Tenerife,47798,Magdalena,Tenerife,0,0
+4260,Cabecera Municipal,47555,47,Plato,47555,Magdalena,Plato,0,0
+4261,Cabecera Municipal,47720,47,Santa Barbara De Pinto,47720,Magdalena,Santa Bíçrbara de Pinto,0,0
+4262,Cabecera Municipal,47707,47,Santa Ana,47707,Magdalena,Santa Ana,0,0
+4263,Cabecera Municipal,47703,47,San Zení_n,47703,Magdalena,San Zení_n,0,0
+4264,Cabecera Municipal,47545,47,Pijií±o  Del Carmen,47545,Magdalena,Pijií±o del Carmen,0,0
+4265,Cabecera Municipal,47692,47,San Sebastiíçn De Buenavista,47692,Magdalena,San Sebastiíçn de Buenavista,0,0
+4266,Cabecera Municipal,47318,47,Guamal,47318,Magdalena,Guamal,0,0
+4267,Cabecera Municipal,47245,47,El Banco,47245,Magdalena,El Banco,0,0
+4268,Cabecera Municipal,47541,47,Pedraza,47541,Magdalena,Pedraza,0,0
+3792,Cabecera Municipal,15778,15,Sutatenza,15778,Boyacíç,Sutatenza,0,0
+3793,Cabecera Municipal,15380,15,La Capilla,15380,Boyacíç,La Capilla,0,0
+4269,Cabecera Municipal,47258,47,El Pií±í_n,47258,Magdalena,El Pií±on,0,0
+4270,Cabecera Municipal,20570,20,Pueblo Bello,20570,Cesar,Pueblo Bello,0,0
+4271,CAP. DEPTO,20001,20,Valledupar,20001,Cesar,Valledupar,0,0
+4272,Cabecera Municipal,20750,20,San Diego,20750,Cesar,San Diego,0,0
+3794,Cabecera Municipal,15299,15,Garagoa,15299,Boyacíç,Garagoa,0,0
+4273,Cabecera Municipal,20060,20,Bosconia,20060,Cesar,Bosconia,0,0
+4274,Cabecera Municipal,20250,20,El Paso,20250,Cesar,El Paso,0,0
+4275,Cabecera Municipal,20032,20,Astrea,20032,Cesar,Astrea,0,0
+4276,Cabecera Municipal,20175,20,Chimichagua,20175,Cesar,Chimichagua,0,0
+4277,Cabecera Municipal,20787,20,Tamalameque,20787,Cesar,Tamalameque,0,0
+3795,Cabecera Municipal,15511,15,Pachavita,15511,Boyacíç,Pachavita,0,0
+4278,Cabecera Municipal,20550,20,Pelaya,20550,Cesar,Pelaya,0,0
+4279,Cabecera Municipal,20383,20,La Gloria,20383,Cesar,La Gloria,1,1
+4280,Cabecera Municipal,20011,20,Aguachica,20011,Cesar,Aguachica,1,1
+4282,Cabecera Municipal,20614,20,Rí_o De Oro,20614,Cesar,Rí_o de Oro,0,0
+4283,Cabecera Municipal,20770,20,San Martí_n,20770,Cesar,San Martí_n,1,2
+4284,Cabecera Municipal,20710,20,San Alberto,20710,Cesar,San Alberto,0,1
+4285,Cabecera Municipal,54720,54,Sardinata,54720,Norte de Santander,Sardinata,1,0
+4286,Cabecera Municipal,54261,54,El Zulia,54261,Norte de Santander,El Zulia,0,0
+4287,Cabecera Municipal,54003,54,íbrego,54003,Norte de Santander,Abrego,1,0
+4288,Cabecera Municipal,54680,54,Santiago,54680,Norte de Santander,Santiago,0,0
+4289,Cabecera Municipal,54673,54,San Cayetano,54673,Norte de Santander,San Cayetano,0,0
+4290,Cabecera Municipal,54172,54,Chiníçcota,54172,Norte de Santander,Chiníçcota,1,0
+4291,Cabecera Municipal,54223,54,Cucutilla,54223,Norte de Santander,Cucutilla,0,0
+4292,Cabecera Municipal,54520,54,Pamplonita,54520,Norte de Santander,Pamplonita,0,0
+4293,Cabecera Municipal,54480,54,Mutiscua,54480,Norte de Santander,Mutiscua,1,0
+4294,Cabecera Municipal,54174,54,Chitagíç,54174,Norte de Santander,Chitagíç,1,0
+4295,Cabecera Municipal,54377,54,Labateca,54377,Norte de Santander,Labateca,0,0
+4296,Cabecera Municipal,54405,54,Los Patios,54405,Norte de Santander,Los Patios,0,0
+4297,Cabecera Municipal,68444,68,Matanza,68444,Santander,Matanza,0,0
+3796,Cabecera Municipal,15842,15,í_Mbita,15842,Boyacíç,Umbita,0,0
+3797,Cabecera Municipal,15835,15,Turmequí©,15835,Boyacíç,Turmequí©,0,0
+3798,Cabecera Municipal,15861,15,Ventaquemada,15861,Boyacíç,Ventaquemada,0,0
+3799,Cabecera Municipal,15646,15,Samacíç,15646,Boyacíç,Samacíç,0,0
+3800,Cabecera Municipal,15407,15,Villa De Leiva,15407,Boyacíç,Villa de Leyva,0,0
+3801,Cabecera Municipal,15676,15,San Miguel De Sema,15676,Boyacíç,San Miguel de Sema,0,0
+3802,Cabecera Municipal,15600,15,Ríçquira,15600,Boyacíç,Ríçquira,0,0
+3803,Cabecera Municipal,15638,15,Síçchica,15638,Boyacíç,Síçchica,0,0
+3804,Cabecera Municipal,15808,15,Tinjacíç,15808,Boyacíç,Tinjacíç,0,0
+3805,Cabecera Municipal,15776,15,Sutamarchíçn,15776,Boyacíç,Sutamarchíçn,0,0
+3806,Cabecera Municipal,15176,15,Chiquinquiríç,15176,Boyacíç,Chiquinquiríç,0,0
+3807,Cabecera Municipal,15051,15,Arcabuco,15051,Boyacíç,Arcabuco,0,0
+3808,Cabecera Municipal,15696,15,Santa Sofí_a,15696,Boyacíç,Santa Sofí_a,0,0
+3809,Cabecera Municipal,15469,15,Moniquiríç,15469,Boyacíç,Moniquiríç,0,0
+3810,Cabecera Municipal,15816,15,Toguí_,15816,Boyacíç,Togí_í_,0,0
+3811,Cabecera Municipal,15664,15,San Josí© De Pare,15664,Boyacíç,San Josí© de Pare,0,0
+3812,Cabecera Municipal,15832,15,Tununguíç,15832,Boyacíç,Tununguíç,0,0
+3813,Cabecera Municipal,15106,15,Briceí±o,15106,Boyacíç,Briceí±o,0,0
+3814,Cabecera Municipal,15531,15,Pauna,15531,Boyacíç,Pauna,0,0
+3815,Cabecera Municipal,15131,15,Caldas,15131,Boyacíç,Caldas,0,0
+3816,Cabecera Municipal,15109,15,Buenavista,15109,Boyacíç,Buenavista,0,0
+3817,Cabecera Municipal,15442,15,Maripí_,15442,Boyacíç,Maripí_,0,0
+3818,Cabecera Municipal,15507,15,Otanche,15507,Boyacíç,Otanche,0,0
+3819,Cabecera Municipal,15572,15,Puerto Boyacíç,15572,Boyacíç,Puerto Boyacíç,0,0
+3820,Cabecera Municipal,25572,25,Puerto Salgar,25572,Cundinamarca,Puerto Salgar,0,0
+3821,Cabecera Municipal,25148,25,Caparrapí_,25148,Cundinamarca,Caparrapí_,0,0
+3822,Cabecera Municipal,25258,25,El Peí±í_n,25258,Cundinamarca,El Peí±í_n,0,0
+3823,Cabecera Municipal,25851,25,í_tica,25851,Cundinamarca,í_tica,0,0
+3824,Cabecera Municipal,25489,25,Nimaima,25489,Cundinamarca,Nimaima,0,0
+3825,Cabecera Municipal,25592,25,Quebradanegra,25592,Cundinamarca,Quebradanegra,0,0
+3826,Cabecera Municipal,25875,25,Villeta,25875,Cundinamarca,Villeta,0,0
+3827,Cabecera Municipal,25320,25,Guaduas,25320,Cundinamarca,Guaduas,0,0
+3828,Cabecera Municipal,25662,25,San Juan De Rioseco,25662,Cundinamarca,San Juan de Rí_o Seco,0,0
+3829,Cabecera Municipal,25805,25,Tibacuy,25805,Cundinamarca,Tibacuy,0,0
+3830,Cabecera Municipal,25290,25,Fusagasugíç,25290,Cundinamarca,Fusagasugíç,0,0
+3831,Cabecera Municipal,25535,25,Pasca,25535,Cundinamarca,Pasca,0,0
+3832,Cabecera Municipal,25053,25,Arbelíçez,25053,Cundinamarca,Arbelíçez,0,0
+3833,Cabecera Municipal,25649,25,San Bernardo,25649,Cundinamarca,San Bernardo,0,0
+3834,Cabecera Municipal,25120,25,Cabrera,25120,Cundinamarca,Cabrera,1,0
+3835,Cabecera Municipal,25339,25,Gutií©rrez,25339,Cundinamarca,Gutií©rrez,0,0
+3836,Cabecera Municipal,25151,25,Cíçqueza,25151,Cundinamarca,Caqueza,0,0
+3837,Cabecera Municipal,25845,25,Une,25845,Cundinamarca,Une,0,0
+3838,Cabecera Municipal,25594,25,Quetame,25594,Cundinamarca,Quetame,0,0
+3839,Cabecera Municipal,25279,25,Fí_meque,25279,Cundinamarca,Fomeque,0,0
+3840,Cabecera Municipal,25181,25,Choachí_,25181,Cundinamarca,Choachí_,0,0
+3841,CAP. DEPTO Distrito Capital,11001,11,"Bogotíç, D.C.",11001,"Bogotíç, D.C.","Bogotíç, D.C.",0,0
+3842,Cabecera Municipal,25754,25,Soacha,25754,Cundinamarca,Soacha,0,0
+3843,Cabecera Municipal,25245,25,El Colegio,25245,Cundinamarca,El Colegio,0,0
+3844,Cabecera Municipal,25035,25,Anapoima,25035,Cundinamarca,Anapoima,0,0
+3845,Cabecera Municipal,25473,25,Mosquera,25473,Cundinamarca,Mosquera,0,0
+3847,Cabecera Municipal,25286,25,Funza,25286,Cundinamarca,Funza,0,0
+3848,Cabecera Municipal,25123,25,Cachipay,25123,Cundinamarca,Cachipay,0,0
+3849,Cabecera Municipal,25596,25,Quipile,25596,Cundinamarca,Quipile,0,0
+3850,Cabecera Municipal,25269,25,Facatativíç,25269,Cundinamarca,Facatativíç,0,0
+3851,Cabecera Municipal,25260,25,El Rosal,25260,Cundinamarca,El Rosal,0,0
+3852,Cabecera Municipal,25718,25,Sasaima,25718,Cundinamarca,Sasaima,0,0
+3853,Cabecera Municipal,25214,25,Cota,25214,Cundinamarca,Cota,1,0
+3854,Cabecera Municipal,25769,25,Subachoque,25769,Cundinamarca,Subachoque,0,0
+3855,Cabecera Municipal,25785,25,Tabio,25785,Cundinamarca,Tabio,0,0
+3856,Cabecera Municipal,25175,25,Chí_a,25175,Cundinamarca,Chí_a,0,0
+3857,Cabecera Municipal,25126,25,Cajicíç,25126,Cundinamarca,Cajicíç,0,0
+3858,Cabecera Municipal,25402,25,La Vega,25402,Cundinamarca,La Vega,0,0
+3859,Cabecera Municipal,25658,25,San Francisco,25658,Cundinamarca,San Francisco,0,0
+3860,Cabecera Municipal,25777,25,Supatíç,25777,Cundinamarca,Supatíç,0,0
+3861,Cabecera Municipal,25377,25,La Calera,25377,Cundinamarca,La Calera,0,0
+3862,Cabecera Municipal,25322,25,Guasca,25322,Cundinamarca,Guasca,0,0
+3863,Cabecera Municipal,25758,25,Sopí_,25758,Cundinamarca,Sopí_,0,0
+3864,Cabecera Municipal,25326,25,Guatavita,25326,Cundinamarca,Guatavita,0,0
+3868,Cabecera Municipal,25843,25,Ubatí©,25843,Cundinamarca,Villa de San Diego de Ubate,0,0
+3869,Cabecera Municipal,25372,25,Juní_n,25372,Cundinamarca,Juní_n,0,0
+3870,Cabecera Municipal,25297,25,Gachetíç,25297,Cundinamarca,Gachetíç,0,0
+3871,Cabecera Municipal,25299,25,Gama,25299,Cundinamarca,Gama,0,0
+3873,Cabecera Municipal,25436,25,Manta,25436,Cundinamarca,Manta,0,0
+3874,Cabecera Municipal,25807,25,Tibirita,25807,Cundinamarca,Tibirita,0,0
+3875,Cabecera Municipal,25426,25,Machetíç,25426,Cundinamarca,Macheta,0,0
+3876,Cabecera Municipal,25407,25,Lenguazaque,25407,Cundinamarca,Lenguazaque,0,0
+3877,Cabecera Municipal,25317,25,Guachetíç,25317,Cundinamarca,Guachetíç,0,0
+3878,Cabecera Municipal,25154,25,Carmen De Carupa,25154,Cundinamarca,Carmen de Carupa,0,0
+3879,Cabecera Municipal,25745,25,Simijaca,25745,Cundinamarca,Simijaca,0,0
+3880,Cabecera Municipal,25871,25,Villagí_mez,25871,Cundinamarca,Villagí_mez,0,0
+3881,Cabecera Municipal,25513,25,Pacho,25513,Cundinamarca,Pacho,0,0
+3882,Cabecera Municipal,13490,13,Norosi,13490,Bolí_var,Norosí_ (1),0,0
+3883,Cabecera Municipal,23682,23,San Josí© De Urí©,23682,Cí_rdoba,San Josí© de Urí©(1),0,0
+3884,Cabecera Municipal,19455,19,Miranda,19455,Cauca,Miranda,0,0
+3885,Cabecera Municipal,19212,19,Corinto,19212,Cauca,Corinto,0,0
+3886,Cabecera Municipal,19573,19,Puerto Tejada,19573,Cauca,Puerto Tejada,0,0
+3887,Cabecera Municipal,19845,19,Villa Rica,19845,Cauca,Villa Rica,0,0
+3888,Cabecera Municipal,19142,19,Caloto,19142,Cauca,Caloto(1)(3),0,0
+3889,Cabecera Municipal,19821,19,Toribí_o,19821,Cauca,Toribio,0,0
+3890,Cabecera Municipal,19364,19,Jambalí_,19364,Cauca,Jambalí_,0,0
+3891,Cabecera Municipal,19137,19,Caldono,19137,Cauca,Caldono,0,0
+3892,Cabecera Municipal,19743,19,Silvia,19743,Cauca,Silvia,0,0
+3893,Cabecera Municipal,19548,19,Piendamí_,19548,Cauca,Piendamí_,0,0
+3894,Cabecera Municipal,19698,19,Santander De Quilichao,19698,Cauca,Santander de Quilichao,0,0
+3895,Cabecera Municipal,19110,19,Buenos Aires,19110,Cauca,Buenos Aires,0,0
+3896,Cabecera Municipal,19780,19,Suíçrez,19780,Cauca,Suíçrez,0,0
+3897,Cabecera Municipal,19473,19,Morales,19473,Cauca,Morales,0,0
+3908,Cabecera Municipal,52565,52,Providencia,52565,Narií±o,Providencia,0,0
+3909,Cabecera Municipal,52838,52,Tí_querres,52838,Narií±o,Tí_querres,0,0
+3910,Cabecera Municipal,52720,52,Sapuyes,52720,Narií±o,Sapuyes,0,0
+3911,Cabecera Municipal,52506,52,Ospina,52506,Narií±o,Ospina,0,0
+3912,Cabecera Municipal,52354,52,Imuí©s,52354,Narií±o,Imuí©s,0,0
+3913,Cabecera Municipal,52320,52,Guaitarilla,52320,Narií±o,Guaitarilla,0,0
+3914,Cabecera Municipal,52352,52,Iles,52352,Narií±o,Iles,0,0
+3915,Cabecera Municipal,52317,52,Guachucal,52317,Narií±o,Guachucal,0,0
+3916,Cabecera Municipal,52022,52,Aldana,52022,Narií±o,Aldana,0,0
+3917,Cabecera Municipal,52585,52,Pupiales,52585,Narií±o,Pupiales,0,0
+3918,Cabecera Municipal,52323,52,Gualmatíçn,52323,Narií±o,Gualmatíçn,0,0
+3919,Cabecera Municipal,52560,52,Potosí_,52560,Narií±o,Potosí_,0,0
+3920,Cabecera Municipal,52215,52,Cí_rdoba,52215,Narií±o,Cí_rdoba,0,0
+3921,Cabecera Municipal,52573,52,Puerres,52573,Narií±o,Puerres,0,0
+3922,Cabecera Municipal,52287,52,Funes,52287,Narií±o,Funes,0,0
+3923,Cabecera Municipal,52788,52,Tangua,52788,Narií±o,Tangua,0,0
+3924,Cabecera Municipal,52885,52,Yacuanquer,52885,Narií±o,Yacuanquer,0,0
+3925,CAP. DEPTO,52001,52,Pasto,52001,Narií±o,Pasto,0,0
+3926,Cabecera Municipal,52036,52,Ancuya,52036,Narií±o,Ancuyíç,0,0
+3927,Cabecera Municipal,52678,52,Samaniego,52678,Narií±o,Samaniego,0,0
+3928,Cabecera Municipal,52385,52,La Llanada,52385,Narií±o,La Llanada,0,0
+3929,Cabecera Municipal,52418,52,Los Andes (Sotomayor),52418,Narií±o,Los Andes,0,0
+3930,Cabecera Municipal,19532,19,Patí_a  (El Bordo),19532,Cauca,Patí_a,1,0
+3931,Cabecera Municipal,19450,19,Mercaderes,19450,Cauca,Mercaderes,1,0
+3932,Cabecera Municipal,19100,19,Bolí_var,19100,Cauca,Bolí_var,1,0
+3933,Cabecera Municipal,19290,19,Florencia,19290,Cauca,Florencia,0,1
+3934,Cabecera Municipal,19693,19,San Sebastiíçn,19693,Cauca,San Sebastiíçn,1,0
+3935,Cabecera Municipal,19397,19,La Vega,19397,Cauca,La Vega,1,0
+3936,Cabecera Municipal,19785,19,Sucre,19785,Cauca,Sucre,0,1
+3937,Cabecera Municipal,19392,19,La Sierra,19392,Cauca,La Sierra,1,0
+3938,Cabecera Municipal,19622,19,Rosas,19622,Cauca,Rosas,0,0
+3939,Cabecera Municipal,19807,19,Timbí_o,19807,Cauca,Timbí_o,0,0
+3940,Cabecera Municipal,19760,19,Sotaríç (Paispamba),19760,Cauca,Sotara,1,0
+3943,Cabecera Municipal,19824,19,Totorí_,19824,Cauca,Totorí_,0,0
+3944,Cabecera Municipal,19355,19,Inzíç,19355,Cauca,Inzíç,0,0
+3945,Cabecera Municipal,19513,19,Padilla,19513,Cauca,Padilla,0,0
+3946,Cabecera Municipal,76243,76,El Aguila,76243,Valle del Cauca,El íguila,0,0
+3947,Cabecera Municipal,76041,76,Ansermanuevo,76041,Valle del Cauca,Ansermanuevo,0,0
+3948,Cabecera Municipal,76246,76,El Cairo,76246,Valle del Cauca,El Cairo,0,0
+4106,Cabecera Municipal,5809,5,Titiribí_,5809,Antioquia,Titiribí_,0,0
+3949,Cabecera Municipal,76054,76,Argelia,76054,Valle del Cauca,Argelia,0,0
+3950,Cabecera Municipal,76147,76,Cartago,76147,Valle del Cauca,Cartago,0,0
+3951,Cabecera Municipal,76020,76,Alcalíç,76020,Valle del Cauca,Alcalíç,0,0
+3952,Cabecera Municipal,76497,76,Obando,76497,Valle del Cauca,Obando,0,0
+3953,Cabecera Municipal,76823,76,Toro,76823,Valle del Cauca,Toro,0,0
+3954,Cabecera Municipal,76863,76,Versalles,76863,Valle del Cauca,Versalles,0,0
+3955,Cabecera Municipal,76250,76,El Dovio,76250,Valle del Cauca,El Dovio,0,0
+3956,Cabecera Municipal,76400,76,La Unií_n,76400,Valle del Cauca,La Unií_n,0,0
+3957,Cabecera Municipal,76622,76,Roldanillo,76622,Valle del Cauca,Roldanillo,0,0
+3958,Cabecera Municipal,76403,76,La Victoria,76403,Valle del Cauca,La Victoria,0,0
+3959,Cabecera Municipal,76895,76,Zarzal,76895,Valle del Cauca,Zarzal,0,0
+3960,Cabecera Municipal,76122,76,Caicedonia,76122,Valle del Cauca,Caicedonia,0,0
+3961,Cabecera Municipal,76113,76,Bugalagrande,76113,Valle del Cauca,Bugalagrande,0,0
+3987,Cabecera Municipal,52051,52,Arboleda (Berruecos),52051,Narií±o,Arboleda,1,0
+3988,Cabecera Municipal,52399,52,La Unií_n,52399,Narií±o,La Unií_n,1,0
+3989,Cabecera Municipal,52694,52,San Pedro De Cartago (Cartago),52694,Narií±o,San Pedro de Cartago,0,0
+3990,Cabecera Municipal,52203,52,Colí_n (Gí©nova),52203,Narií±o,Colí_n,0,0
+3991,Cabecera Municipal,52693,52,San Pablo,52693,Narií±o,San Pablo,1,0
+3992,Cabecera Municipal,52378,52,La Cruz,52378,Narií±o,La Cruz,0,0
+3993,Cabecera Municipal,52083,52,Belí©n,52083,Narií±o,Belí©n,0,0
+3994,Cabecera Municipal,52685,52,San Bernardo,52685,Narií±o,San Bernardo,0,0
+3995,Cabecera Municipal,52019,52,Albíçn (San Josí©),52019,Narií±o,Albíçn,0,0
+3996,Cabecera Municipal,52110,52,Buesaco,52110,Narií±o,Buesaco,0,0
+3997,Cabecera Municipal,52240,52,Chachaguí_,52240,Narií±o,Chachagí_í_,0,0
+3998,Cabecera Municipal,52480,52,Narií±o,52480,Narií±o,Narií±o,0,0
+3999,Cabecera Municipal,52381,52,La Florida,52381,Narií±o,La Florida,0,0
+4000,Cabecera Municipal,52260,52,El Tambo,52260,Narií±o,El Tambo,0,0
+4001,Cabecera Municipal,52411,52,Linares,52411,Narií±o,Linares,0,0
+4002,Cabecera Municipal,52210,52,Contadero,52210,Narií±o,Contadero,0,0
+4003,Cabecera Municipal,19300,19,Guachení©,19300,Cauca,Guachení© (1),0,0
+4004,Cabecera Municipal,86749,86,Sibundoy,86749,Putumayo,Sibundoy,0,0
+4019,Cabecera Municipal,41503,41,Oporapa,41503,Huila,Oporapa,0,0
+4020,Cabecera Municipal,41807,41,Timaníç,41807,Huila,Timaníç,0,0
+4021,Cabecera Municipal,41668,41,San Agustí_n,41668,Huila,San Agustí_n,0,0
+4027,Cabecera Municipal,73520,73,Palocabildo,73520,Tolima,Palocabildo,0,0
+4028,Cabecera Municipal,73443,73,Mariquita,73443,Tolima,Mariquita,0,0
+4029,Cabecera Municipal,73283,73,Fresno,73283,Tolima,Fresno,0,0
+4030,Cabecera Municipal,73347,73,Herveo,73347,Tolima,Herveo,0,0
+4031,Cabecera Municipal,73152,73,Casabianca,73152,Tolima,Casabianca,0,0
+4032,Cabecera Municipal,73870,73,Villahermosa,73870,Tolima,Villahermosa,0,0
+4033,Cabecera Municipal,73411,73,Lí_bano,73411,Tolima,Lí_bano,0,0
+4034,Cabecera Municipal,73461,73,Murillo,73461,Tolima,Murillo,0,0
+4035,Cabecera Municipal,73043,73,Anzoíçtegui,73043,Tolima,Anzoíçtegui,0,0
+4036,Cabecera Municipal,73861,73,Venadillo,73861,Tolima,Venadillo,0,0
+4037,Cabecera Municipal,73408,73,Lí©rida,73408,Tolima,Lí©rida,0,0
+4038,Cabecera Municipal,73026,73,Alvarado,73026,Tolima,Alvarado,0,0
+4039,Cabecera Municipal,73168,73,Chaparral,73168,Tolima,Chaparral,0,0
+4040,Cabecera Municipal,73616,73,Rioblanco,73616,Tolima,Rioblanco,0,0
+4041,Cabecera Municipal,73217,73,Coyaima,73217,Tolima,Coyaima,0,0
+4042,Cabecera Municipal,73671,73,Saldaí±a,73671,Tolima,Saldaí±a,0,0
+4043,Cabecera Municipal,73854,73,Valle De San Juan,73854,Tolima,Valle de San Juan,0,0
+4044,Cabecera Municipal,73873,73,Villarrica,73873,Tolima,Villarrica,0,0
+4045,Cabecera Municipal,73275,73,Flandes,73275,Tolima,Flandes,0,0
+4046,Cabecera Municipal,73200,73,Coello,73200,Tolima,Coello,0,0
+4047,Cabecera Municipal,73030,73,Ambalema,73030,Tolima,Ambalema,0,0
+4048,Cabecera Municipal,73352,73,Icononzo,73352,Tolima,Icononzo,0,0
+4049,Cabecera Municipal,73547,73,Piedras,73547,Tolima,Piedras,0,0
+4050,Cabecera Municipal,73226,73,Cunday,73226,Tolima,Cunday,0,0
+4051,Cabecera Municipal,63470,63,Montenegro,63470,Quindio,Montenegro,0,0
+4052,Cabecera Municipal,63401,63,La Tebaida,63401,Quindio,La Tebaida,0,0
+4053,Cabecera Municipal,63548,63,Pijao,63548,Quindio,Pijao,0,0
+4054,Cabecera Municipal,63302,63,Gí©nova,63302,Quindio,Gí©nova,0,0
+4055,Cabecera Municipal,66682,66,Santa Rosa De Cabal,66682,Risaralda,Santa Rosa de Cabal,0,0
+4056,Cabecera Municipal,66440,66,Marsella,66440,Risaralda,Marsella,0,0
+4087,Cabecera Municipal,5353,5,Hispania,5353,Antioquia,Hispania,0,0
+4057,Cabecera Municipal,66045,66,Apí_a,66045,Risaralda,Apí_a,0,0
+4101,Cabecera Municipal,5679,5,Santa Bíçrbara,5679,Antioquia,Santa Bíçrbara,0,0
+4102,Cabecera Municipal,5282,5,Fredonia,5282,Antioquia,Fredonia,0,0
+4110,Cabecera Municipal,5631,5,Sabaneta,5631,Antioquia,Sabaneta,0,0
+4058,Cabecera Municipal,66594,66,Quinchí_a,66594,Risaralda,Quinchí_a,0,0
+4059,Cabecera Municipal,27745,27,Sipí_,27745,Chocí_,Sipí_,0,0
+4060,Cabecera Municipal,27491,27,Ní_vita,27491,Chocí_,Ní_vita,0,0
+4061,Cabecera Municipal,27450,27,Medio San Juan (Andagoya),27450,Chocí_,Medio San Juan,0,0
+4062,Cabecera Municipal,27205,27,Condoto,27205,Chocí_,Condoto,0,0
+4063,Cabecera Municipal,27361,27,Istmina,27361,Chocí_,Istmina,0,0
+4064,Cabecera Municipal,27160,27,Certegui,27160,Chocí_,Cí©rtegui,0,0
+4065,Cabecera Municipal,27073,27,Bagadí_,27073,Chocí_,Bagadí_,0,0
+4066,Cabecera Municipal,27135,27,El Cantí_n Del San Pablo,27135,Chocí_,El Cantí_n del San Pablo,0,0
+4067,Cabecera Municipal,27600,27,Rí_o Quito (Paimadí_),27600,Chocí_,Rí_o Quito,0,0
+4068,Cabecera Municipal,27245,27,El Carmen,27245,Chocí_,El Carmen de Atrato,0,0
+4069,Cabecera Municipal,27430,27,Medio Baudí_ (Boca De Pepí©),27430,Chocí_,Medio Baudí_,0,0
+4070,Cabecera Municipal,27580,27,Rí_o Irí_ (Santa Rita),27580,Chocí_,Rí_o Iro,0,0
+4113,Cabecera Municipal,5670,5,San Roque,5670,Antioquia,San Roque,0,0
+4114,Cabecera Municipal,5021,5,Alejandrí_a,5021,Antioquia,Alejandrí_a,1,0
+4115,Cabecera Municipal,5579,5,Puerto Berrí_o,5579,Antioquia,Puerto Berrí_o,1,2
+4116,Cabecera Municipal,5425,5,Maceo,5425,Antioquia,Maceo,0,0
+4117,Cabecera Municipal,5885,5,Yalí_,5885,Antioquia,Yalí_,0,0
+4118,Cabecera Municipal,5890,5,Yolombí_,5890,Antioquia,Yolombí_,0,0
+4072,Cabecera Municipal,17042,17,Anserma,17042,Caldas,Anserma,0,0
+4073,Cabecera Municipal,17272,17,Filadelfia,17272,Caldas,Filadelfia,0,0
+4133,Cabecera Municipal,5411,5,Liborina,5411,Antioquia,Liborina,0,1
+4134,Cabecera Municipal,5086,5,Belmira,5086,Antioquia,Belmira,0,0
+4135,Cabecera Municipal,5264,5,Entrerrios,5264,Antioquia,Entrerrios,0,0
+4136,Cabecera Municipal,5686,5,Santa Rosa De Osos,5686,Antioquia,Santa Rosa de Osos,0,0
+4137,Cabecera Municipal,5310,5,Gí_mez Plata,5310,Antioquia,Gí_mez Plata,0,0
+4138,Cabecera Municipal,5150,5,Carolina,5150,Antioquia,Carolina,0,0
+4139,Cabecera Municipal,5031,5,Amalfi,5031,Antioquia,Amalfi,0,0
+4140,Cabecera Municipal,5858,5,Vegachí_,5858,Antioquia,Vegachí_,0,0
+4141,Cabecera Municipal,5893,5,Yondí_ (Casabe),5893,Antioquia,Yondí_,0,2
+4142,Cabecera Municipal,5604,5,Remedios,5604,Antioquia,Remedios,0,0
+4143,Cabecera Municipal,5736,5,Segovia,5736,Antioquia,Segovia,0,0
+4144,Cabecera Municipal,5040,5,Anorí_,5040,Antioquia,Anorí_,0,0
+4145,Cabecera Municipal,5134,5,Campamento,5134,Antioquia,Campamento,0,0
+4074,Cabecera Municipal,17777,17,Supí_a,17777,Caldas,Supí_a,0,0
+4075,Cabecera Municipal,17388,17,La Merced,17388,Caldas,La Merced,0,0
+4076,Cabecera Municipal,17653,17,Salamina,17653,Caldas,Salamina,0,0
+4077,Cabecera Municipal,17513,17,Píçcora,17513,Caldas,Píçcora,0,0
+4078,Cabecera Municipal,17013,17,Aguadas,17013,Caldas,Aguadas,0,0
+4079,Cabecera Municipal,17541,17,Pensilvania,17541,Caldas,Pensilvania,0,0
+4080,Cabecera Municipal,17662,17,Samaníç,17662,Caldas,Samaníç,0,0
+4081,Cabecera Municipal,17495,17,Norcasia,17495,Caldas,Norcasia,0,0
+4082,Cabecera Municipal,17050,17,Aranzazu,17050,Caldas,Aranzazu,0,0
+4083,Cabecera Municipal,5364,5,Jardí_n,5364,Antioquia,Jardí_n,0,0
+4084,Cabecera Municipal,5034,5,Andes,5034,Antioquia,Andes,0,0
+4085,Cabecera Municipal,5368,5,Jericí_,5368,Antioquia,Jericí_,0,0
+4086,Cabecera Municipal,5576,5,Pueblorrico,5576,Antioquia,Pueblorrico,0,0
+4088,Cabecera Municipal,5789,5,Tíçmesis,5789,Antioquia,Tíçmesis,0,0
+4089,Cabecera Municipal,5390,5,La Pintada,5390,Antioquia,La Pintada,0,0
+4090,Cabecera Municipal,5002,5,Abejorral,5002,Antioquia,Abejorral,1,0
+4091,Cabecera Municipal,5756,5,Sonsí_n,5756,Antioquia,Sonson,1,0
+4092,Cabecera Municipal,5483,5,Narií±o,5483,Antioquia,Narií±o,1,0
+4093,Cabecera Municipal,5055,5,Argelia,5055,Antioquia,Argelia,0,1
+4094,Cabecera Municipal,5585,5,Puerto Nare,5585,Antioquia,Puerto Nare,0,2
+4095,Cabecera Municipal,5649,5,San Carlos,5649,Antioquia,San Carlos,1,0
+4096,Cabecera Municipal,5667,5,San Rafael,5667,Antioquia,San Rafael,1,0
+4097,Cabecera Municipal,5197,5,Cocorníç,5197,Antioquia,Cocorníç,1,0
+4098,Cabecera Municipal,5697,5,Santuario,5697,Antioquia,El Santuario,1,0
+4099,Cabecera Municipal,5376,5,La Ceja,5376,Antioquia,La Ceja,1,0
+4100,Cabecera Municipal,5400,5,La Union,5400,Antioquia,La Unií_n,1,0
+4103,Cabecera Municipal,5861,5,Venecia,5861,Antioquia,Venecia,0,0
+4104,Cabecera Municipal,5642,5,Salgar,5642,Antioquia,Salgar,0,0
+4105,Cabecera Municipal,5209,5,Concordia,5209,Antioquia,Concordia,0,0
+4107,Cabecera Municipal,5030,5,Amagíç,5030,Antioquia,Amagíç,0,0
+4108,Cabecera Municipal,5036,5,Angelí_polis,5036,Antioquia,Angelí_polis,0,0
+4109,Cabecera Municipal,5129,5,Caldas,5129,Antioquia,Caldas,0,0
+4111,Cabecera Municipal,5380,5,La Estrella,5380,Antioquia,La Estrella,0,0
+4112,Cabecera Municipal,5266,5,Envigado,5266,Antioquia,Envigado,0,0
+4119,Cabecera Municipal,5190,5,Cisneros,5190,Antioquia,Cisneros,0,0
+4120,Cabecera Municipal,5690,5,Santo Domingo,5690,Antioquia,Santo Domingo,0,0
+4121,Cabecera Municipal,5079,5,Barbosa,5079,Antioquia,Barbosa,0,0
+4122,Cabecera Municipal,5237,5,Don Matí_as,5237,Antioquia,Don Matí_as,0,0
+4123,Cabecera Municipal,5308,5,Girardota,5308,Antioquia,Girardota,0,0
+4124,Cabecera Municipal,5212,5,Copacabana,5212,Antioquia,Copacabana,0,0
+4125,Cabecera Municipal,5088,5,Bello,5088,Antioquia,Bello,0,0
+4126,Cabecera Municipal,5318,5,Guarne,5318,Antioquia,Guarne,1,0
+4127,Cabecera Municipal,5664,5,San Pedro,5664,Antioquia,San Pedro,0,0
+4128,Cabecera Municipal,5125,5,Caicedo,5125,Antioquia,Caicedo,0,0
+4129,Cabecera Municipal,5847,5,Urrao,5847,Antioquia,Urrao,0,0
+4130,Cabecera Municipal,5873,5,Vigí_a Del Fuerte,5873,Antioquia,Vigí_a del Fuerte,0,0
+4131,Cabecera Municipal,5284,5,Frontino,5284,Antioquia,Frontino,0,0
+4132,Cabecera Municipal,5004,5,Abriaquí_,5004,Antioquia,Abriaquí_,0,0
+4146,Cabecera Municipal,5658,5,San Josí© De La Montaí±a,5658,Antioquia,San Josí© de La Montaí±a,0,0
+4153,Cabecera Municipal,5819,5,Toledo,5819,Antioquia,Toledo,0,0
+4154,Cabecera Municipal,5361,5,Ituango,5361,Antioquia,Ituango,0,0
+4155,Cabecera Municipal,5107,5,Briceí±o,5107,Antioquia,Briceí±o,0,0
+4147,Cabecera Municipal,5647,5,San Andrí©s,5647,Antioquia,San Andrí©s de Cuerquí_a,0,0
+4148,Cabecera Municipal,5628,5,Sabanalarga,5628,Antioquia,Sabanalarga,0,0
+4149,Cabecera Municipal,5113,5,Buriticíç,5113,Antioquia,Buriticíç,0,0
+4150,Cabecera Municipal,5138,5,Caí±asgordas,5138,Antioquia,Caí±asgordas,0,0
+4156,Cabecera Municipal,5854,5,Valdivia,5854,Antioquia,Valdivia,0,0
+4157,Cabecera Municipal,5895,5,Zaragoza,5895,Antioquia,Zaragoza,0,0
+4158,Cabecera Municipal,5250,5,El Bagre,5250,Antioquia,El Bagre,0,0
+4159,Cabecera Municipal,5495,5,Nechí_,5495,Antioquia,Nechí_,0,0
+4160,Cabecera Municipal,5172,5,Chigorodí_,5172,Antioquia,Chigorodí_,0,0
+4151,Cabecera Municipal,5842,5,Uramita,5842,Antioquia,Uramita,0,0
+4152,Cabecera Municipal,5543,5,Peque,5543,Antioquia,Peque,0,0
+4161,Cabecera Municipal,5045,5,Apartadí_,5045,Antioquia,Apartadí_,0,0
+4162,Cabecera Municipal,5147,5,Carepa,5147,Antioquia,Carepa,0,0
+4163,Cabecera Municipal,5665,5,San Pedro De Urabíç,5665,Antioquia,San Pedro de Uraba,0,0
+4164,Cabecera Municipal,5315,5,Guadalupe,5315,Antioquia,Guadalupe,0,0
+4165,Cabecera Municipal,23807,23,Tierralta,23807,Cí_rdoba,Tierralta,0,0
+4166,Cabecera Municipal,23855,23,Valencia,23855,Cí_rdoba,Valencia,0,0
+4167,Cabecera Municipal,23417,23,Lorica,23417,Cí_rdoba,Lorica,0,0
+4196,Cabecera Municipal,13760,13,Soplaviento,13760,Bolí_var,Soplaviento,0,0
+4197,Cabecera Municipal,13433,13,Mahates,13433,Bolí_var,Mahates,0,0
+4198,Cabecera Municipal,13052,13,Arjona,13052,Bolí_var,Arjona,0,0
+4199,Cabecera Municipal,13836,13,Turbaco,13836,Bolí_var,Turbaco,0,0
+4200,Cabecera Municipal,13838,13,Turbana,13838,Bolí_var,Turbaníç,0,0
+4201,Cabecera Municipal,13442,13,Maria La Baja,13442,Bolí_var,Marí_a La Baja,1,0
+4202,Cabecera Municipal,13657,13,San Juan Nepomuceno,13657,Bolí_var,San Juan Nepomuceno,1,0
+4203,Cabecera Municipal,13654,13,San Jacinto,13654,Bolí_var,San Jacinto,1,0
+4204,Cabecera Municipal,13244,13,El Carmen De Bolí_var,13244,Bolí_var,El Carmen de Bolí_var,1,0
+4205,Cabecera Municipal,13894,13,Zambrano,13894,Bolí_var,Zambrano,1,1
+4206,Cabecera Municipal,13212,13,Cí_rdoba,13212,Bolí_var,Cí_rdoba,1,1
+4207,Cabecera Municipal,13430,13,Maganguí©,13430,Bolí_var,Maganguí©,0,1
+4208,Cabecera Municipal,13780,13,Talaigua Nuevo,13780,Bolí_var,Talaigua Nuevo,0,0
+4209,Cabecera Municipal,13188,13,Cicuco,13188,Bolí_var,Cicuco,0,0
+4210,Cabecera Municipal,13468,13,Mompí_s,13468,Bolí_var,Mompí_s,0,0
+4211,Cabecera Municipal,13650,13,San Fernando,13650,Bolí_var,San Fernando,0,0
+4213,Cabecera Municipal,13667,13,San Martí_n De Loba,13667,Bolí_var,San Martí_n de Loba,0,0
+4214,Cabecera Municipal,13268,13,El Peí±í_n,13268,Bolí_var,El Peí±í_n,0,0
+4215,Cabecera Municipal,13580,13,Regidor,13580,Bolí_var,Regidor,0,2
+4216,Cabecera Municipal,13042,13,Arenal,13042,Bolí_var,Arenal,1,1
+4217,Cabecera Municipal,13744,13,Simití_,13744,Bolí_var,Simití_,1,1
+4218,Cabecera Municipal,13670,13,San Pablo,13670,Bolí_var,San Pablo,0,1
+4219,Cabecera Municipal,13458,13,Montecristo,13458,Bolí_var,Montecristo,0,0
+4225,Cabecera Municipal,8296,8,Galapa,8296,Atlíçntico,Galapa,0,0
+4226,Cabecera Municipal,8758,8,Soledad,8758,Atlíçntico,Soledad,0,0
+4227,Cabecera Municipal,8433,8,Malambo,8433,Atlíçntico,Malambo,0,0
+4228,Cabecera Municipal,8078,8,Baranoa,8078,Atlíçntico,Baranoa,0,0
+4229,Cabecera Municipal,8558,8,Polonuevo,8558,Atlíçntico,Polonuevo,0,0
+4230,Cabecera Municipal,8634,8,Sabanagrande,8634,Atlíçntico,Sabanagrande,0,0
+4231,Cabecera Municipal,8638,8,Sabanalarga,8638,Atlíçntico,Sabanalarga,0,0
+4232,Cabecera Municipal,8141,8,Candelaria,8141,Atlíçntico,Candelaria,0,0
+4233,Cabecera Municipal,8436,8,Manatí_,8436,Atlíçntico,Manatí_,0,0
+4234,Cabecera Municipal,8137,8,Campo De La Cruz,8137,Atlíçntico,Campo de La Cruz,0,0
+4235,Cabecera Municipal,8770,8,Suan,8770,Atlíçntico,Suan,0,0
+4236,Cabecera Municipal,8606,8,Repelí_n,8606,Atlíçntico,Repelí_n,0,0
+4298,Cabecera Municipal,68867,68,Vetas,68867,Santander,Vetas,0,0
+4299,Cabecera Municipal,68169,68,Charta,68169,Santander,Charta,0,0
+4300,Cabecera Municipal,68820,68,Tona,68820,Santander,Tona,0,0
+4301,CAP. DEPTO Distrito Histí_rico y Cultural,68001,68,Bucaramanga,68001,Santander,Bucaramanga,0,0
+4302,Cabecera Municipal,68276,68,Floridablanca,68276,Santander,Floridablanca,0,0
+4303,Cabecera Municipal,68547,68,Piedecuesta,68547,Santander,Piedecuesta,0,0
+4304,Cabecera Municipal,68318,68,Guaca,68318,Santander,Guaca,0,0
+4305,Cabecera Municipal,68669,68,San Andrí©s,68669,Santander,San Andrí©s,0,0
+4306,Cabecera Municipal,68162,68,Cerrito,68162,Santander,Cerrito,0,0
+4307,Cabecera Municipal,68207,68,Concepcií_n,68207,Santander,Concepcií_n,0,0
+4308,Cabecera Municipal,68464,68,Mogotes,68464,Santander,Mogotes,0,0
+4309,Cabecera Municipal,68209,68,Confines,68209,Santander,Confines,0,0
+4310,Cabecera Municipal,68755,68,Socorro,68755,Santander,Socorro,0,0
+4311,Cabecera Municipal,68549,68,Pinchote,68549,Santander,Pinchote,0,0
+4312,Cabecera Municipal,68229,68,Curití_,68229,Santander,Curití_,0,0
+4313,Cabecera Municipal,68160,68,Cepitíç,68160,Santander,Cepitíç,0,0
+4314,Cabecera Municipal,68689,68,San Vicente De Chucurí_,68689,Santander,San Vicente de Chucurí_,0,1
+4315,Cabecera Municipal,68307,68,Girí_n,68307,Santander,Girí_n,0,1
+4316,Cabecera Municipal,68322,68,Guapotíç,68322,Santander,Guapotíç,0,0
+4317,Cabecera Municipal,68745,68,Simacota,68745,Santander,Simacota,1,1
+4318,Cabecera Municipal,68344,68,Hato,68344,Santander,Hato,0,0
+4319,Cabecera Municipal,68522,68,Palmar,68522,Santander,Palmar,0,0
+4329,Cabecera Municipal,15226,15,Cuí_tiva,15226,Boyacíç,Cuí_tiva,0,0
+4330,Cabecera Municipal,15272,15,Firavitoba,15272,Boyacíç,Firavitoba,0,0
+4320,Cabecera Municipal,68121,68,Cabrera,68121,Santander,Cabrera,0,0
+4380,Cabecera Municipal,25293,25,Gachalíç,25293,Cundinamarca,Gachala,0,0
+4381,Cabecera Municipal,25438,25,Medina,25438,Cundinamarca,Medina,0,0
+4382,Cabecera Municipal,25530,25,Paratebueno,25530,Cundinamarca,Paratebueno,1,0
+4383,Cabecera Municipal,25518,25,Paime,25518,Cundinamarca,Paime,0,0
+4384,Cabecera Municipal,25653,25,San Cayetano,25653,Cundinamarca,San Cayetano,0,0
+4385,Cabecera Municipal,19022,19,Almaguer,19022,Cauca,Almaguer,1,0
+4386,Cabecera Municipal,76563,76,Pradera,76563,Valle del Cauca,Pradera,0,0
+4387,Cabecera Municipal,52427,52,Maguí_ (Payíçn),52427,Narií±o,Magí_i,0,0
+4388,Cabecera Municipal,52233,52,Cumbitara,52233,Narií±o,Cumbitara,1,1
+4389,Cabecera Municipal,41319,41,Guadalupe,41319,Huila,Guadalupe,0,0
+4390,Cabecera Municipal,73319,73,Guamo,73319,Tolima,Guamo,0,0
+4391,Cabecera Municipal,73268,73,Espinal,73268,Tolima,Espinal,0,0
+4392,Cabecera Municipal,63690,63,Salento,63690,Quindio,Salento,0,0
+4321,Cabecera Municipal,68079,68,Barichara,68079,Santander,Barichara,0,0
+4322,Cabecera Municipal,68296,68,Galíçn,68296,Santander,Galíçn,0,0
+4323,Cabecera Municipal,68235,68,El Carmen de Chucuri,68235,Santander,El Carmen de Chucurí_,0,2
+4324,Cabecera Municipal,15522,15,Panqueba,15522,Boyacíç,Panqueba,0,0
+4325,Cabecera Municipal,15317,15,Guacamayas,15317,Boyacíç,Guacamayas,0,0
+4326,Cabecera Municipal,15723,15,Sativasur,15723,Boyacíç,Sativasur,0,0
+4327,Cabecera Municipal,15822,15,Tota,15822,Boyacíç,Tota,0,0
+4328,Cabecera Municipal,15542,15,Pesca,15542,Boyacíç,Pesca,0,0
+4331,Cabecera Municipal,15491,15,Nobsa,15491,Boyacíç,Nobsa,0,0
+4407,Cabecera Municipal,17524,17,Palestina,17524,Caldas,Palestina,0,0
+4332,Cabecera Municipal,15466,15,Monguí_,15466,Boyacíç,Monguí_,0,0
+4333,Cabecera Municipal,15820,15,Tí_paga,15820,Boyacíç,Tí_paga,0,0
+4334,Cabecera Municipal,15276,15,Floresta,15276,Boyacíç,Floresta,0,0
+4335,Cabecera Municipal,15839,15,Tutazíç,15839,Boyacíç,Tutazíç,0,0
+4415,Cabecera Municipal,5792,5,Tarso,5792,Antioquia,Tarso,0,0
+4416,Cabecera Municipal,5101,5,Ciudad Bolí_var,5101,Antioquia,Ciudad Bolí_var,0,0
+4417,Cabecera Municipal,5091,5,Betania,5091,Antioquia,Betania,0,0
+4336,Cabecera Municipal,15162,15,Cerinza,15162,Boyacíç,Cerinza,0,0
+4337,Cabecera Municipal,15599,15,Ramiriquí_,15599,Boyacíç,Ramiriquí_,0,0
+4338,Cabecera Municipal,15804,15,Tibaníç,15804,Boyacíç,Tibaníç,0,0
+4339,Cabecera Municipal,15897,15,Zetaquira,15897,Boyacíç,Zetaquira,0,0
+4341,Cabecera Municipal,15425,15,Macanal,15425,Boyacíç,Macanal,0,0
+4342,Cabecera Municipal,15022,15,Almeida,15022,Boyacíç,Almeida,0,0
+4420,Cabecera Municipal,5059,5,Armenia,5059,Antioquia,Armenia,0,0
+4421,Cabecera Municipal,5607,5,Retiro,5607,Antioquia,Retiro,1,0
+4343,Cabecera Municipal,15761,15,Somondoco,15761,Boyacíç,Somondoco,0,0
+4344,Cabecera Municipal,15172,15,Chinavita,15172,Boyacíç,Chinavita,0,0
+4345,Cabecera Municipal,15232,15,Chí_quiza,15232,Boyacíç,Chí_quiza,0,0
+4440,Cabecera Municipal,54344,54,Hacarí_,54344,Norte de Santander,Hacarí_,0,0
+4441,Cabecera Municipal,54660,54,Salazar,54660,Norte de Santander,Salazar,0,0
+4442,Cabecera Municipal,54239,54,Durania,54239,Norte de Santander,Durania,0,0
+4443,Cabecera Municipal,54051,54,Arboledas,54051,Norte de Santander,Arboledas,0,0
+4444,Cabecera Municipal,54099,54,Bochalema,54099,Norte de Santander,Bochalema,1,0
+4445,Cabecera Municipal,54518,54,Pamplona,54518,Norte de Santander,Pamplona,1,0
+4446,Cabecera Municipal,54125,54,Cíçcota,54125,Norte de Santander,Cíçcota,1,0
+4346,Cabecera Municipal,15686,15,Santana,15686,Boyacíç,Santana,0,0
+4347,Cabecera Municipal,25394,25,La Palma,25394,Cundinamarca,La Palma,0,0
+4348,Cabecera Municipal,25823,25,Topaipí_,25823,Cundinamarca,Topaipí_,0,0
+4349,Cabecera Municipal,25398,25,La Peí±a,25398,Cundinamarca,La Peí±a,0,0
+4350,Cabecera Municipal,25862,25,Vergara,25862,Cundinamarca,Vergara,0,0
+4351,Cabecera Municipal,25491,25,Nocaima,25491,Cundinamarca,Nocaima,0,0
+4447,Cabecera Municipal,54743,54,Silos,54743,Norte de Santander,Silos,1,0
+4352,Cabecera Municipal,25168,25,Chaguaní_,25168,Cundinamarca,Chaguaní_,0,0
+4353,Cabecera Municipal,25867,25,Vianí_,25867,Cundinamarca,Vianí_,0,0
+4354,Cabecera Municipal,25095,25,Bituima,25095,Cundinamarca,Bituima,0,0
+4355,Cabecera Municipal,25086,25,Beltríçn,25086,Cundinamarca,Beltríçn,0,0
+4356,Cabecera Municipal,25580,25,Pulí_,25580,Cundinamarca,Pulí_,0,0
+4357,Cabecera Municipal,25368,25,Jerusalí©n,25368,Cundinamarca,Jerusalí©n,0,0
+4358,Cabecera Municipal,25324,25,Guataquí_,25324,Cundinamarca,Guataquí_,0,0
+4359,Cabecera Municipal,25483,25,Narií±o,25483,Cundinamarca,Narií±o,0,0
+4360,Cabecera Municipal,25307,25,Girardot,25307,Cundinamarca,Girardot,0,0
+4361,Cabecera Municipal,25612,25,Ricaurte,25612,Cundinamarca,Ricaurte,0,0
+4362,Cabecera Municipal,25488,25,Nilo,25488,Cundinamarca,Nilo,0,0
+4363,Cabecera Municipal,25001,25,Agua De Dios,25001,Cundinamarca,Agua de Dios,0,0
+4364,Cabecera Municipal,25599,25,Apulo,25599,Cundinamarca,Apulo,0,0
+4365,Cabecera Municipal,25743,25,Silvania,25743,Cundinamarca,Silvania,0,0
+4366,Cabecera Municipal,25524,25,Pandi,25524,Cundinamarca,Pandi,0,0
+4367,Cabecera Municipal,25506,25,Venecia,25506,Cundinamarca,Venecia,0,0
+4368,Cabecera Municipal,25740,25,Sibatí©,25740,Cundinamarca,Sibatí©,0,0
+4369,Cabecera Municipal,25312,25,Granada,25312,Cundinamarca,Granada,0,0
+4370,Cabecera Municipal,25335,25,Guayabetal,25335,Cundinamarca,Guayabetal,0,0
+4371,Cabecera Municipal,25645,25,San Antonio Del Tequendama,25645,Cundinamarca,San Antonio del Tequendama,0,0
+4372,Cabecera Municipal,25386,25,La Mesa,25386,Cundinamarca,La Mesa,0,0
+4373,Cabecera Municipal,25797,25,Tena,25797,Cundinamarca,Tena,0,0
+4374,Cabecera Municipal,25099,25,Bojacíç,25099,Cundinamarca,Bojacíç,0,0
+4473,Cabecera Municipal,15879,15,Viracachíç,15879,Boyacíç,Viracachíç,0,0
+4375,Cabecera Municipal,25040,25,Anolaima,25040,Cundinamarca,Anolaima,0,0
+4376,Cabecera Municipal,25328,25,Guayabal De Sí_quima,25328,Cundinamarca,Guayabal de Siquima,0,0
+4377,Cabecera Municipal,25019,25,Albíçn,25019,Cundinamarca,Albíçn,0,0
+4378,Cabecera Municipal,25799,25,Tenjo,25799,Cundinamarca,Tenjo,0,0
+4379,Cabecera Municipal,25899,25,Zipaquiríç,25899,Cundinamarca,Zipaquiríç,0,0
+4393,Cabecera Municipal,63111,63,Buenavista,63111,Quindio,Buenavista,0,0
+4394,Cabecera Municipal,66170,66,Dosquebradas,66170,Risaralda,Dosquebradas,0,0
+4395,Cabecera Municipal,66400,66,La Virginia,66400,Risaralda,La Virginia,0,0
+4396,Cabecera Municipal,66075,66,Balboa,66075,Risaralda,Balboa,0,0
+4397,Cabecera Municipal,27787,27,Tadí_,27787,Chocí_,Tadí_,0,0
+4398,Cabecera Municipal,27050,27,Atrato (Yuto),27050,Chocí_,Atrato,0,0
+4399,Cabecera Municipal,27810,27,Unií_n Panamericana (íçnimas),27810,Chocí_,Unií_n Panamericana,0,0
+4400,Cabecera Municipal,27425,27,Medio Atrato (Betí©),27425,Chocí_,Medio Atrato,0,0
+4401,Cabecera Municipal,17088,17,Belalcíçzar,17088,Caldas,Belalcíçzar,0,0
+4402,Cabecera Municipal,17442,17,Marmato,17442,Caldas,Marmato,0,0
+4403,Cabecera Municipal,17867,17,Victoria,17867,Caldas,Victoria,0,0
+4404,Cabecera Municipal,17486,17,Neira,17486,Caldas,Neira,0,0
+4405,Cabecera Municipal,17873,17,Villamarí_a,17873,Caldas,Villamarí_a,0,0
+4406,Cabecera Municipal,17174,17,Chinchiníç,17174,Caldas,Chinchiníç,0,0
+4408,Cabecera Municipal,5145,5,Caramanta,5145,Antioquia,Caramanta,0,0
+4409,Cabecera Municipal,5856,5,Valparaí_so,5856,Antioquia,Valparaí_so,0,0
+4410,Cabecera Municipal,5591,5,Puerto Triunfo,5591,Antioquia,Puerto Triunfo,0,0
+4411,Cabecera Municipal,5652,5,San Francisco,5652,Antioquia,San Francisco,0,0
+4412,Cabecera Municipal,5660,5,San Luis,5660,Antioquia,San Luis,1,0
+4413,Cabecera Municipal,5313,5,Granada,5313,Antioquia,Granada,1,0
+4414,Cabecera Municipal,5467,5,Montebello,5467,Antioquia,Montebello,0,0
+4418,Cabecera Municipal,5093,5,Betulia,5093,Antioquia,Betulia,0,0
+4419,Cabecera Municipal,5347,5,Heliconia,5347,Antioquia,Heliconia,0,0
+4422,Cabecera Municipal,5321,5,Guatapí©,5321,Antioquia,Guatapí©,1,0
+4423,Cabecera Municipal,5142,5,Caracolí_,5142,Antioquia,Caracolí_,0,0
+4424,Cabecera Municipal,5306,5,Giraldo,5306,Antioquia,Giraldo,0,0
+4425,Cabecera Municipal,5501,5,Olaya,5501,Antioquia,Olaya,0,0
+4426,Cabecera Municipal,23464,23,Momil,23464,Cí_rdoba,Momil,0,0
+4427,Cabecera Municipal,23162,23,Ceretí©,23162,Cí_rdoba,Ceretí©,0,0
+4428,Cabecera Municipal,23300,23,Cotorra,23300,Cí_rdoba,Cotorra,0,0
+4429,Cabecera Municipal,70400,70,La Unií_n,70400,Sucre,La Unií_n,0,0
+4430,Cabecera Municipal,13248,13,El Guamo,13248,Bolí_var,El Guamo,1,0
+4431,Cabecera Municipal,8675,8,Santa Lucí_a,8675,Atlíçntico,Santa Lucí_a,0,0
+4432,Cabecera Municipal,50245,50,El Calvario,50245,Meta,El Calvario,0,0
+4433,Cabecera Municipal,47980,47,Zona Bananera (Prado Sevilla),47980,Magdalena,Zona Bananera,0,0
+4434,Cabecera Municipal,47205,47,Concordia,47205,Magdalena,Concordia,0,0
+4435,Cabecera Municipal,47161,47,Cerro De San Antonio,47161,Magdalena,Cerro San Antonio,0,0
+4436,Cabecera Municipal,47675,47,Salamina,47675,Magdalena,Salamina,0,0
+4437,Cabecera Municipal,20517,20,Pailitas,20517,Cesar,Pailitas,0,0
+4438,Cabecera Municipal,20295,20,Gamarra,20295,Cesar,Gamarra,1,1
+4439,Cabecera Municipal,54250,54,El Tarra,54250,Norte de Santander,El Tarra,0,0
+4448,Cabecera Municipal,68132,68,California,68132,Santander,California,0,0
+4449,Cabecera Municipal,68705,68,Santa Bíçrbara,68705,Santander,Santa Bíçrbara,0,0
+4450,Cabecera Municipal,68152,68,Carcasí_,68152,Santander,Carcasí_,0,0
+4451,Cabecera Municipal,68147,68,Capitanejo,68147,Santander,Capitanejo,0,0
+4452,Cabecera Municipal,68425,68,Macaravita,68425,Santander,Macaravita,0,0
+4453,Cabecera Municipal,68686,68,San Miguel,68686,Santander,San Miguel,0,0
+4454,Cabecera Municipal,68502,68,Onzaga,68502,Santander,Onzaga,0,0
+4455,Cabecera Municipal,68682,68,San Joaquí_n,68682,Santander,San Joaquí_n,0,0
+4456,Cabecera Municipal,68217,68,Coromoro,68217,Santander,Coromoro,0,0
+4457,Cabecera Municipal,68418,68,Los Santos,68418,Santander,Los Santos,0,0
+4458,Cabecera Municipal,68092,68,Betulia,68092,Santander,Betulia,1,1
+4459,Cabecera Municipal,68406,68,Lebrija,68406,Santander,Lebrí_ja,0,0
+4460,Cabecera Municipal,68573,68,Puerto Parra,68573,Santander,Puerto Parra,0,2
+4461,Cabecera Municipal,68179,68,Chipatíç,68179,Santander,Chipatíç,0,0
+4462,Cabecera Municipal,15180,15,Chiscas,15180,Boyacíç,Chiscas,0,0
+4463,Cabecera Municipal,15248,15,El Espino,15248,Boyacíç,El Espino,0,0
+4475,Cabecera Municipal,15189,15,Cií©nega,15189,Boyacíç,Cií©nega,0,0
+4476,Cabecera Municipal,15367,15,Jenesano,15367,Boyacíç,Jenesano,0,0
+4464,Cabecera Municipal,15218,15,Covarachí_a,15218,Boyacíç,Covarachí_a,0,0
+4465,Cabecera Municipal,15810,15,Tipacoque,15810,Boyacíç,Tipacoque,0,0
+4466,Cabecera Municipal,15753,15,Soatíç,15753,Boyacíç,Soatíç,0,0
+4467,Cabecera Municipal,15500,15,Oicatíç,15500,Boyacíç,Oicatíç,0,0
+4468,CAP. DEPTO,15001,15,Tunja,15001,Boyacíç,Tunja,0,0
+4469,Cabecera Municipal,15187,15,Chivatíç,15187,Boyacíç,Chivatíç,0,0
+4470,Cabecera Municipal,15814,15,Toca,15814,Boyacíç,Toca,0,0
+4471,Cabecera Municipal,15740,15,Siachoque,15740,Boyacíç,Siachoque,0,0
+4472,Cabecera Municipal,15764,15,Soracíç,15764,Boyacíç,Soracíç,0,0
+4474,Cabecera Municipal,15104,15,Boyacíç,15104,Boyacíç,Boyacíç,0,0
+4477,Cabecera Municipal,15621,15,Rondí_n,15621,Boyacíç,Rondí_n,0,0
+4478,Cabecera Municipal,15798,15,Tenza,15798,Boyacíç,Tenza,0,0
+4489,Cabecera Municipal,15401,15,La Victoria,15401,Boyacíç,La Victoria,0,0
+4490,Cabecera Municipal,25885,25,Yacopí_,25885,Cundinamarca,Yacopí_,0,0
+4491,Cabecera Municipal,25815,25,Tocaima,25815,Cundinamarca,Tocaima,0,0
+4479,Cabecera Municipal,15224,15,Cucaita,15224,Boyacíç,Cucaita,0,0
+4492,Cabecera Municipal,25878,25,Viotíç,25878,Cundinamarca,Viotíç,0,0
+4480,Cabecera Municipal,15762,15,Sora,15762,Boyacíç,Sora,0,0
+4481,Cabecera Municipal,15476,15,Motavita,15476,Boyacíç,Motavita,0,0
+4482,Cabecera Municipal,15632,15,Saboyíç,15632,Boyacíç,Saboyíç,0,0
+4483,Cabecera Municipal,15293,15,Gachantivíç,15293,Boyacíç,Gachantivíç,0,0
+4484,Cabecera Municipal,15185,15,Chitaraque,15185,Boyacíç,Chitaraque,0,0
+4485,Cabecera Municipal,15681,15,San Pablo De Borbur,15681,Boyacíç,San Pablo de Borbur,0,0
+4486,Cabecera Municipal,15212,15,Coper,15212,Boyacíç,Coper,0,0
+4487,Cabecera Municipal,15480,15,Muzo,15480,Boyacíç,Muzo,0,0
+4488,Cabecera Municipal,15580,15,Quí_pama,15580,Boyacíç,Quí_pama,0,0
+4493,Cabecera Municipal,25281,25,Fosca,25281,Cundinamarca,Fosca,0,0
+4494,Cabecera Municipal,25178,25,Chipaque,25178,Cundinamarca,Chipaque,0,0
+4495,Cabecera Municipal,25841,25,Ubaque,25841,Cundinamarca,Ubaque,0,0
+4496,Cabecera Municipal,25898,25,Zipací_n,25898,Cundinamarca,Zipací_n,0,0
+4497,Cabecera Municipal,25817,25,Tocancipíç,25817,Cundinamarca,Tocancipíç,0,0
+4498,Cabecera Municipal,25295,25,Gachancipíç,25295,Cundinamarca,Gachancipíç,0,0
+4499,Cabecera Municipal,25200,25,Cogua,25200,Cundinamarca,Cogua,0,0
+4500,Cabecera Municipal,25781,25,Sutatausa,25781,Cundinamarca,Sutatausa,0,0
+4501,Cabecera Municipal,25736,25,Sesquilí©,25736,Cundinamarca,Sesquilí©,0,0
+4502,Cabecera Municipal,25183,25,Chocontíç,25183,Cundinamarca,Chocontíç,0,0
+4503,Cabecera Municipal,25873,25,Villapinzí_n,25873,Cundinamarca,Villapinzí_n,0,0
+4504,Cabecera Municipal,25224,25,Cucunubíç,25224,Cundinamarca,Cucunubíç,0,0
+4505,Cabecera Municipal,25288,25,Fí_quene,25288,Cundinamarca,Fí_quene,0,0
+4506,Cabecera Municipal,25779,25,Susa,25779,Cundinamarca,Susa,0,0
+4510,Cabecera Municipal,23815,23,Tuchí_n,23815,Cí_rdoba,Tuchí_n (1),0,0
+0,CAP. DEPTO,88001,88,San Andrí©s,88001,Archipií©lago de San Andrí©s,San Andrí©s,0,0
